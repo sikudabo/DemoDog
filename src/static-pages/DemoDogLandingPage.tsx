@@ -15,7 +15,7 @@ export default function DemoDogLandingPage() {
     return (
         <StaticPageContainer backgroundColor={colors.white}>
             <TwoColumnLargeScreenSection backgroundColor={colors.navyBlue} className="two-column-large-screen-section">
-                <div className="words-section-container" style={{ paddingTop: 20 }}>
+                <div className="words-section-container" style={{ paddingLeft: 10, paddingTop: 100 }}>
                     <div className="words-section-title">
                         Our Mission
                     </div>

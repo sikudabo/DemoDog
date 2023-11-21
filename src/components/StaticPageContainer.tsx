@@ -51,7 +51,7 @@ const StaticPageCustomContainer = styled.div<{
         width: 100%;
 
         /* Make this display as a column if it is on a tablet or smaller device */
-        @media ${deviceBreakPointsMaxWidth.tablet} {
+        @media ${deviceBreakPointsMaxWidth.laptop} {
             flex-direction: column;
         }
 
@@ -61,7 +61,7 @@ const StaticPageCustomContainer = styled.div<{
             padding-left: 20px;
             width: 50%;
 
-            @media ${deviceBreakPointsMaxWidth.tablet} {
+            @media ${deviceBreakPointsMaxWidth.laptop} {
                 width: 100%;
             }
 
@@ -82,7 +82,7 @@ const StaticPageCustomContainer = styled.div<{
                 padding-top: 10px;
                 width: 100%;
 
-                @media ${deviceBreakPointsMaxWidth.tablet} {
+                @media ${deviceBreakPointsMaxWidth.laptop} {
                     padding-right: 10px;
                 }
 
@@ -90,7 +90,7 @@ const StaticPageCustomContainer = styled.div<{
 
                     width: 100px;
 
-                    @media ${deviceBreakPointsMaxWidth.tablet} {
+                    @media ${deviceBreakPointsMaxWidth.laptop} {
                         width: 100%;
                     }
                 }
@@ -110,7 +110,7 @@ const StaticPageCustomContainer = styled.div<{
         .img-section-container {
             width: 50%;
 
-            @media ${deviceBreakPointsMaxWidth.tablet} {
+            @media ${deviceBreakPointsMaxWidth.laptop} {
                 padding-left: 0;
                 padding-right: 0;
                 width: 100%;
