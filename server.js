@@ -5,15 +5,15 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const errorHandler = require('errorhandler');
-const fs = require('fs');
 const path = require('path');
 const serveStatic = require('serve-static');
 const history = require('connect-history-api-fallback');
 const cors = require('cors');
-const multer = require('multer');
-const GridFsStorage = require('multer-gridfs-storage').GridFsStorage;
-const Grid = require('gridfs-stream');
 const sslRedirect = require('heroku-ssl-redirect');
+const { startDb } = require('./db');
+const {
+    SaveNewCompany,
+} = require('./routes');
 
 app.set('port', process.env.PORT || 2000);
 app.set('appName', 'DemoDog');
@@ -39,10 +39,15 @@ app.use(history({
 
 app.use(serveStatic(path.join(__dirname, 'build')));
 
+startDb();
+
 // Middleware 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
+// Routes
+app.use(SaveNewCompany);
 
 // Server 
 const server = http.createServer(app);
