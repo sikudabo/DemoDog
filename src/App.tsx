@@ -7,7 +7,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { DemoDogAppBar, colors } from './components';
+import { DemoDogAppBar, ScrollToTop, colors } from './components';
 import { DemoDogLandingPage } from './static-pages';
 import { Footer } from './static-pages/footer';
 
@@ -35,6 +35,7 @@ function App() {
       <CssBaseline />
       <ApplicationContainer container>
         <Router>
+          <ScrollToTop />
           <DemoDogAppBar />
           <Routes>
             <Route path="/" element={<DemoDogLandingPage />} />

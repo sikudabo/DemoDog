@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import ContactIcon from '@mui/icons-material/Email';
 import LoginIcon from '@mui/icons-material/Login';
@@ -16,6 +16,7 @@ import {
     IconButton,
     List,
     ListItem,
+    ListItemButton,
     ListItemIcon,
     ListItemText,
     Menu,
@@ -86,9 +87,37 @@ const StyledDemoDogAppBar = styled(AppBar)<{
             margin-left: 10px;
         }
     }
+
+    .drawer-navigation-presentation-layer {
+        @media ${deviceBreakPointsMaxWidth.laptop} {
+            display: none;
+        }
+        display: none;
+
+        background-color: ${colors.navyBlue};
+        opacity: 0.5;
+        width: 100%;
+        
+        .drawer-list {
+            width: 100vw;
+            .drawer-text {
+                color: ${colors.white};
+                font-weight: 900;
+            }
+            .drawer-icon {
+                color: ${colors.white};
+            }
+        }
+    }
 `;
 
 export default function DemoDogAppBar() {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    function toggleDrawer() {
+        setIsDrawerOpen(!isDrawerOpen);
+    }
+
     return (
         <StyledDemoDogAppBar isHidden={false}>
             <div className="logo-container">
@@ -96,10 +125,59 @@ export default function DemoDogAppBar() {
                     aria-label="Audio Swipe App Bar Menu Button"
                     className="menu-icon"
                     edge="start"
+                    onClick={toggleDrawer}
                     size="large"
                 >
                     <MenuIcon />
                 </IconButton>
+                {/* Add the code for the drawer for small screen devices here */}
+                <Drawer 
+                    anchor="left"
+                    aria-label="DemoDog navigation drawer"
+                    open={isDrawerOpen}
+                    onClose={toggleDrawer}
+                >
+                    <Box 
+                        aria-label="DemoDog navigation drawer presentation layer"
+                        className="drawer-navigation-presentation-layer"
+                        role="Presentation"
+                        style={{
+                            backgroundColor: colors.navyBlue,
+                            opacity: 0.9,
+                            height: '100vh',
+                            width: 200,
+                            overflow: 'scroll',
+                        }}
+                    >
+                        <List className="drawer-list">
+                            <ListItem>
+                                <ListItemButton style={{ color: colors.white }}>
+                                    <ListItemText className="drawer-text" primary="Sign Up" style={{ fontWeight: '900' }} />
+                                    <SignUpIcon className="drawer-icon" />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemButton style={{ color: colors.white }}>
+                                    <ListItemText className="drawer-text" primary="Sign In" style={{ fontWeight: '900' }} />
+                                    <LoginIcon className="drawer-icon" />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemButton style={{ color: colors.white }}>
+                                    <ListItemText className="drawer-text" primary="Contact" style={{ fontWeight: '900' }} />
+                                    <ContactIcon className="drawer-icon" />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemButton style={{ color: colors.white }}>
+                                    <ListItemText className="drawer-text" primary="LinkedIn" style={{ fontWeight: '900' }} />
+                                    <LinkedInIcon className="drawer-icon" />
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
+                    </Box>
+                </Drawer>
+                {/* End of the navigation drawer for small screen devices here */}
                 <DemoDogLogoIcon  height={70} logoColor={colors.navyBlue} width={70} />
                 <p className="logo-container-text">
                     DemoDog 
