@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { SectionTitleHeader, ResponsiveImageRow, TwoColumnLargeScreenSection } from "../components/StaticPageContainer";
 import { DemoDogButton, StaticPageContainer, colors } from "../components";
 const EducationImage = require('../static-site-images/education.jpeg');
@@ -12,6 +13,8 @@ const StartupsImage = require('../static-site-images/startups.jpeg');
 const StartupsAlt = require('../static-site-images/startups2.jpeg')
 
 export default function DemoDogLandingPage() {
+    const navigate = useNavigate();
+
     return (
         <StaticPageContainer backgroundColor={colors.white}>
             <TwoColumnLargeScreenSection backgroundColor={colors.navyBlue} className="two-column-large-screen-section">
@@ -29,6 +32,7 @@ export default function DemoDogLandingPage() {
                         <DemoDogButton 
                             buttonColor={colors.salmonPink}
                             className="btn"
+                            onClick={() => navigate('/sign-up')}
                             text="Sign Up"
                             isNormal 
                         />
@@ -87,6 +91,7 @@ export default function DemoDogLandingPage() {
                         <DemoDogButton 
                             buttonColor={colors.navyBlue}
                             className="btn"
+                            onClick={() => navigate('/sign-up')}
                             text="Sign Up"
                             isNormal 
                         />
@@ -147,6 +152,7 @@ export default function DemoDogLandingPage() {
                         <DemoDogButton 
                             buttonColor={colors.aqua}
                             className="btn"
+                            onClick={() => navigate('/sign-up')}
                             text="Sign Up"
                             isNormal 
                         />

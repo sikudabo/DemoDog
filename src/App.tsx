@@ -8,6 +8,9 @@ import {
   Route,
 } from 'react-router-dom';
 import { DemoDogAppBar, ScrollToTop, colors } from './components';
+import {
+  SignUpPage,
+} from './pages';
 import { DemoDogLandingPage } from './static-pages';
 import { Footer } from './static-pages/footer';
 
@@ -15,7 +18,10 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: colors.primary,
+      main: colors.navyBlue,
+    },
+    secondary: {
+      main: colors.salmonPink,
     },
   },
   typography: {
@@ -39,6 +45,7 @@ function App() {
           <DemoDogAppBar />
           <Routes>
             <Route path="/" element={<DemoDogLandingPage />} />
+            <Route path="/sign-up" element={<SignUpPage />} />
           </Routes>
           <Footer />
         </Router>

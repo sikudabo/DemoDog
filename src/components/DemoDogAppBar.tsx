@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import ContactIcon from '@mui/icons-material/Email';
 import LoginIcon from '@mui/icons-material/Login';
@@ -113,6 +113,12 @@ const StyledDemoDogAppBar = styled(AppBar)<{
 
 export default function DemoDogAppBar() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        setIsDrawerOpen(false);
+    }, [pathname]);
 
     function toggleDrawer() {
         setIsDrawerOpen(!isDrawerOpen);
@@ -150,7 +156,7 @@ export default function DemoDogAppBar() {
                         }}
                     >
                         <List className="drawer-list">
-                            <ListItem>
+                            <ListItem onClick={() => navigate('sign-up')}>
                                 <ListItemButton style={{ color: colors.white }}>
                                     <ListItemText className="drawer-text" primary="Sign Up" style={{ fontWeight: '900' }} />
                                     <SignUpIcon className="drawer-icon" />
@@ -178,14 +184,17 @@ export default function DemoDogAppBar() {
                     </Box>
                 </Drawer>
                 {/* End of the navigation drawer for small screen devices here */}
-                <DemoDogLogoIcon  height={70} logoColor={colors.navyBlue} width={70} />
-                <p className="logo-container-text">
-                    DemoDog 
-                </p>
+                <div onClick={() => navigate('/')} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: 0 }}>
+                    <DemoDogLogoIcon  height={70} logoColor={colors.navyBlue} width={70} />
+                    <p className="logo-container-text">
+                        DemoDog 
+                    </p>
+                </div>
             </div>
             <div className="large-screen-links-container">
                 <IconButton 
                     className="link"
+                    onClick={() => navigate('/sign-up')}
                     disableRipple
                 >
                     Sign Up 

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import { colors } from '../../components';
 import { DemoDogLogoIcon } from '../../components/icons';
 import { deviceBreakPointsMaxWidth } from '../../utils/constants';
@@ -66,6 +67,7 @@ const FooterContainer = styled.div`
 `;
 
 export default function Footer() {
+    const navigate = useNavigate();
     return (
         <FooterContainer>
             <div className="icon-container">
@@ -82,7 +84,7 @@ export default function Footer() {
                 <a className="link" href="https://www.linkedin.com/in/simeon-ikudabo-562542117/">
                     LinkedIn
                 </a>
-                <a className="link">
+                <a className="link" onClick={() => navigate('/sign-up')}>
                     Sign Up 
                 </a>
                 <a className="link">
