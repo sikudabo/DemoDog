@@ -17,6 +17,7 @@ const StyledPaper = styled(Paper)`
     width: 80vw;
 
     @media ${deviceBreakPointsMaxWidth.tablet} {
+        height: '100%';
         width: 100vw;
     }
 
@@ -80,6 +81,21 @@ const StyledPaper = styled(Paper)`
         padding-right: 10px;
         padding-top: 20px;
         width: '100%';
+    }
+
+    .company-url-section {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 20px;
+        width: 100%;
+    }
+
+    .company-avatar-section {
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 20px;
+        width: 100%;
     }
 `;
 
