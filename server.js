@@ -13,6 +13,7 @@ const sslRedirect = require('heroku-ssl-redirect');
 const { startDb } = require('./db');
 const {
     SaveNewCompany,
+    SaveNewEmployee,
 } = require('./routes');
 
 app.set('port', process.env.PORT || 2000);
@@ -48,6 +49,7 @@ app.get('*', (req, res) => {
 
 // Routes
 app.use(SaveNewCompany);
+app.use(SaveNewEmployee);
 
 // Server 
 const server = http.createServer(app);
