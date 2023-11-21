@@ -67,8 +67,8 @@ router.route('/api/save-new-employee').put(uploads.single('avatar'), async (req,
 
         res.status(200).json({
             isSuccess: true,
-            message: 'Employee added successfully',
-            newEmployee
+            message: 'User account successfully created!',
+            user: newEmployee,
         });
     } catch (e) {
         console.log('There was an error saving a new employee!');
