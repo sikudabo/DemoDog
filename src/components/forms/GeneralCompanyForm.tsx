@@ -63,6 +63,24 @@ const StyledPaper = styled(Paper)`
             }
         }
     }
+
+    .company-category-select {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 20px;
+        width: 100vw;
+
+        .select-component {
+            width: 100%;
+        }
+    }
+
+    .company-description-section {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 20px;
+        width: '100%';
+    }
 `;
 
 export default function GeneralCompanyForm({
