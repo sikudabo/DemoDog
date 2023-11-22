@@ -14,6 +14,7 @@ import Select from '@mui/material/Select';
 import SignUpPageContainer from './SignUpPageContainer';
 import TextField from '@mui/material/TextField';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from'react-router-dom';
 import { GeneralCompanyForm } from '../../components/forms';
 import { DemoDogButton, colors } from '../../components';
 import { businessCategories } from '../../utils/constants';
@@ -44,7 +45,8 @@ export default function SignUpPage() {
     const [stateCompanyName, setStateCompanyName] = useState('');
     const [companyAvatar, setCompanyAvatar] = useState(null);
     const [employeeAvatar, setEmployeeAvatar] = useState<File>();
-    const headerTextRef = useRef(null);
+    const headerTextRef = useRef(null); 
+    const navigate = useNavigate();
     const { setIsLoading } = useIsLoading();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
 
@@ -144,6 +146,7 @@ export default function SignUpPage() {
                 setIsError(true);
                 setIsLoading(false);
                 handleDialogMessageChange(true);
+                navigate('startup-dashboard');
                 return;
             }
 
@@ -178,6 +181,7 @@ export default function SignUpPage() {
                 setIsError(false);
                 setIsLoading(false);
                 handleDialogMessageChange(true);
+                navigate('startup-dashboard');
             }).catch(error => {
                 setDialogMessage(error.message);
                 setDialogTitle('Error');

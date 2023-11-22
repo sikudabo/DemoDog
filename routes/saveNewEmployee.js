@@ -38,7 +38,7 @@ const storage = new GridFsStorage({
 const uploads = multer({ storage });
 
 router.route('/api/save-new-employee').put(uploads.single('avatar'), async (req, res) => {
-    const { firstName, lastName, companyId, email, jobTitle, linkedIn, password, role } = req.body;
+    const { firstName, lastName, companyId, email, jobTitle, linkedIn, password, role, userType } = req.body;
     const avatar = req.file.filename;
 
     try {
@@ -60,6 +60,7 @@ router.route('/api/save-new-employee').put(uploads.single('avatar'), async (req,
             linkedIn,
             password,
             role,
+            userType,
         });
 
         await newEmployee.save();

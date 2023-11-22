@@ -13,6 +13,7 @@ import { DemoDogAppBar, DemoDogDialog, ScrollToTop, colors } from './components'
 import {
   SignInPage,
   SignUpPage,
+  StartupDashboard,
 } from './pages';
 import { useIsLoading } from './hooks';
 import { DemoDogLandingPage } from './static-pages';
@@ -55,6 +56,7 @@ function App_DisplayLayer({
             <Route path="/" element={<DemoDogLandingPage />} />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/startup-dashboard" element={<StartupDashboard />} />
           </Routes>
           <Footer />
         </Router>

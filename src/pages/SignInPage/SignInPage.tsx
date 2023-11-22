@@ -1,5 +1,6 @@
-import { useForm } from "react-hook-form";
 import TextField from '@mui/material/TextField';
+import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 import SignUpPageContainer from '../SignUpPage/SignUpPageContainer'
 import GeneralCompanyForm from '../../components/forms/GeneralCompanyForm';
 import { DemoDogButton, colors } from "../../components";
@@ -20,6 +21,7 @@ export default function SignInPage() {
         },
         mode: 'onChange'
     });
+    const navigate = useNavigate();
     const { setEmployee } = useStartupEmployeeData();
     const { setIsLoading } = useIsLoading();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
@@ -47,6 +49,7 @@ export default function SignInPage() {
             setDialogMessage(message);
             setDialogTitle('Success');
             handleDialogMessageChange(true);
+            navigate('startup-dashboard');
             return;
         }).catch(errors => {
             setIsLoading(false);
