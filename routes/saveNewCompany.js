@@ -41,13 +41,8 @@ const { StartupCompaniesModel } = require('../db/models');
 
 
 router.route('/api/save-new-company').put(uploads.single('avatar'), async (req, res) => {
-    console.log('The request is:', req.body);
-    res.status(200).json('Success');
-    /* console.log('This is being hit');
-   // console.log('The body is:', req.body);
     const { category, companyEmail, companyName, companyUrl, description } = req.body;
-    // const avatar = req.file.filename;
-    console.log('Hello');
+    const avatar = req.file.filename;
 
     try {
         const companyNameIsTaken = await StartupCompaniesModel.findOne({ companyName });
@@ -57,7 +52,7 @@ router.route('/api/save-new-company').put(uploads.single('avatar'), async (req, 
         }
 
         const newCompany = {
-            // avatar,
+            avatar,
             category,
             companyEmail,
             companyName,
@@ -66,15 +61,14 @@ router.route('/api/save-new-company').put(uploads.single('avatar'), async (req, 
             demos: [],
         };
 
-        await StartupCompaniesModel.save(newCompany);
+        await StartupCompaniesModel.insertMany([newCompany]);
         const { _id: companyId } = await StartupCompaniesModel.findOne({ companyName });
-        console.log('What?');
-        return res.status(200).json({ isSuccess: true, message: 'New company added successfully.', companyId: 1 });
+        return res.status(200).json({ isSuccess: true, message: 'New company added successfully.', companyId: 1, companyId });
     } catch(e) {
         console.log('There was a an error saving a new company!');
         console.error(e.stack);
         res.status(500).json({ isSuccess: false, message: 'There was a an error saving a new company!' });
-    } */
+    }
 });
 
 module.exports = router;
