@@ -39,3 +39,5 @@ router.route('/api/login-startup-employee').post(async (req, res) => {
         });
     }
 });
+
+module.exports = router;

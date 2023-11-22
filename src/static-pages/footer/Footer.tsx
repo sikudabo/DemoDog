@@ -78,7 +78,7 @@ export default function Footer() {
     const { pathname } = useLocation();
 
     const shouldShowFooter = useMemo(() => {
-        if (pathname.includes('sign-up')) {
+        if (pathname.includes('sign-up') || pathname.includes('sign-in')) {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ export default function Footer() {
                 <a className="link" onClick={() => navigate('/sign-up')}>
                     Sign Up 
                 </a>
-                <a className="link">
+                <a className="link" onClick={() => navigate('/sign-in')}>
                     Sign In 
                 </a>
                 <a className="link">

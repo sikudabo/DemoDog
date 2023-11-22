@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 import { DemoDogAppBar, DemoDogDialog, ScrollToTop, colors } from './components';
 import {
+  SignInPage,
   SignUpPage,
 } from './pages';
 import { useIsLoading } from './hooks';
@@ -52,6 +53,7 @@ function App_DisplayLayer({
           <DemoDogAppBar />
           <Routes>
             <Route path="/" element={<DemoDogLandingPage />} />
+            <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
           </Routes>
           <Footer />
