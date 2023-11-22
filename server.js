@@ -14,6 +14,7 @@ const { startDb } = require('./db');
 const {
     SaveNewCompany,
     SaveNewEmployee,
+    StartupEmployeeLogin,
 } = require('./routes');
 
 app.set('port', process.env.PORT || 2000);
@@ -50,6 +51,7 @@ app.get('*', (req, res) => {
 // Routes
 app.use(SaveNewCompany);
 app.use(SaveNewEmployee);
+app.use(StartupEmployeeLogin);
 
 // Server 
 const server = http.createServer(app);
@@ -59,8 +61,8 @@ server.listen(app.get('port'), () => {
 });
 
 // Handle uncaught exceptions
-/* process.on('uncaughtException', (err) => {
+process.on('uncaughtException', (err) => {
     console.error(err.stack);
-}); */
+});
 
 
