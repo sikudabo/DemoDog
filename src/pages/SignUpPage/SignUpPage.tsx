@@ -42,7 +42,7 @@ export default function SignUpPage() {
     const [stateCompanyEmail, setStateCompanyEmail] = useState('');
     const [stateCompanyUrl, setStateCompanyUrl] = useState('');
     const [stateCompanyName, setStateCompanyName] = useState('');
-    const [companyAvatar, setCompanyAvatar] = useState<File>();
+    const [companyAvatar, setCompanyAvatar] = useState(null);
     const [employeeAvatar, setEmployeeAvatar] = useState<File>();
     const headerTextRef = useRef(null);
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
@@ -102,7 +102,7 @@ export default function SignUpPage() {
     const handleCompanyAvatarChange = async (e: { target: { files: any }}) => {
         const file = e.target.files[0];
         const resizedAvatar = await resizeImage(file);
-        setCompanyAvatar(resizedAvatar as File);
+        setCompanyAvatar(resizedAvatar as any);
     }
 
     const handleEmployeeAvatarChange = async (e: { target: { files: any }}) => {
@@ -127,7 +127,7 @@ export default function SignUpPage() {
         formData.append('companyEmail', email);
         formData.append('companyName', companyName);
         formData.append('companyUrl', companyUrl);
-        formData.append('avatar', companyAvatar as File, 'avatar.jpg');
+        formData.append('avatar', companyAvatar as any, 'avatar.jpg');
 
         putBinaryData({
             data: formData,

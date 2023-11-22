@@ -5,26 +5,25 @@ const GridFsStorage = require('multer-gridfs-storage').GridFsStorage;
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
-const dotenv = require('dotenv').config();
-const { StartupCompaniesModel } = require('../db/models');
 
-const dbUri = dotenv.parsed.DB_URI;
+const dbUri = process.env.DB_URI;
 
-var conn = mongoose.createConnection(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+var conn = mongoose.createConnection(dbUri, {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect(dbUri, {useNewUrlParser: true, useUnifiedTopology: true});
 
 let gfs;
 
 conn.once('open', async () => {
     // Init Stream
     gfs = await Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');
+    await gfs.collection('uploads');
     return 'done';
 });
 
 const storage = new GridFsStorage({
     url: dbUri,
     file: async (req, file) => {
-      return await new Promise((resolve) => {
+      return await new Promise((resolve, reject) => {
           const filename = Date.now() + "-" + file.fieldname + path.extname(file.originalname);
           const fileInfo = {
             filename: filename,
@@ -37,9 +36,18 @@ const storage = new GridFsStorage({
 
 const uploads = multer({ storage });
 
+
+const { StartupCompaniesModel } = require('../db/models');
+
+
 router.route('/api/save-new-company').put(uploads.single('avatar'), async (req, res) => {
+    console.log('The request is:', req.body);
+    res.status(200).json('Success');
+    /* console.log('This is being hit');
+   // console.log('The body is:', req.body);
     const { category, companyEmail, companyName, companyUrl, description } = req.body;
-    const avatar = req.file.filename;
+    // const avatar = req.file.filename;
+    console.log('Hello');
 
     try {
         const companyNameIsTaken = await StartupCompaniesModel.findOne({ companyName });
@@ -49,7 +57,7 @@ router.route('/api/save-new-company').put(uploads.single('avatar'), async (req, 
         }
 
         const newCompany = {
-            avatar,
+            // avatar,
             category,
             companyEmail,
             companyName,
@@ -58,14 +66,15 @@ router.route('/api/save-new-company').put(uploads.single('avatar'), async (req, 
             demos: [],
         };
 
-        await StartupCompaniesModel.saveOne(newCompany);
+        await StartupCompaniesModel.save(newCompany);
         const { _id: companyId } = await StartupCompaniesModel.findOne({ companyName });
-        return res.status(200).json({ isSuccess: true, message: 'New company added successfully.', companyId });
+        console.log('What?');
+        return res.status(200).json({ isSuccess: true, message: 'New company added successfully.', companyId: 1 });
     } catch(e) {
         console.log('There was a an error saving a new company!');
         console.error(e.stack);
         res.status(500).json({ isSuccess: false, message: 'There was a an error saving a new company!' });
-    }
+    } */
 });
 
 module.exports = router;

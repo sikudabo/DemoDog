@@ -59,8 +59,8 @@ server.listen(app.get('port'), () => {
 });
 
 // Handle uncaught exceptions
-process.on('uncaughtException', (err) => {
+/* process.on('uncaughtException', (err) => {
     console.error(err.stack);
-});
+}); */
 
 

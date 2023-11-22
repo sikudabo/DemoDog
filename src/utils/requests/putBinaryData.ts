@@ -13,8 +13,11 @@ export default async function putBinaryData({ data, endpoint }: PostBinaryDataPr
             'Content-Encoding': 'multipart/form-data',
         },
         method: 'PUT',
-        url: `${process.env.REACT_APP_BASE_URI}${endpoint}`,
-    }).then(res => res.data)
+        url: `http://192.168.1.215:2000/${endpoint}`,
+    }).then(res => {
+        console.log('I am being hit');
+        return res.data;
+    })
     .catch(err => {
         const { isSuccess, message } = err.response.data;
         return { isSuccess, message };
