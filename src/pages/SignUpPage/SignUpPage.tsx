@@ -123,7 +123,7 @@ export default function SignUpPage() {
             return;
         }
 
-        const { companyDescription, companyName, companyUrl, email, employeeEmail, firstName, jobTitle, lastName, selectedBusinessCategory } = data;
+        const { companyDescription, companyName, companyUrl, email, employeeEmail, firstName, jobTitle, lastName, linkedIn, selectedBusinessCategory, password } = data;
         const formData = new FormData();
         formData.append('category', selectedBusinessCategory);
         formData.append('description', companyDescription);
@@ -136,7 +136,7 @@ export default function SignUpPage() {
             data: formData,
             endpoint: 'api/save-new-company',
         }).then(response => {
-            const { isSuccess, message } = response;
+            const { companyId, isSuccess, message } = response;
             if (!isSuccess) {
                 setDialogMessage(message);
                 setDialogTitle('Error');
@@ -145,6 +145,44 @@ export default function SignUpPage() {
                 handleDialogMessageChange(true);
                 return;
             }
+
+            const fd = new FormData();
+            fd.append('companyId', companyId);
+            fd.append('firstName', firstName);
+            fd.append('lastName', lastName);
+            fd.append('email', employeeEmail);
+            fd.append('jobTitle', jobTitle);
+            fd.append('role', 'admin');
+            fd.append('password', password);
+            fd.append('linkedIn', linkedIn);
+            fd.append('avatar', employeeAvatar as File, 'avatar.jpg');
+
+            putBinaryData({
+                data: fd,
+                endpoint: 'api/save-new-employee',
+            }).then(response => {
+                const { isSuccess, message } = response;
+                if (!isSuccess) {
+                    setDialogMessage(message);
+                    setDialogTitle('Error');
+                    setIsError(true);
+                    setIsLoading(false);
+                    handleDialogMessageChange(true);
+                    return;
+                }
+
+                setDialogMessage(message);
+                setDialogTitle('Success');
+                setIsError(false);
+                setIsLoading(false);
+                handleDialogMessageChange(true);
+            }).catch(error => {
+                setDialogMessage(error.message);
+                setDialogTitle('Error');
+                setIsError(true);
+                setIsLoading(false);
+                handleDialogMessageChange(true);
+            });
     
         }).catch(e => {
             console.log(e.message);

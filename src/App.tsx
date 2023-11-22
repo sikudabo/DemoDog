@@ -46,7 +46,7 @@ function App_DisplayLayer({
             open={isLoading}
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           >
-            <CircularProgress color="inherit" />
+            <CircularProgress color="primary" />
           </Backdrop>
           <DemoDogDialog />
           <DemoDogAppBar />

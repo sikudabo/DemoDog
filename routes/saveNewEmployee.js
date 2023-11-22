@@ -38,15 +38,15 @@ const storage = new GridFsStorage({
 const uploads = multer({ storage });
 
 router.route('/api/save-new-employee').put(uploads.single('avatar'), async (req, res) => {
-    const { firstName, lastName, companyId, email, jobTitle, linkedIn, password, role, username } = req.body;
+    const { firstName, lastName, companyId, email, jobTitle, linkedIn, password, role } = req.body;
     const avatar = req.file.filename;
 
     try {
-        const userNameExists = await EmployeeModel.findOne({ username });
-        if (userNameExists) {
+        const emailExists = await EmployeeModel.findOne({ email });
+        if (emailExists) {
             res.status(400).json({
                 isSuccess: false,
-                message: 'Username already exists!'
+                message: 'That email exists! Please select another.',
             });
             return;
         }
@@ -60,7 +60,6 @@ router.route('/api/save-new-employee').put(uploads.single('avatar'), async (req,
             linkedIn,
             password,
             role,
-            username
         });
 
         await newEmployee.save();
