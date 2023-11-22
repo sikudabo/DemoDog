@@ -8,9 +8,8 @@ type SignUpPageContainerProps = {
 
 const SignUpPageStyledContainer = styled.div`
     background-color: ${colors.navyBlue};
-    height: 100%;
-    overflow: auto;
     padding-bottom: 50px;
+    height: 100%;
     width: 100vw;
 
     .sign-up-page-header {

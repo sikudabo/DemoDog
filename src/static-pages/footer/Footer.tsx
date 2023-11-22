@@ -1,10 +1,17 @@
+import { useMemo } from 'react';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
+import { css } from '@emotion/react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { colors } from '../../components';
 import { DemoDogLogoIcon } from '../../components/icons';
 import { deviceBreakPointsMaxWidth } from '../../utils/constants';
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.div<{
+    shouldShowFooter: boolean;
+}>`
+    ${({ shouldShowFooter }) => css`
+        display: ${shouldShowFooter? 'block' : 'none'};
+    `}
     background-color: ${colors.navyBlue};
     margin-top: -20px;
     padding-left: 10px;
@@ -68,8 +75,17 @@ const FooterContainer = styled.div`
 
 export default function Footer() {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    const shouldShowFooter = useMemo(() => {
+        if (pathname.includes('sign-up')) {
+            return false;
+        }
+        return true;
+    }, [pathname]);
+
     return (
-        <FooterContainer>
+        <FooterContainer shouldShowFooter={shouldShowFooter}>
             <div className="icon-container">
                 <DemoDogLogoIcon
                     height={200}

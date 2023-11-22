@@ -97,6 +97,23 @@ const StyledPaper = styled(Paper)`
         padding-top: 20px;
         width: 100%;
     }
+
+    .next-button-container {
+        display: flex;
+        flex-direction: row-reverse;
+        padding-bottom: 20px;
+        padding-right: 10px;
+        padding-top: 20px;
+    }
+
+    .back-submit-buttons-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 10px;
+    }
 `;
 
 export default function GeneralCompanyForm({

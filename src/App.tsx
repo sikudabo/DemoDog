@@ -7,7 +7,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { DemoDogAppBar, ScrollToTop, colors } from './components';
+import { DemoDogAppBar, DemoDogDialog, ScrollToTop, colors } from './components';
 import {
   SignUpPage,
 } from './pages';
@@ -42,6 +42,7 @@ function App() {
       <ApplicationContainer container>
         <Router>
           <ScrollToTop />
+          <DemoDogDialog />
           <DemoDogAppBar />
           <Routes>
             <Route path="/" element={<DemoDogLandingPage />} />
