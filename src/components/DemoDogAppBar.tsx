@@ -120,12 +120,20 @@ export default function DemoDogAppBar() {
         setIsDrawerOpen(false);
     }, [pathname]);
 
+    const isHidden = useMemo(() => {
+        if (pathname.includes('dashboard')) {
+            return true;
+        }
+
+        return false;
+    }, [pathname]);
+
     function toggleDrawer() {
         setIsDrawerOpen(!isDrawerOpen);
     }
 
     return (
-        <StyledDemoDogAppBar isHidden={false}>
+        <StyledDemoDogAppBar isHidden={isHidden}>
             <div className="logo-container">
                 <IconButton
                     aria-label="Audio Swipe App Bar Menu Button"

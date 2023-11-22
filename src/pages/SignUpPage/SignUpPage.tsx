@@ -20,7 +20,7 @@ import { DemoDogButton, colors } from '../../components';
 import { businessCategories } from '../../utils/constants';
 import { resizeImage } from '../../utils/helpers';
 import { putBinaryData } from '../../utils/requests';
-import { useIsLoading, useShowDialog } from '../../hooks';
+import { useIsLoading, useShowDialog, useStartupEmployeeData } from '../../hooks';
 import { checkValidEmail, checkValidUrl } from '../../utils/validation';
 
 export type FormProps = {
@@ -48,6 +48,7 @@ export default function SignUpPage() {
     const headerTextRef = useRef(null); 
     const navigate = useNavigate();
     const { setIsLoading } = useIsLoading();
+    const { setEmployee } = useStartupEmployeeData();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
 
     const { handleSubmit, register, watch, formState: { errors } } = useForm<FormProps>({
@@ -146,7 +147,6 @@ export default function SignUpPage() {
                 setIsError(true);
                 setIsLoading(false);
                 handleDialogMessageChange(true);
-                navigate('startup-dashboard');
                 return;
             }
 
@@ -166,7 +166,7 @@ export default function SignUpPage() {
                 data: fd,
                 endpoint: 'api/save-new-employee',
             }).then(response => {
-                const { isSuccess, message } = response;
+                const { isSuccess, message, user } = response;
                 if (!isSuccess) {
                     setDialogMessage(message);
                     setDialogTitle('Error');
@@ -181,7 +181,8 @@ export default function SignUpPage() {
                 setIsError(false);
                 setIsLoading(false);
                 handleDialogMessageChange(true);
-                navigate('startup-dashboard');
+                setEmployee(user);
+                navigate('/startup-dashboard');
             }).catch(error => {
                 setDialogMessage(error.message);
                 setDialogTitle('Error');

@@ -78,7 +78,7 @@ export default function Footer() {
     const { pathname } = useLocation();
 
     const shouldShowFooter = useMemo(() => {
-        if (pathname.includes('sign-up') || pathname.includes('sign-in')) {
+        if (pathname.includes('sign-up') || pathname.includes('sign-in') || pathname.includes('startup-dashboard')) {
             return false;
         }
         return true;
