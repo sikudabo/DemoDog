@@ -17,7 +17,6 @@ function StartupDashboard_DisplayLayer({
 
     return (
         <div>
-            <SideNav open={true} />
             Welcome to your dashboard {firstName}!
         </div>
     );

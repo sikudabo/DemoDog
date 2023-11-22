@@ -29,7 +29,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
   const content = (
     <Scrollbar
       sx={{
-        backgroundColor: colors.atlassianBlue,
+        backgroundColor: colors.black,
         height: '100vh',
         overflow: 'auto',
         '& .simplebar-content': {
@@ -62,7 +62,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
           <Box
             sx={{
               alignItems: 'center',
-              backgroundColor: colors.navyBlue,
+              backgroundColor: colors.black,
               borderRadius: 1,
               cursor: 'pointer',
               display: 'flex',

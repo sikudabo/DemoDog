@@ -182,7 +182,7 @@ export default function SignUpPage() {
                 setIsLoading(false);
                 handleDialogMessageChange(true);
                 setEmployee(user);
-                navigate('/startup-dashboard');
+                navigate('/startup-dashboard/main');
             }).catch(error => {
                 setDialogMessage(error.message);
                 setDialogTitle('Error');

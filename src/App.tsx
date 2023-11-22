@@ -15,6 +15,7 @@ import {
   SignUpPage,
   StartupDashboard,
 } from './pages';
+import { SideNav } from './components/Sidenav';
 import { useIsLoading } from './hooks';
 import { DemoDogLandingPage } from './static-pages';
 import { Footer } from './static-pages/footer';
@@ -56,7 +57,9 @@ function App_DisplayLayer({
             <Route path="/" element={<DemoDogLandingPage />} />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/startup-dashboard" element={<StartupDashboard />} />
+            <Route path="/startup-dashboard" element={<SideNav />}>
+              <Route element={<StartupDashboard />} path="main"/>
+            </Route>
           </Routes>
           <Footer />
         </Router>
@@ -70,7 +73,7 @@ function useDataLayer() {
 
   const theme = createTheme({
     palette: {
-      mode: 'light',
+      mode: 'dark',
       primary: {
         main: colors.navyBlue,
       },

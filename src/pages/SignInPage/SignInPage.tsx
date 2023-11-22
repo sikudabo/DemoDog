@@ -49,7 +49,7 @@ export default function SignInPage() {
             setDialogMessage(message);
             setDialogTitle('Success');
             handleDialogMessageChange(true);
-            navigate('/startup-dashboard');
+            navigate('/startup-dashboard/main');
             return;
         }).catch(errors => {
             setIsLoading(false);

@@ -43,7 +43,7 @@ export const items = [
     )
   },
   {
-    title: 'logout',
+    title: 'Logout',
     path: '/logout',
     icon: (
       <SvgIcon fontSize="small">

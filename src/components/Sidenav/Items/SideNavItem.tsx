@@ -2,20 +2,7 @@ import PropTypes from 'prop-types';
 import { Box, ButtonBase } from '@mui/material';
 
 export const SideNavItem = (props: any) => {
-  const { active = false, disabled, external, icon, path, title } = props;
-
-  const linkProps = path
-    ? external
-      ? {
-        component: 'a',
-        href: path,
-        target: '_blank'
-      }
-      : {
-        component: 'a',
-        href: path
-      }
-    : {};
+  const { active = false, disabled, icon, title } = props;
 
   return (
     <li>
@@ -37,7 +24,6 @@ export const SideNavItem = (props: any) => {
             backgroundColor: 'rgba(255, 255, 255, 0.04)'
           }
         }}
-        {...linkProps}
       >
         {icon && (
           <Box
