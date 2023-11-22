@@ -1,7 +1,9 @@
 import CssBaseline from '@mui/material/CssBaseline';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import styled from '@emotion/styled';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,23 +13,9 @@ import { DemoDogAppBar, DemoDogDialog, ScrollToTop, colors } from './components'
 import {
   SignUpPage,
 } from './pages';
+import { useIsLoading } from './hooks';
 import { DemoDogLandingPage } from './static-pages';
 import { Footer } from './static-pages/footer';
-
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: colors.navyBlue,
-    },
-    secondary: {
-      main: colors.salmonPink,
-    },
-  },
-  typography: {
-    fontFamily: 'Montserrat',
-  },
-});
 
 const ApplicationContainer = styled(Grid)`
   font-family: 'Montserrat', 'Varela Round', sans-serif;
@@ -35,13 +23,31 @@ const ApplicationContainer = styled(Grid)`
   padding: 0;
 `;
 
-function App() {
+type AppDisplayLayerProps = {
+  isLoading: boolean;
+  theme: Theme;
+}
+
+export default function App() {
+  return <App_DisplayLayer {...useDataLayer()} />;
+}
+
+function App_DisplayLayer({
+  isLoading,
+  theme,
+}: AppDisplayLayerProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ApplicationContainer container>
         <Router>
           <ScrollToTop />
+          <Backdrop
+            open={isLoading}
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
           <DemoDogDialog />
           <DemoDogAppBar />
           <Routes>
@@ -55,4 +61,26 @@ function App() {
   );
 }
 
-export default App;
+function useDataLayer() {
+  const { isLoading } = useIsLoading();
+
+  const theme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: colors.navyBlue,
+      },
+      secondary: {
+        main: colors.salmonPink,
+      },
+    },
+    typography: {
+      fontFamily: 'Montserrat',
+    },
+  });
+
+  return {
+    isLoading,
+    theme,
+  };
+}

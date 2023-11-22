@@ -19,7 +19,7 @@ import { DemoDogButton, colors } from '../../components';
 import { businessCategories } from '../../utils/constants';
 import { resizeImage } from '../../utils/helpers';
 import { putBinaryData } from '../../utils/requests';
-import { useShowDialog } from '../../hooks';
+import { useIsLoading, useShowDialog } from '../../hooks';
 import { checkValidEmail, checkValidUrl } from '../../utils/validation';
 
 export type FormProps = {
@@ -45,6 +45,7 @@ export default function SignUpPage() {
     const [companyAvatar, setCompanyAvatar] = useState(null);
     const [employeeAvatar, setEmployeeAvatar] = useState<File>();
     const headerTextRef = useRef(null);
+    const { setIsLoading } = useIsLoading();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
 
     const { handleSubmit, register, watch, formState: { errors } } = useForm<FormProps>({
@@ -112,10 +113,12 @@ export default function SignUpPage() {
     }
 
     const handleSendData = (data: FormProps) => {
+        setIsLoading(true);
         if (!employeeAvatar) {
             setDialogMessage('Please select an employee avatar');
             setDialogTitle('Error');
             setIsError(true);
+            setIsLoading(false);
             handleDialogMessageChange(true);
             return;
         }
@@ -133,10 +136,24 @@ export default function SignUpPage() {
             data: formData,
             endpoint: 'api/save-new-company',
         }).then(response => {
-            console.log('The response is:', response);
+            const { isSuccess, message } = response;
+            if (!isSuccess) {
+                setDialogMessage(message);
+                setDialogTitle('Error');
+                setIsError(true);
+                setIsLoading(false);
+                handleDialogMessageChange(true);
+                return;
+            }
+    
         }).catch(e => {
-            console.log('The error is:', e);
-        })
+            console.log(e.message);
+            setDialogMessage('There was an error creating your account. Please try again!');
+            setDialogTitle('Error');
+            setIsError(true);
+            setIsLoading(false);
+            handleDialogMessageChange(true);
+        });
     }
 
     const handleNextStep = () => {

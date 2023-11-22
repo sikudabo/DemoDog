@@ -48,7 +48,7 @@ router.route('/api/save-new-company').put(uploads.single('avatar'), async (req, 
         const companyNameIsTaken = await StartupCompaniesModel.findOne({ companyName });
         if (companyNameIsTaken) {
             console.log('Someone tried to save a new company with a duplicate name.');
-            return res.status(400).json({ isSuccess: false, message: 'Someone tried to save a new company with a duplicate name.', nameIsTaken: true });
+            return res.status(400).json({ isSuccess: false, message: 'That company name has been taken. Please select another.', nameIsTaken: true });
         }
 
         const newCompany = {
