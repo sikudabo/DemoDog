@@ -1,16 +1,12 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
-import ChevronUpDownIcon from '@heroicons/react/24/solid/ChevronUpDownIcon';
 import SimpleBar from 'simplebar-react';
 import { styled } from '@mui/material/styles';
 import {
   Box,
-  Button,
   Divider,
   Drawer,
   Stack,
-  SvgIcon,
   Typography,
   useMediaQuery
 } from '@mui/material';
@@ -21,6 +17,25 @@ import { colors } from '../colors';
 
 export const Scrollbar = styled(SimpleBar)``;
 
+const StyledRoot = styled('div')({
+    display: 'flex',
+    minHeight: '100%',
+    overflow: 'hidden',
+  });
+
+const Main = styled('div')(({ theme }) => ({
+    flexGrow: 1,
+    overflow: 'auto',
+    minHeight: '100%',
+    paddingTop: 0,
+    paddingBottom: 0,
+    [theme.breakpoints.up('lg')]: {
+      paddingTop:  0,
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+  }));
+
 export const SideNav = (props: { open: any; onClose: any; }) => {
   const { open, onClose } = props;
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
@@ -29,7 +44,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
   const content = (
     <Scrollbar
       sx={{
-        backgroundColor: colors.black,
+        backgroundColor: colors.salmonPink,
         height: '100vh',
         overflow: 'auto',
         '& .simplebar-content': {
@@ -49,20 +64,14 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
       >
         <Box sx={{ p: 3 }}>
           <Box
-            component="a"
-            href="/"
-            sx={{
-              display: 'inline-flex',
-              height: 32,
-              width: 32
-            }}
+            component="div"
           >
             <DemoDogLogoIcon height={70} logoColor={colors.white} width={70} />
           </Box>
           <Box
             sx={{
               alignItems: 'center',
-              backgroundColor: colors.black,
+              backgroundColor: colors.salmonPink,
               borderRadius: 1,
               cursor: 'pointer',
               display: 'flex',
@@ -78,19 +87,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
               >
                 DemoDog
               </Typography>
-              <Typography
-                color="neutral.400"
-                variant="body2"
-              >
-                Production
-              </Typography>
             </div>
-            <SvgIcon
-              fontSize="small"
-              sx={{ color: 'neutral.500' }}
-            >
-              <ChevronUpDownIcon />
-            </SvgIcon>
           </Box>
         </Box>
         <Divider sx={{ borderColor: 'neutral.700' }} />
@@ -152,22 +149,27 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
   }
 
   return (
-    <Drawer
-      anchor="left"
-      onClose={onClose}
-      open={open}
-      PaperProps={{
-        sx: {
-          backgroundColor: 'neutral.800',
-          color: 'common.white',
-          width: 280
-        }
-      }}
-      sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
-      variant="temporary"
-    >
-      {content}
-    </Drawer>
+    <StyledRoot>
+        <Drawer
+            anchor="left"
+            onClose={onClose}
+            open={open}
+            PaperProps={{
+                sx: {
+                backgroundColor: 'neutral.800',
+                color: 'common.white',
+                width: 280
+                }
+            }}
+            sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
+            variant="temporary"
+        >
+            {content}
+        </Drawer>
+        <Main>
+            <Outlet />
+        </Main>
+    </StyledRoot>
   );
 };
 

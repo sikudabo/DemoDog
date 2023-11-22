@@ -35,6 +35,23 @@ export default function App() {
   return <App_DisplayLayer {...useDataLayer()} />;
 }
 
+function TestComponent() {
+
+  return (
+    <div>
+      This is a test
+    </div>
+  );
+}
+
+function SideComponent() {
+  return (
+    <div>
+      This is a side component
+    </div>
+  );
+}
+
 function App_DisplayLayer({
   isLoading,
   theme,
@@ -55,10 +72,11 @@ function App_DisplayLayer({
           <DemoDogAppBar />
           <Routes>
             <Route path="/" element={<DemoDogLandingPage />} />
-            <Route path="/sign-in" element={<SignInPage />} />
-            <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/startup-dashboard" element={<SideNav />}>
-              <Route element={<StartupDashboard />} path="main"/>
+            <Route path="sign-in" element={<SignInPage />} />
+            <Route path="sign-up" element={<SignUpPage />} />
+            <Route path="startup-dashboard/main" element={<StartupDashboard />}>
+             {/* <Route element={<SideComponent />} path="main"/>
+              <Route element={<TestComponent />} path="test"/> */}
             </Route>
           </Routes>
           <Footer />
@@ -73,7 +91,7 @@ function useDataLayer() {
 
   const theme = createTheme({
     palette: {
-      mode: 'dark',
+      mode: 'light',
       primary: {
         main: colors.navyBlue,
       },

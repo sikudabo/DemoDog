@@ -202,14 +202,14 @@ export default function DemoDogAppBar() {
             <div className="large-screen-links-container">
                 <IconButton 
                     className="link"
-                    onClick={() => navigate('/sign-up')}
+                    onClick={() => navigate('sign-up')}
                     disableRipple
                 >
                     Sign Up 
                 </IconButton>
                 <IconButton 
                     className="link-after"
-                    onClick={() => navigate('/sign-in')}
+                    onClick={() => navigate('sign-in')}
                     disableRipple
                 >
                     Sign In

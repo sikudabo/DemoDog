@@ -1,6 +1,7 @@
 import { useStartupEmployeeData } from "../../hooks";
 import { StartupEmployeeType } from "../../typings/StartupEmployeeType";
 import { SideNav } from "../../components/Sidenav";
+import { DashboardLayout } from "../../components/DashboardLayout";
 
 type StartupDashboardDisplayLayerProps = {
     startupEmployee: StartupEmployeeType | {}
@@ -14,11 +15,14 @@ function StartupDashboard_DisplayLayer({
     startupEmployee,
 }: StartupDashboardDisplayLayerProps) {
     const { firstName } = startupEmployee as StartupEmployeeType;
+    alert('Dashboard hit');
 
     return (
-        <div>
-            Welcome to your dashboard {firstName}!
-        </div>
+        <DashboardLayout>
+            <div>
+                Welcome to your dashboard {firstName}!
+            </div>
+        </DashboardLayout>
     );
 }
 
