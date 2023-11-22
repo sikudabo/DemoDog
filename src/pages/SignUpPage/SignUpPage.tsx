@@ -76,6 +76,7 @@ export default function SignUpPage() {
 
     useEffect(() => {
         setCompanyDescription(newDescription);
+        setDescriptionLength(newDescription.length);
     }, [newDescription]);
 
     useEffect(() => {
@@ -156,6 +157,7 @@ export default function SignUpPage() {
             fd.append('password', password);
             fd.append('linkedIn', linkedIn);
             fd.append('avatar', employeeAvatar as File, 'avatar.jpg');
+            fd.append('userType', 'employee');
 
             putBinaryData({
                 data: fd,

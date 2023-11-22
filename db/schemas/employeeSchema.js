@@ -11,6 +11,7 @@ const employeeSchema = new mongoose.Schema({
     linkedIn: { type: String, required: true },
     password: { type: String, required: true },
     role: { type: String, required: true },
+    userType: { type: String, required: true },
 }, {
     collection: 'employees',
 });

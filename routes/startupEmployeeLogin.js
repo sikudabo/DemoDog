@@ -25,7 +25,7 @@ router.route('/api/login-startup-employee').post(async (req, res) => {
 
         res.status(200).json({
             isSuccess: true,
-            message: 'You have successfully logged in!',
+            message: `Welcome back ${user.firstName}! We hope you enjoy your startup experience!`,
             user,
         });
 
