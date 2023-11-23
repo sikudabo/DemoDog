@@ -54,11 +54,11 @@ router.route('/api/save-new-demo').put(uploads.single('demo'), async (req, res) 
         });
         newDemo.save();
 
-        const fetchedVideos = DemoModel.find({ companyId });
-        res.status(200).send({ isSuccess: true, message: 'New demo successfully saved!', fetchedVideos });
+        const fetchedVideos = await DemoModel.findOne({ companyId });
+        res.status(200).json({ isSuccess: true, message: 'New demo successfully saved!', fetchedVideos });
     } catch(err) {
         console.error('Error saving new demo', err.message);
-        res.status(500).send({ isSuccess: false, message: 'There was an error saving the new demo! Please try again.' });
+        res.status(500).json({ isSuccess: false, message: 'There was an error saving the new demo! Please try again.' });
     }
 });
 

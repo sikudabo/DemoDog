@@ -6,5 +6,6 @@ export type CompanyDataType = {
     companyUrl: string;
     demos: string[];
     description: string;
+    _id: string;
     profileViews: string[];
 }

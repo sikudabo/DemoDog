@@ -5,6 +5,7 @@ export type StartupEmployeeType = {
     companyId: string;
     createdAt: Date;
     email: string;
+    _id: string;
     jobTitle: string;
     linkedIn: string;
     password: string;
