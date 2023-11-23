@@ -17,6 +17,8 @@ const {
     SaveNewCompany,
     SaveNewEmployee,
     StartupEmployeeLogin,
+    UpdateCompany,
+    UpdateEmployee,
     UpdateCompanyAvatar,
     UpdateEmployeeAvatar,
 } = require('./routes');
@@ -51,6 +53,8 @@ app.use(SaveDemo);
 app.use(SaveNewCompany);
 app.use(SaveNewEmployee);
 app.use(StartupEmployeeLogin);
+app.use(UpdateCompany);
+app.use(UpdateEmployee);
 app.use(UpdateCompanyAvatar);
 app.use(UpdateEmployeeAvatar);
 

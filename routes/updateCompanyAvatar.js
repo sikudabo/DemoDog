@@ -55,7 +55,7 @@ router.route('/api/update-company-avatar').post(uploads.single('avatar'), async 
         }
 
         const updatedCompany = await StartupCompaniesModel.findOne({ _id: companyId });
-        res.status(200).json({ isSuccess: true, message: 'Company avatar successfully updated!', updatedEmployee });
+        res.status(200).json({ isSuccess: true, message: 'Company avatar successfully updated!', updatedCompany });
     } catch(e) {
         res.status(500).json({ isSuccess: false, message: 'There was an error updating the company avatar! Please try again.' });
     }
