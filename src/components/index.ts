@@ -1,3 +1,4 @@
+import { CompaniesViewedOverview } from "./CompaniesViewedOverview";
 import DemoDogAppBar from "./DemoDogAppBar";
 import DemoDogButton from "./DemoDogButton";
 import DemoDogComboBox from './DemoDogComboBox'
@@ -9,6 +10,7 @@ import StaticPageContainer from "./StaticPageContainer";
 import { colors } from "./colors";
 
 export {
+    CompaniesViewedOverview,
     DemoDogAppBar,
     DemoDogButton,
     DemoDogComboBox,

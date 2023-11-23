@@ -5,6 +5,8 @@ import { DashboardLayout } from "../../components/DashboardLayout";
 import { DemoDogComplexStatisticsCard } from "../../components";
 import { deviceBreakPointsMaxWidth } from '../../utils/constants';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import { colors } from '../../components';
 
 type StartupDashboardDisplayLayerProps = {
@@ -26,7 +28,7 @@ const StartupDashboardContainer = styled.div`
         padding-right: 20px;
         width: 75vw;
 
-        @media ${deviceBreakPointsMaxWidth.laptop}  {
+        @media ${deviceBreakPointsMaxWidth.laptopL}  {
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -38,7 +40,7 @@ const StartupDashboardContainer = styled.div`
             width: 300px;
             height: 300px;
 
-            @media ${deviceBreakPointsMaxWidth.laptop}  {
+            @media ${deviceBreakPointsMaxWidth.laptopL}  {
                 height: 100%;
                 width: 100%;
             }
@@ -49,7 +51,7 @@ const StartupDashboardContainer = styled.div`
             height: 300px;
             margin-left: 20px;
 
-            @media ${deviceBreakPointsMaxWidth.laptop}  {
+            @media ${deviceBreakPointsMaxWidth.laptopL}  {
                 height: 100%;
                 width: 100%;
                 margin-left: 0;
@@ -95,6 +97,30 @@ function StartupDashboard_DisplayLayer({
                         label: "This month",
                         }}
                         timeTable="This month"
+                    />
+                     <DemoDogComplexStatisticsCard
+                        color="dark"
+                        className="stats-card-follow"
+                        icon={<FileUploadIcon style={{ color: colors.success, fontSize: 30 }} />}
+                        title="Demo Uploads"
+                        count={400}
+                        percentage={{
+                        color: "success",
+                        label: "This month",
+                        }}
+                        timeTable="Forever"
+                    />
+                    <DemoDogComplexStatisticsCard
+                        color="dark"
+                        className="stats-card-follow"
+                        icon={<EmojiPeopleIcon style={{ color: colors.atosGreen, fontSize: 30 }} />}
+                        title="Employees"
+                        count={10}
+                        percentage={{
+                        color: "success",
+                        label: "This month",
+                        }}
+                        timeTable="Forever"
                     />
                 </div>
             </StartupDashboardContainer>
