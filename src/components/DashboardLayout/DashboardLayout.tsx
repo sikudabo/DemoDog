@@ -9,7 +9,9 @@ import { deviceBreakPointsMaxWidth, deviceBreakPointsMinWidth } from '../../util
 const SIDE_NAV_WIDTH = 280;
 
 const CustomLayoutRoot = styled.div`
-    display: 'flex';
+    display: flex;
+    height: 100%;
+    overflow: scroll;
     width: 100vw;
     @media ${deviceBreakPointsMinWidth.laptopL} {
         padding-left: ${SIDE_NAV_WIDTH}px;

@@ -20,8 +20,8 @@ export const CompaniesViewedOverview = (props: any) => {
   const { companies = [], sx } = props;
 
   return (
-    <Card sx={sx}>
-      <CardHeader title="Latest Products" />
+    <Card className="companies-viewed-card" elevation={10}>
+      <CardHeader title="Companies that viewed you" />
       <List>
         {companies.map((company: any, index: number) => {
           const hasDivider = index < companies.length - 1;
@@ -62,30 +62,10 @@ export const CompaniesViewedOverview = (props: any) => {
                 primaryTypographyProps={{ variant: 'subtitle1' }}
                 secondaryTypographyProps={{ variant: 'body2' }}
               />
-              <IconButton edge="end">
-                <SvgIcon>
-                  <EllipsisVerticalIcon />
-                </SvgIcon>
-              </IconButton>
             </ListItem>
           );
         })}
       </List>
-      <Divider />
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
-        <Button
-          color="inherit"
-          endIcon={(
-            <SvgIcon fontSize="small">
-              <ArrowRightIcon />
-            </SvgIcon>
-          )}
-          size="small"
-          variant="text"
-        >
-          View all
-        </Button>
-      </CardActions>
     </Card>
   );
 };

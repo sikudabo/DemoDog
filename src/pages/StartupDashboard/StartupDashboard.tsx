@@ -7,7 +7,12 @@ import { deviceBreakPointsMaxWidth } from '../../utils/constants';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import { colors } from '../../components';
+import { CompaniesViewedOverview, colors } from '../../components';
+import StanfordLogo from '../../static-site-images/stanford_logo.jpeg';
+import MicrosoftLogo from '../../static-site-images/microsoft_logo.jpeg';
+import GoogleLogo from '../../static-site-images/google_logo.jpeg';
+import AmazonLogo from '../../static-site-images/amazon_logo.jpeg';
+import AirBnBLogo from '../../static-site-images/airbnb_logo.jpeg';
 
 type StartupDashboardDisplayLayerProps = {
     startupEmployee: StartupEmployeeType | {}
@@ -56,6 +61,30 @@ const StartupDashboardContainer = styled.div`
                 width: 100%;
                 margin-left: 0;
                 margin-top: 20px;
+            }
+        }
+    }
+
+    .company-views-overview-section {
+        display: flex;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 75vw;
+
+        @media ${deviceBreakPointsMaxWidth.laptopL}  {
+            padding-left: 0;
+            padding-right: 0;
+            width: 100%;
+        }
+
+        .companies-viewed-card {
+            width: 1100px;
+
+            @media ${deviceBreakPointsMaxWidth.laptopL}  {
+                max-height: 100%;
+                width: 100%;
             }
         }
     }
@@ -121,6 +150,40 @@ function StartupDashboard_DisplayLayer({
                         label: "This month",
                         }}
                         timeTable="Forever"
+                    />
+                </div>
+                <div className="company-views-overview-section">
+                    <CompaniesViewedOverview
+                        companies={[
+                            {
+                                id: 1,
+                                image: StanfordLogo,
+                                name: "Stanford"
+                            },
+                            {
+                                id: 2,
+                                image: MicrosoftLogo,
+                                name: "Microsoft"
+                            },
+                            {
+                                id: 3,
+                                image: GoogleLogo,
+                                name: "Google"
+                            },
+                            {
+                                id: 4,
+                                image: AmazonLogo,
+                                name: "Amazon"
+                            },
+                            {
+                                id: 5,
+                                image: AirBnBLogo,
+                                name: "AirBnB"
+                            }
+                        ]}
+                        sx={{
+                            width: '100%',
+                        }}
                     />
                 </div>
             </StartupDashboardContainer>
