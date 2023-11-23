@@ -5,13 +5,20 @@ import VideoCallIcon from '@mui/icons-material/VideoCall';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
 import { DemoDogButton, colors } from '../../components';
+import { CompanyDataType } from '../../typings/CompanyDataType';
 import { DashboardLayout } from '../../components/DashboardLayout';
 import { GeneralCompanyForm } from '../../components/forms';
 import { deviceBreakPointsMaxWidth } from '../../utils/constants';
+import { putBinaryData } from '../../utils/requests';
+import { useFetchCompanyData, useIsLoading, useShowDialog } from '../../hooks';
 
 type FormProps = {
     demoName: string;
     description: string;
+};
+
+type DemoUploadPageDisplayLayerProps = {
+    companyData: CompanyDataType;
 };
 
 
@@ -28,6 +35,12 @@ const DemoUploadPageContainer = styled.div`
 `;
 
 export default function DemoUploadPage() {
+    return <DemoUploadPage_DisplayLayer {...useDataLayer()} />;
+}
+
+function DemoUploadPage_DisplayLayer({
+    companyData,
+}: DemoUploadPageDisplayLayerProps) {
     const [newDescription, setNewDescription] = useState('');
     const [demoVideo, setDemoVideo] = useState<any>(null);
     const [descriptionLength, setDescriptionLength] = useState(0);
@@ -38,7 +51,9 @@ export default function DemoUploadPage() {
         },
         mode: 'onChange',
     });
-
+    const { setIsLoading } = useIsLoading();
+    const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
+    
     const updatedDescription = watch('description');
 
     useEffect(() => {
@@ -51,8 +66,18 @@ export default function DemoUploadPage() {
         setDemoVideo(files[0]);
     }
 
-    function sendData(data: FormProps) {
-        console.log(data);
+    async function sendData(data: FormProps) {
+        setIsLoading(true);
+        if (!demoVideo) {
+            setDialogTitle('Error');
+            setIsError(true);
+            setDialogMessage('Please upload a demo video!');
+            setIsLoading(false);
+            handleDialogMessageChange(true);
+            return;
+        }
+
+        const fd = new FormData();
     }
     
     return (
@@ -84,4 +109,17 @@ export default function DemoUploadPage() {
             </DemoUploadPageContainer>
         </DashboardLayout>
     );
+}
+
+function useDataLayer() {
+    const { setIsLoading } = useIsLoading();
+    const { data, isLoading } = useFetchCompanyData();
+
+    useEffect(() => {
+        setIsLoading(isLoading);
+    }, [isLoading]);
+
+    return {
+        companyData: data,
+    };
 }

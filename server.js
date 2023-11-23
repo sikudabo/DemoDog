@@ -12,6 +12,7 @@ const cors = require('cors');
 const sslRedirect = require('heroku-ssl-redirect');
 const { startDb } = require('./db');
 const {
+    GetCompanyData,
     SaveDemo,
     SaveNewCompany,
     SaveNewEmployee,
@@ -42,18 +43,19 @@ app.use(history({
 
 app.use(serveStatic(path.join(__dirname, 'build')));
 
+// Routes
+app.use(GetCompanyData);
+app.use(SaveDemo);
+app.use(SaveNewCompany);
+app.use(SaveNewEmployee);
+app.use(StartupEmployeeLogin);
+
 startDb();
 
 // Middleware 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
-// Routes
-app.use(SaveDemo);
-app.use(SaveNewCompany);
-app.use(SaveNewEmployee);
-app.use(StartupEmployeeLogin);
 
 // Server 
 const server = http.createServer(app);
