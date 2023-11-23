@@ -43,6 +43,9 @@ export const StartupDemosTable = (props: any) => {
                 <TableCell>
                   Employee
                 </TableCell>
+                <TableCell>
+                    Demo Name
+                </TableCell>
                 <TableCell sortDirection="desc">
                   Public
                 </TableCell>
@@ -67,6 +70,9 @@ export const StartupDemosTable = (props: any) => {
                     </TableCell>
                     <TableCell>
                       {demo.uploaderName}
+                    </TableCell>
+                    <TableCell>
+                        {demo.name}
                     </TableCell>
                     <TableCell>
                         <Switch color="secondary" defaultChecked />

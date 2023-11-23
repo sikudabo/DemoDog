@@ -1,12 +1,20 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { Box, ButtonBase } from '@mui/material';
 
 export const SideNavItem = (props: any) => {
-  const { active = false, disabled, icon, title } = props;
+  const { active = false, disabled, icon, path, title } = props;
+  const navigate = useNavigate();
+
+  function handleNavigate() {
+    navigate(path);
+  }
+  
 
   return (
     <li>
       <ButtonBase
+        onClick={handleNavigate}
         sx={{
           alignItems: 'center',
           borderRadius: 1,

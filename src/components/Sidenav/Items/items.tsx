@@ -8,7 +8,7 @@ import { SvgIcon } from '@mui/material';
 export const items = [
   {
     title: 'Dashboard',
-    path: '/main',
+    path: '/startup-dashboard/main',
     icon: (
       <SvgIcon fontSize="small">
         <ComputerDesktopIcon />
@@ -17,7 +17,7 @@ export const items = [
   },
   {
     title: 'Upload',
-    path: '/upload',
+    path: '/startup-dashboard/demo-upload',
     icon: (
       <SvgIcon fontSize="small">
         <CloudArrowUpIcon />

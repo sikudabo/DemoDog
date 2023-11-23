@@ -291,26 +291,31 @@ function StartupDashboard_DisplayLayer({
                             id: 1,
                             uploaderName: 'Anthony Corsaro',
                             uploaderAvatar: AnthonyAvatar,
+                            name: 'How to chuck wood',
                            },
                            {
                             id: 2,
                             uploaderName: 'Mark Cuban',
                             uploaderAvatar: MarkAvatar,
+                            name: 'Quick and easy',
                            },
                            {
                             id: 3,
                             uploaderName: 'Kevin O\'leary',
                             uploaderAvatar: KevinAvatar,
+                            name: 'Bug fixer',
                            },
                            {
                             id: 4,
                             uploaderName: 'Eric Legrand',
                             uploaderAvatar: EricAvatar,
+                            name: 'How to fix bug',
                            },
                            {
                             id: 5,
                             uploaderName: 'Jeremy Card',
                             uploaderAvatar: JeremyAvatar,
+                            name: 'New date picker component',
                            }
                         ]}
                     />

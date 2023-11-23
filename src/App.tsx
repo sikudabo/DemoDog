@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 import { DemoDogAppBar, DemoDogDialog, ScrollToTop, colors } from './components';
 import {
+  DemoUploadPage,
   SignInPage,
   SignUpPage,
   StartupDashboard,
@@ -75,9 +76,11 @@ function App_DisplayLayer({
             <Route path="sign-in" element={<SignInPage />} />
             <Route path="sign-up" element={<SignUpPage />} />
             <Route path="startup-dashboard/main" element={<StartupDashboard />}>
+
              {/* <Route element={<SideComponent />} path="main"/>
               <Route element={<TestComponent />} path="test"/> */}
             </Route>
+            <Route path="startup-dashboard/demo-upload" element={<DemoUploadPage />} />
           </Routes>
           <Footer />
         </Router>
@@ -91,7 +94,7 @@ function useDataLayer() {
 
   const theme = createTheme({
     palette: {
-      mode: 'dark',
+      mode: 'light',
       primary: {
         main: colors.navyBlue,
       },
