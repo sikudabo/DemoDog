@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
 const dotenv = require('dotenv').config();
-const { EmployeeModel } = require('../db/models');
+const { StartupCompaniesModel } = require('../db/models');
 
 const dbUri = dotenv.parsed.DB_URI;
 
@@ -42,22 +42,22 @@ const storage = new GridFsStorage({
 
 const uploads = multer({ storage });
 
-router.route('/api/update-employee-avatar').post(uploads.single('avatar'), async (req, res) => {
-    const { employeeId, oldAvatar } = req.body;
+router.route('/api/update-company-avatar').post(uploads.single('avatar'), async (req, res) => {
+    const { companyId, oldAvatar } = req.body;
     const filename = req.file.filename;
 
     try {
-        await EmployeeModel.updateOne({ _id: employeeId }, { $set: { avatar: filename } });
+        await EmployeeModel.updateOne({ _id: companyId }, { $set: { avatar: filename } });
 
         if (oldAvatar) {
             const { _id } = await gfs.files.findOne({ filename: oldAvatar });
             await gridfsBucket.delete(_id)
         }
 
-        const updatedEmployee = await EmployeeModel.findOne({ _id: employeeId });
-        res.status(200).json({ isSuccess: true, message: 'Employee avatar updated successfully', updatedEmployee });
+        const updatedCompany = await StartupCompaniesModel.findOne({ _id: companyId });
+        res.status(200).json({ isSuccess: true, message: 'Company avatar successfully updated!', updatedEmployee });
     } catch(e) {
-        res.status(500).json({ isSuccess: false, message: 'Error updating employee avatar' });
+        res.status(500).json({ isSuccess: false, message: 'There was an error updating the company avatar! Please try again.' });
     }
 });
 
