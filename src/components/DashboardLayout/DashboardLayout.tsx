@@ -1,12 +1,22 @@
 import { useCallback, useEffect, useState } from 'react';
+import styled from '@emotion/styled';
 import { useLocation } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
+import { styled as makeStyle } from '@mui/material/styles';
 import { SideNav } from '../Sidenav';
 import { TopNav } from '../TopNav/TopNav';
+import { deviceBreakPointsMaxWidth, deviceBreakPointsMinWidth } from '../../utils/constants';
 
 const SIDE_NAV_WIDTH = 280;
 
-const LayoutRoot = styled('div')(({ theme }) => ({
+const CustomLayoutRoot = styled.div`
+    display: 'flex';
+    width: 100vw;
+    @media ${deviceBreakPointsMinWidth.laptopL} {
+        padding-left: ${SIDE_NAV_WIDTH}px;
+    }
+`;
+
+const LayoutRoot = makeStyle('div')(({ theme }: any) => ({
     display: 'flex',
     flex: '1 1 auto',
     maxWidth: '100%',
@@ -15,7 +25,7 @@ const LayoutRoot = styled('div')(({ theme }) => ({
     }
 }));
 
-const LayoutContainer = styled('div')({
+const LayoutContainer = makeStyle('div')({
     display: 'flex',
     flex: '1 1 auto',
     flexDirection: 'column',
@@ -51,11 +61,11 @@ export const Layout = (props: any) => {
           onClose={() => setOpenNav(false)}
           open={openNav}
         />
-        <LayoutRoot>
+        <CustomLayoutRoot>
           <LayoutContainer>
             {children}
           </LayoutContainer>
-        </LayoutRoot>
+        </CustomLayoutRoot>
       </>
     );
   };

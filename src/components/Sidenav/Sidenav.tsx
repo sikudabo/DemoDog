@@ -14,7 +14,7 @@ import { DemoDogLogoIcon } from '../icons';
 import { items } from './Items/items';
 import { SideNavItem } from './Items/SideNavItem';
 import { colors } from '../colors';
-
+const AnimaLogo = require('../../static-site-images/anima_logo.jpeg');
 export const Scrollbar = styled(SimpleBar)``;
 
 const StyledRoot = styled('div')({
@@ -66,7 +66,8 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
           <Box
             component="div"
           >
-            <DemoDogLogoIcon height={70} logoColor={colors.white} width={70} />
+            {/* <DemoDogLogoIcon height={70} logoColor={colors.white} width={70} /> */}
+            <img  alt="Company logo" src={AnimaLogo} height={70} width={70} />
           </Box>
           <Box
             sx={{
@@ -85,7 +86,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
                 color="inherit"
                 variant="subtitle1"
               >
-                DemoDog
+                Anima
               </Typography>
             </div>
           </Box>

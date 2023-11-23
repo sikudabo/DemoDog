@@ -1,11 +1,63 @@
+import styled from '@emotion/styled';
 import { useStartupEmployeeData } from "../../hooks";
 import { StartupEmployeeType } from "../../typings/StartupEmployeeType";
-import { SideNav } from "../../components/Sidenav";
 import { DashboardLayout } from "../../components/DashboardLayout";
+import { DemoDogComplexStatisticsCard } from "../../components";
+import { deviceBreakPointsMaxWidth } from '../../utils/constants';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { colors } from '../../components';
 
 type StartupDashboardDisplayLayerProps = {
     startupEmployee: StartupEmployeeType | {}
 };
+
+const StartupDashboardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+
+    align-items: center;
+    justify-content: center;
+    
+    .statistics-cards-section {
+        display: flex;
+        flex-direction: row;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 75vw;
+
+        @media ${deviceBreakPointsMaxWidth.laptop}  {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .stats-card {
+            width: 300px;
+            height: 300px;
+
+            @media ${deviceBreakPointsMaxWidth.laptop}  {
+                height: 100%;
+                width: 100%;
+            }
+        }
+
+        .stats-card-follow {
+            width: 300px;
+            height: 300px;
+            margin-left: 20px;
+
+            @media ${deviceBreakPointsMaxWidth.laptop}  {
+                height: 100%;
+                width: 100%;
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+    }
+`;
 
 export default function StartupDashboard() {
     return <StartupDashboard_DisplayLayer {...useDataLayer()} />;
@@ -14,13 +66,38 @@ export default function StartupDashboard() {
 function StartupDashboard_DisplayLayer({
     startupEmployee,
 }: StartupDashboardDisplayLayerProps) {
-    const { firstName } = startupEmployee as StartupEmployeeType;
+    const { firstName, lastName } = startupEmployee as StartupEmployeeType;
 
     return (
         <DashboardLayout>
-            <div style={{ paddingTop: 50, alignItems: 'center', paddingRight: 20, paddingLeft: 20 }}>
-                Welcome to your dashboard {firstName}!
-            </div>
+            <StartupDashboardContainer>
+                <div className="statistics-cards-section">
+                    <DemoDogComplexStatisticsCard
+                        color="dark"
+                        className="stats-card"
+                        icon={<ThumbUpIcon style={{ color: colors.salmonPink, fontSize: 30 }} />}
+                        title="Demo Likes"
+                        count={281}
+                        percentage={{
+                        color: "success",
+                        label: "This month",
+                        }}
+                        timeTable="This month"
+                    />
+                    <DemoDogComplexStatisticsCard
+                        color="dark"
+                        className="stats-card-follow"
+                        icon={<ThumbUpIcon style={{ color: colors.navyBlue, fontSize: 30 }} />}
+                        title="Company Likes"
+                        count={25}
+                        percentage={{
+                        color: "success",
+                        label: "This month",
+                        }}
+                        timeTable="This month"
+                    />
+                </div>
+            </StartupDashboardContainer>
         </DashboardLayout>
     );
 }
