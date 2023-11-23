@@ -6,7 +6,7 @@ import { deviceBreakPointsMaxWidth } from '../../utils/constants';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import { CompaniesViewedOverview, DemoDogComplexStatisticsCard, StartupEmployeesTable, colors } from '../../components';
+import { CompaniesViewedOverview, DemoDogComplexStatisticsCard, StartupDemosTable, StartupEmployeesTable, colors } from '../../components';
 import StanfordLogo from '../../static-site-images/stanford_logo.jpeg';
 import MicrosoftLogo from '../../static-site-images/microsoft_logo.jpeg';
 import GoogleLogo from '../../static-site-images/google_logo.jpeg';
@@ -107,6 +107,29 @@ const StartupDashboardContainer = styled.div`
         }
 
         .team-table-card {
+            width: 1100px;
+
+            @media ${deviceBreakPointsMaxWidth.laptopL}  {
+                max-height: 100%;
+                width: 100%;
+            }
+        }
+    }
+
+    .startup-demos-table-section {
+        display: flex;
+        padding-bottom: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 75vw;
+
+        @media ${deviceBreakPointsMaxWidth.laptopL}  {
+            padding-left: 0;
+            padding-right: 0;
+            width: 100%;
+        }
+
+        .demos-table-card {
             width: 1100px;
 
             @media ${deviceBreakPointsMaxWidth.laptopL}  {
@@ -257,6 +280,37 @@ function StartupDashboard_DisplayLayer({
                             id: 5,
                             jobTitle: 'Lead Engineer',
                             avatar: JeremyAvatar,
+                           }
+                        ]}
+                    />
+                </div>
+                <div className="startup-demos-table-section">
+                    <StartupDemosTable
+                        demos={[
+                           {
+                            id: 1,
+                            uploaderName: 'Anthony Corsaro',
+                            uploaderAvatar: AnthonyAvatar,
+                           },
+                           {
+                            id: 2,
+                            uploaderName: 'Mark Cuban',
+                            uploaderAvatar: MarkAvatar,
+                           },
+                           {
+                            id: 3,
+                            uploaderName: 'Kevin O\'leary',
+                            uploaderAvatar: KevinAvatar,
+                           },
+                           {
+                            id: 4,
+                            uploaderName: 'Eric Legrand',
+                            uploaderAvatar: EricAvatar,
+                           },
+                           {
+                            id: 5,
+                            uploaderName: 'Jeremy Card',
+                            uploaderAvatar: JeremyAvatar,
                            }
                         ]}
                     />

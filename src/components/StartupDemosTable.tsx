@@ -30,8 +30,8 @@ export const StartupDemosTable = (props: any) => {
   const { demos = [], sx } = props;
 
   return (
-    <Card className="team-table-card">
-      <CardHeader title="Team" />
+    <Card className="demos-table-card">
+      <CardHeader title="Demos" />
       <Scrollbar sx={{ flexGrow: 1 }}>
         <Box sx={{ minWidth: 800 }}>
           <Table>
@@ -48,6 +48,9 @@ export const StartupDemosTable = (props: any) => {
                 </TableCell>
                 <TableCell>
                   Delete
+                </TableCell>
+                <TableCell>
+                  Play
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -66,12 +69,19 @@ export const StartupDemosTable = (props: any) => {
                       {demo.uploaderName}
                     </TableCell>
                     <TableCell>
-                        <Switch defaultChecked />
+                        <Switch color="secondary" defaultChecked />
                     </TableCell>
                     <TableCell>
                         <DemoDogButton 
                             buttonColor={colors.error}
                             text="DELETE"
+                            isNormal
+                        />
+                    </TableCell>
+                    <TableCell>
+                        <DemoDogButton 
+                            buttonColor={colors.salmonPink}
+                            text="PLAY"
                             isNormal
                         />
                     </TableCell>
