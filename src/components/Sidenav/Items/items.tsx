@@ -35,7 +35,7 @@ export const items = [
   },
   {
     title: 'Edit',
-    path: '/edit',
+    path: '/startup-dashboard/edit-page',
     icon: (
       <SvgIcon fontSize="small">
         <PencilSquareIcon />
