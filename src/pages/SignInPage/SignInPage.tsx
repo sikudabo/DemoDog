@@ -6,7 +6,7 @@ import GeneralCompanyForm from '../../components/forms/GeneralCompanyForm';
 import { DemoDogButton, colors } from "../../components";
 import { checkValidEmail } from '../../utils/validation'
 import { postNonBinaryData } from "../../utils/requests";
-import { useIsLoading, useShowDialog, useStartupEmployeeData } from "../../hooks";
+import { useIsLoading, useShowDialog, useStartupCompanyData, useStartupEmployeeData } from "../../hooks";
 
 type SignInFormProps = {
     email: string;
@@ -22,6 +22,7 @@ export default function SignInPage() {
         mode: 'onChange'
     });
     const navigate = useNavigate();
+    const { setCompany } = useStartupCompanyData();
     const { setEmployee } = useStartupEmployeeData();
     const { setIsLoading } = useIsLoading();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
@@ -33,7 +34,7 @@ export default function SignInPage() {
             data,
             endpoint: 'api/login-startup-employee',
         }).then(res => {
-            const { isSuccess, message, user } = res;
+            const { company, isSuccess, message, user } = res;
             if (!isSuccess) {
                 setIsLoading(false);
                 setIsError(true);
@@ -43,6 +44,7 @@ export default function SignInPage() {
                 return;
             }
 
+            setCompany(company);
             setEmployee(user);
             setIsLoading(false);
             setIsError(false);

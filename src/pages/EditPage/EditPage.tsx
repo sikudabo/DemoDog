@@ -20,9 +20,9 @@ import { useForm } from 'react-hook-form';
 import { colors } from '../../components';
 import { GeneralCompanyForm } from '../../components/forms';
 import { DashboardLayout } from '../../components/DashboardLayout';
-import { useFetchCompanyData, useIsLoading, useStartupEmployeeData } from '../../hooks';
+import { useFetchCompanyData, useIsLoading, useStartupCompanyData, useStartupEmployeeData } from '../../hooks';
 import { postBinaryData, postNonBinaryData } from '../../utils/requests';
-import { CompanyDataType } from '../../typings/CompanyDataType';
+import { CompanyType } from '../../hooks/useStartupCompanyData';
 import { checkValidEmail } from '../../utils/validation';
 import { businessCategories } from '../../utils/constants';
 
@@ -63,7 +63,8 @@ type FormProps = {
 export type CompanyFormProps = Pick<FormProps, 'companyDescription' | 'companyName' | 'companyUrl' | 'email' | 'selectedBusinessCategory'>
 
 type EditPageDisplayLayerProps = {
-    companyData: CompanyDataType;
+    companyData: CompanyType;
+    isLoading: boolean;
 };
 
 export default function EditPage() {
@@ -72,9 +73,10 @@ export default function EditPage() {
 
 function EditPage_DisplayLayer({
     companyData,
+    isLoading,
 }: EditPageDisplayLayerProps) {
     const [currentPage, setCurrentPage] = useState<'company' | 'employee'>('company');
-    const { description = "", companyName, companyUrl, companyEmail, category, _id } = companyData as CompanyDataType;
+    const { description = "", companyName, companyUrl, companyEmail, category, _id } = typeof companyData !== 'undefined' ? companyData as CompanyType : { description: "", companyName: "", companyUrl: "", companyEmail: "", category: "", _id: ""};
     const [selectedCategory, setSelectedCategory] = useState(category);
     const { register: registerCompany, handleSubmit: handleSubmitCompany, watch: watchCompany, formState: { errors: companyErrors }} = useForm<CompanyFormProps>({
         defaultValues: {
@@ -86,6 +88,16 @@ function EditPage_DisplayLayer({
         },
         mode: 'onChange',
     });
+
+    const newCategory = watchCompany('selectedBusinessCategory');
+
+    useEffect(() => {
+        setSelectedCategory(newCategory);
+    }, [newCategory]);
+
+    if (isLoading || !description) {
+        return <div>Loading...</div>
+    }
 
     return (
         <DashboardLayout>
@@ -115,7 +127,7 @@ function EditPage_DisplayLayer({
                             </div>
                             <div className="company-name-email">
                                 <div className="company-name-container">
-                                    <TextField aria-label="Company Name" color={companyErrors.companyName ? 'error' : 'primary'} helperText={<p style={{ color: companyErrors.companyName ? colors.error : colors.black}}>Required</p>} label="Company Name" {...registerCompany('companyName', { required: true })} fullWidth required />
+                                    <TextField defaultValue={companyName} aria-label="Company Name" color={companyErrors.companyName ? 'error' : 'primary'} helperText={<p style={{ color: companyErrors.companyName ? colors.error : colors.black}}>Required</p>} label="Company Name" {...registerCompany('companyName', { required: true })} fullWidth required />
                                 </div>
                                 <div className="email-container">
                                     <TextField aria-label="Company Email" color={companyErrors.email ? 'error' : 'primary'} helperText={<p style={{ color: companyErrors.email ? colors.error : colors.black }}>Required {companyErrors.email ? 'Must enter a valid email' : ''}</p>}  label="Company Email" type="email" {...registerCompany('email', { required: true, validate: { validEmail: (v: string) => checkValidEmail(v) || "Must enter a valid email" }})} fullWidth required />
@@ -177,13 +189,17 @@ function EditPage_DisplayLayer({
 function useDataLayer() {
     const { data: companyData, isLoading } = useFetchCompanyData();
     const { setIsLoading } = useIsLoading();
+    const { company, setCompany } = useStartupCompanyData();
 
     useEffect(() => {
        setIsLoading(isLoading);
-            
-    }, [isLoading])
+       if (!isLoading && companyData) {
+        setCompany(companyData);
+    }
+    }, [isLoading, companyData])
     
     return {
-        companyData: !isLoading ? companyData : { description: "", companyName: "", companyUrl: "", email: "", selectedBusinessCategory: "" }
+        companyData: company as CompanyType,
+        isLoading,
     };
 }

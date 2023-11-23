@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { EmployeeModel } = require('../db/models');
+const { EmployeeModel, StartupCompaniesModel } = require('../db/models');
 
 router.route('/api/login-startup-employee').post(async (req, res) => {
     const { email, password } = req.body;
@@ -23,9 +23,12 @@ router.route('/api/login-startup-employee').post(async (req, res) => {
             return;
         }
 
+        const company = await StartupCompaniesModel.findOne({ _id: user.companyId });
+
         res.status(200).json({
             isSuccess: true,
             message: `Welcome back ${user.firstName}! We hope you enjoy your startup experience!`,
+            company,
             user,
         });
 
