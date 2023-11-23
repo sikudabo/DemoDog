@@ -82,7 +82,6 @@ function EditPage_DisplayLayer({
     setCompany,
     setIsLoading,
 }: EditPageDisplayLayerProps) {
-    const [companyAvatar, setCompanyAvatar] = useState<any>(null);
     const [currentPage, setCurrentPage] = useState<'company' | 'employee'>('company');
     const { avatar, description, companyName, companyUrl, companyEmail, category, _id } = typeof companyData !== 'undefined' ? companyData as CompanyType : { avatar: "", description: "", companyName: "", companyUrl: "", companyEmail: "", category: "", _id: ""};
     const [selectedCategory, setSelectedCategory] = useState(category);
@@ -121,7 +120,6 @@ function EditPage_DisplayLayer({
         setIsLoading(true);
         const file = e.target.files[0];
         const resizedAvatar: any = await resizeImage(file);
-        setCompanyAvatar(resizedAvatar);
         const fd = new FormData();
         fd.append('avatar', resizedAvatar, 'avatar.jpg');
         fd.append('companyId', _id);
@@ -139,7 +137,6 @@ function EditPage_DisplayLayer({
                 setDialogTitle('Error');
                 setDialogMessage(message);
                 handleDialogMessageChange(true);
-                setCompanyAvatar(null);
                 return;
             }
 
@@ -149,7 +146,6 @@ function EditPage_DisplayLayer({
             setDialogTitle('Success');
             setDialogMessage(message);
             handleDialogMessageChange(true);
-            setCompanyAvatar(null);
             return;
 
         }).catch(e => {
@@ -159,7 +155,51 @@ function EditPage_DisplayLayer({
             setDialogTitle('Error');
             setDialogMessage('There was an error changing your company avatar! Please try again.');
             handleDialogMessageChange(true);
-            setCompanyAvatar(null);
+            return;
+        });
+    }
+
+    async function sendCompanyData(data: CompanyFormProps) {
+        setIsLoading(true);
+        const { companyDescription: description, companyName, companyUrl, email: companyEmail, selectedBusinessCategory: category } = data;
+        const currentData = {
+            description,
+            companyName,
+            companyUrl,
+            companyEmail,
+            category,
+            _id,
+        };
+
+        await postNonBinaryData({
+            data: currentData,
+            endpoint: `api/update-company`,
+        }).then(response => {
+            const { isSuccess, message, updatedCompany } = response;
+
+            if (!isSuccess) {
+                setIsLoading(false);
+                setIsError(true);
+                setDialogTitle('Error');
+                setDialogMessage(message);
+                handleDialogMessageChange(true);
+                return;
+            }
+
+            setCompany(updatedCompany);
+            setIsLoading(false);
+            setIsError(false);
+            setDialogTitle('Success');
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
+            return;
+        }).catch(e => {
+            console.error(e.message);
+            setIsLoading(false);
+            setIsError(true);
+            setDialogTitle('Error');
+            setDialogMessage('There was an error updating your company! Please try again.');
+            handleDialogMessageChange(true);
             return;
         });
     }
@@ -185,7 +225,7 @@ function EditPage_DisplayLayer({
                     </FormControl>
                 </div>
                 {currentPage === 'company' && (
-                    <form>
+                    <form onSubmit={handleSubmitCompany(sendCompanyData)}>
                         <GeneralCompanyForm>
                             <div className="company-form-header">
                                 <h1 className="company-form-header-text">Company Information</h1>
@@ -243,7 +283,7 @@ function EditPage_DisplayLayer({
                             </div>
                             <div className="company-avatar-section">
                                 <IconButton aria-label="Company Avatar Upload Button" color="primary" component="label">
-                                    <input aria-label="Company Avatar Photo" accept="image/jpeg, image/jpg, image/png" name="companyAvatar" onChange={handleCompanyAvatarChange} type="file" hidden required />
+                                    <input aria-label="Company Avatar Photo" accept="image/jpeg, image/jpg, image/png" name="companyAvatar" onChange={handleCompanyAvatarChange} type="file" hidden/>
                                     <PhotoCameraIcon />
                                 </IconButton>
                                 Company Avatar (required)

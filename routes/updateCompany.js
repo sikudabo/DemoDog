@@ -12,7 +12,7 @@ router.route('/api/update-company').post(async (req, res) => {
         res.status(200).json({
             isSuccess: true,
             message: 'Company successfully updated!',
-            company: newCompany,
+            updatedCompany: newCompany,
         });
     } catch (e) {
         console.log('There was an error updating a company!');
