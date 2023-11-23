@@ -12,6 +12,7 @@ const cors = require('cors');
 const sslRedirect = require('heroku-ssl-redirect');
 const { startDb } = require('./db');
 const {
+    SaveDemo,
     SaveNewCompany,
     SaveNewEmployee,
     StartupEmployeeLogin,
@@ -49,6 +50,7 @@ app.get('*', (req, res) => {
 });
 
 // Routes
+app.use(SaveDemo);
 app.use(SaveNewCompany);
 app.use(SaveNewEmployee);
 app.use(StartupEmployeeLogin);
