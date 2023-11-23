@@ -7,24 +7,27 @@ import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormLabel from '@mui/material/FormLabel';
+import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
-import { colors } from '../../components';
+import { DemoDogButton, colors } from '../../components';
 import { GeneralCompanyForm } from '../../components/forms';
 import { DashboardLayout } from '../../components/DashboardLayout';
 import { useFetchCompanyData, useIsLoading, useStartupCompanyData, useStartupEmployeeData } from '../../hooks';
 import { postBinaryData, postNonBinaryData } from '../../utils/requests';
 import { CompanyType } from '../../hooks/useStartupCompanyData';
-import { checkValidEmail } from '../../utils/validation';
+import { checkValidEmail, checkValidUrl } from '../../utils/validation';
 import { businessCategories } from '../../utils/constants';
+import { resizeImage } from '../../utils/helpers';
 
 const EditPageContainer = styled.div`
     align-items: center;
@@ -75,9 +78,12 @@ function EditPage_DisplayLayer({
     companyData,
     isLoading,
 }: EditPageDisplayLayerProps) {
+    const [companyAvatar, setCompanyAvatar] = useState<any>(null);
     const [currentPage, setCurrentPage] = useState<'company' | 'employee'>('company');
     const { description = "", companyName, companyUrl, companyEmail, category, _id } = typeof companyData !== 'undefined' ? companyData as CompanyType : { description: "", companyName: "", companyUrl: "", companyEmail: "", category: "", _id: ""};
     const [selectedCategory, setSelectedCategory] = useState(category);
+    const [stateCompanyDescription, setStateCompanyDescription] = useState(description);
+    const [descriptionLength, setDescriptionLength] = useState(stateCompanyDescription.length);
     const { register: registerCompany, handleSubmit: handleSubmitCompany, watch: watchCompany, formState: { errors: companyErrors }} = useForm<CompanyFormProps>({
         defaultValues: {
             companyDescription: description,
@@ -90,13 +96,25 @@ function EditPage_DisplayLayer({
     });
 
     const newCategory = watchCompany('selectedBusinessCategory');
+    const newDescription = watchCompany('companyDescription');
 
     useEffect(() => {
         setSelectedCategory(newCategory);
     }, [newCategory]);
 
+    useEffect(() => {
+        setStateCompanyDescription(newDescription);
+        setDescriptionLength(newDescription.length);
+    }, [newDescription]);
+
     if (isLoading || !description) {
         return <div>Loading...</div>
+    }
+
+    const handleCompanyAvatarChange = async (e: { target: { files: any }}) => {
+        const file = e.target.files[0];
+        const resizedAvatar = await resizeImage(file);
+        setCompanyAvatar(resizedAvatar as any);
     }
 
     return (
@@ -107,7 +125,7 @@ function EditPage_DisplayLayer({
                 </div>  
                 <div className="radio-buttons-container">
                     <FormControl component="fieldset">
-                        <FormLabel id="top-radios" component="legend">Account</FormLabel>
+                        <FormLabel id="top-radios" component="legend">Edit Accounts</FormLabel>
                         <RadioGroup
                             aria-labelledby="top-radios"
                             name="choice"
@@ -169,6 +187,22 @@ function EditPage_DisplayLayer({
                                         Select a business category (required)
                                     </FormHelperText>
                                 </FormControl>
+                            </div>
+                            <div className="company-description-section">
+                                <TextField aria-label="Company Description" color={companyErrors.companyDescription ? 'error' : 'primary'} helperText={<p style={{ color: companyErrors.companyDescription ? colors.error : colors.black }}>Required {descriptionLength} / 1000</p>} label="Company Description" maxRows={4} minRows={4}  {...registerCompany('companyDescription', { maxLength: 1000, required: true })} value={stateCompanyDescription} fullWidth multiline required />
+                            </div>
+                            <div className="company-url-section">
+                                <TextField aria-label="CompanyUrl" color={companyErrors.companyUrl ? 'error' : 'primary'} helperText={<p style={{ color: companyErrors.companyUrl ? colors.error : colors.black  }}>Must enter a valid Url</p>} label="Company Url" type="url" {...registerCompany('companyUrl', { required: true, validate: { validUrl: v => checkValidUrl(v) || "You must enter a valid company URL" } })} fullWidth required />
+                            </div>
+                            <div className="company-avatar-section">
+                                <IconButton aria-label="Company Avatar Upload Button" color="primary" component="label">
+                                    <input aria-label="Company Avatar Photo" accept="image/jpeg, image/jpg, image/png" name="companyAvatar" onChange={handleCompanyAvatarChange} type="file" hidden required />
+                                    <PhotoCameraIcon />
+                                </IconButton>
+                                Company Avatar (required)
+                            </div>
+                            <div className="next-button-container">
+                                <DemoDogButton buttonColor={colors.navyBlue} className="next-button" type="submit"  text="Submit" fullWidth isNormal/>
                             </div>
                         </GeneralCompanyForm>
                     </form>
