@@ -15,11 +15,10 @@ function StartupDashboard_DisplayLayer({
     startupEmployee,
 }: StartupDashboardDisplayLayerProps) {
     const { firstName } = startupEmployee as StartupEmployeeType;
-    alert('Dashboard hit');
 
     return (
         <DashboardLayout>
-            <div>
+            <div style={{ paddingTop: 50, alignItems: 'center', paddingRight: 20, paddingLeft: 20 }}>
                 Welcome to your dashboard {firstName}!
             </div>
         </DashboardLayout>
