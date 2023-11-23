@@ -26,7 +26,7 @@ export const items = [
   },
   {
     title: 'Add Employee',
-    path: '/add-employee',
+    path: '/startup-dashboard/add-startup-employee',
     icon: (
       <SvgIcon fontSize="small">
         <UserPlusIcon />

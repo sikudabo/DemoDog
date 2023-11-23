@@ -10,7 +10,6 @@ type GeneralCompanyFormProps = {
 
 const StyledPaper = styled(Paper)`
     align-self: center;
-    background-color: ${colors.white};
     height: 80vh;
     opacity: 0.7;
     overflow: auto;
