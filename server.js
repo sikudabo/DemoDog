@@ -17,6 +17,7 @@ const {
     SaveNewCompany,
     SaveNewEmployee,
     StartupEmployeeLogin,
+    UpdateEmployeeAvatar,
 } = require('./routes');
 
 app.set('port', process.env.PORT || 2000);
@@ -49,6 +50,7 @@ app.use(SaveDemo);
 app.use(SaveNewCompany);
 app.use(SaveNewEmployee);
 app.use(StartupEmployeeLogin);
+app.use(UpdateEmployeeAvatar);
 
 startDb();
 
