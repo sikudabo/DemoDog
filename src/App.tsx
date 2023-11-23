@@ -3,6 +3,7 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import styled from '@emotion/styled';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
 import {
   BrowserRouter as Router,
@@ -16,7 +17,6 @@ import {
   SignUpPage,
   StartupDashboard,
 } from './pages';
-import { SideNav } from './components/Sidenav';
 import { useIsLoading } from './hooks';
 import { DemoDogLandingPage } from './static-pages';
 import { Footer } from './static-pages/footer';
@@ -32,25 +32,10 @@ type AppDisplayLayerProps = {
   theme: Theme;
 }
 
+const queryClient = new QueryClient();
+
 export default function App() {
   return <App_DisplayLayer {...useDataLayer()} />;
-}
-
-function TestComponent() {
-
-  return (
-    <div>
-      This is a test
-    </div>
-  );
-}
-
-function SideComponent() {
-  return (
-    <div>
-      This is a side component
-    </div>
-  );
 }
 
 function App_DisplayLayer({
@@ -62,27 +47,29 @@ function App_DisplayLayer({
       <CssBaseline />
       <ApplicationContainer container>
         <Router>
-          <ScrollToTop />
-          <Backdrop
-            open={isLoading}
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          >
-            <CircularProgress color="primary" />
-          </Backdrop>
-          <DemoDogDialog />
-          <DemoDogAppBar />
-          <Routes>
-            <Route path="/" element={<DemoDogLandingPage />} />
-            <Route path="sign-in" element={<SignInPage />} />
-            <Route path="sign-up" element={<SignUpPage />} />
-            <Route path="startup-dashboard/main" element={<StartupDashboard />}>
+          <QueryClientProvider client={queryClient}>
+            <ScrollToTop />
+            <Backdrop
+              open={isLoading}
+              sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            >
+              <CircularProgress color="primary" />
+            </Backdrop>
+            <DemoDogDialog />
+            <DemoDogAppBar />
+            <Routes>
+              <Route path="/" element={<DemoDogLandingPage />} />
+              <Route path="sign-in" element={<SignInPage />} />
+              <Route path="sign-up" element={<SignUpPage />} />
+              <Route path="startup-dashboard/main" element={<StartupDashboard />}>
 
-             {/* <Route element={<SideComponent />} path="main"/>
-              <Route element={<TestComponent />} path="test"/> */}
-            </Route>
-            <Route path="startup-dashboard/demo-upload" element={<DemoUploadPage />} />
-          </Routes>
-          <Footer />
+              {/* <Route element={<SideComponent />} path="main"/>
+                <Route element={<TestComponent />} path="test"/> */}
+              </Route>
+              <Route path="startup-dashboard/demo-upload" element={<DemoUploadPage />} />
+            </Routes>
+            <Footer />
+          </QueryClientProvider>
         </Router>
       </ApplicationContainer>
     </ThemeProvider>
