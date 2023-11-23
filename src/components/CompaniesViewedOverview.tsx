@@ -59,6 +59,7 @@ export const CompaniesViewedOverview = (props: any) => {
               </ListItemAvatar>
               <ListItemText
                 primary={company.name}
+                secondary={company.email}
                 primaryTypographyProps={{ variant: 'subtitle1' }}
                 secondaryTypographyProps={{ variant: 'body2' }}
               />

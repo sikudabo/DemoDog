@@ -2,17 +2,21 @@ import styled from '@emotion/styled';
 import { useStartupEmployeeData } from "../../hooks";
 import { StartupEmployeeType } from "../../typings/StartupEmployeeType";
 import { DashboardLayout } from "../../components/DashboardLayout";
-import { DemoDogComplexStatisticsCard } from "../../components";
 import { deviceBreakPointsMaxWidth } from '../../utils/constants';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import { CompaniesViewedOverview, colors } from '../../components';
+import { CompaniesViewedOverview, DemoDogComplexStatisticsCard, StartupEmployeesTable, colors } from '../../components';
 import StanfordLogo from '../../static-site-images/stanford_logo.jpeg';
 import MicrosoftLogo from '../../static-site-images/microsoft_logo.jpeg';
 import GoogleLogo from '../../static-site-images/google_logo.jpeg';
 import AmazonLogo from '../../static-site-images/amazon_logo.jpeg';
 import AirBnBLogo from '../../static-site-images/airbnb_logo.jpeg';
+import KevinAvatar from '../../static-site-images/kevin.jpeg';
+import EricAvatar from '../../static-site-images/eric.jpeg';
+import MarkAvatar from '../../static-site-images/mark.jpeg';
+import JeremyAvatar from '../../static-site-images/jeremy.jpeg';
+import AnthonyAvatar from '../../static-site-images/anthony.jpeg';
 
 type StartupDashboardDisplayLayerProps = {
     startupEmployee: StartupEmployeeType | {}
@@ -80,6 +84,29 @@ const StartupDashboardContainer = styled.div`
         }
 
         .companies-viewed-card {
+            width: 1100px;
+
+            @media ${deviceBreakPointsMaxWidth.laptopL}  {
+                max-height: 100%;
+                width: 100%;
+            }
+        }
+    }
+
+    .startup-employees-table-section {
+        display: flex;
+        padding-bottom: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 75vw;
+
+        @media ${deviceBreakPointsMaxWidth.laptopL}  {
+            padding-left: 0;
+            padding-right: 0;
+            width: 100%;
+        }
+
+        .team-table-card {
             width: 1100px;
 
             @media ${deviceBreakPointsMaxWidth.laptopL}  {
@@ -158,32 +185,80 @@ function StartupDashboard_DisplayLayer({
                             {
                                 id: 1,
                                 image: StanfordLogo,
-                                name: "Stanford"
+                                name: "Stanford",
+                                email: "stanford@stanford.edu",
                             },
                             {
                                 id: 2,
                                 image: MicrosoftLogo,
-                                name: "Microsoft"
+                                name: "Microsoft",
+                                email: "microsoft@microsoft.com",
+
                             },
                             {
                                 id: 3,
                                 image: GoogleLogo,
-                                name: "Google"
+                                name: "Google",
+                                email: "google@google.com",
+
                             },
                             {
                                 id: 4,
                                 image: AmazonLogo,
-                                name: "Amazon"
+                                name: "Amazon",
+                                email: "amazon@amazon.com",
                             },
                             {
                                 id: 5,
                                 image: AirBnBLogo,
-                                name: "AirBnB"
+                                name: "AirBnB",
+                                email: "airbnb@airbnb.com",
                             }
                         ]}
                         sx={{
                             width: '100%',
                         }}
+                    />
+                </div>
+                <div className="startup-employees-table-section">
+                    <StartupEmployeesTable
+                        employees={[
+                           {
+                            id: 1,
+                            firstName: 'Anthony',
+                            lastName: 'Corsaro',
+                            jobTitle: 'Food Director',
+                            avatar: AnthonyAvatar,
+                           },
+                           {
+                            firstName: 'Mark',
+                            lastName: 'Cuban',
+                            id: 2,
+                            jobTitle: 'CTO',
+                            avatar: MarkAvatar,
+                           },
+                           {
+                            firstName: 'Kevin',
+                            lastName: "O'leary",
+                            id: 3,
+                            jobTitle: 'Auditor',
+                            avatar: KevinAvatar,
+                           },
+                           {
+                            firstName: 'Eric',
+                            lastName: 'Legrand',
+                            id: 4,
+                            jobTitle: 'Director of Realness',
+                            avatar: EricAvatar,
+                           },
+                           {
+                            firstName: 'Jeremy',
+                            lastName: 'Card',
+                            id: 5,
+                            jobTitle: 'Lead Engineer',
+                            avatar: JeremyAvatar,
+                           }
+                        ]}
                     />
                 </div>
             </StartupDashboardContainer>

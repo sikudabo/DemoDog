@@ -1,4 +1,3 @@
-import { CompaniesViewedOverview } from "./CompaniesViewedOverview";
 import DemoDogAppBar from "./DemoDogAppBar";
 import DemoDogButton from "./DemoDogButton";
 import DemoDogComboBox from './DemoDogComboBox'
@@ -7,6 +6,9 @@ import DemoDogComplexStatisticsCard from "./DemoDogStatisticsCard";
 import DemoDogTextField from "./DemoDogTextField";
 import ScrollToTop from "./ScrollToTop";
 import StaticPageContainer from "./StaticPageContainer";
+import { CompaniesViewedOverview } from "./CompaniesViewedOverview";
+import { StartupDemosTable } from "./StartupDemosTable";
+import { StartupEmployeesTable } from "./StartupEmployeesTable";
 import { colors } from "./colors";
 
 export {
@@ -18,6 +20,8 @@ export {
     DemoDogComplexStatisticsCard,
     DemoDogTextField,
     ScrollToTop,
+    StartupDemosTable,
+    StartupEmployeesTable,
     StaticPageContainer,
     colors,
 };
