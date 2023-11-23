@@ -1,15 +1,7 @@
-import { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import FormControl from '@mui/material/FormControl';
+import { useState } from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import IconButton from '@mui/material/IconButton';
-import InputLabel from '@mui/material/InputLabel';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import styled from '@emotion/styled';
