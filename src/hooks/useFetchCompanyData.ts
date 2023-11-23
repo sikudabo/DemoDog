@@ -15,7 +15,6 @@ export const useFetchCompanyData = () => {
             url: `http://192.168.1.215:2000/api/fetch-company-data/${companyId}`,
         }).then(res => {
             const { company } = res.data;
-            console.log('the company data is', company);
             return company;
         }).catch(err => {
             console.log('Error sending request:', err.message);
@@ -28,7 +27,7 @@ export const useFetchCompanyData = () => {
 
         return data;
     }, {
-        refetchInterval: 1000,
-        staleTime: 1000,
+        refetchInterval: 3600000,
+        staleTime: 3600000,
     });
 }

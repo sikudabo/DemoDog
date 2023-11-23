@@ -22,7 +22,7 @@ import { useForm } from 'react-hook-form';
 import { DemoDogButton, colors } from '../../components';
 import { GeneralCompanyForm } from '../../components/forms';
 import { DashboardLayout } from '../../components/DashboardLayout';
-import { useFetchCompanyData, useIsLoading, useStartupCompanyData, useStartupEmployeeData } from '../../hooks';
+import { useFetchCompanyData, useIsLoading, useShowDialog, useStartupCompanyData, useStartupEmployeeData } from '../../hooks';
 import { postBinaryData, postNonBinaryData } from '../../utils/requests';
 import { CompanyType } from '../../hooks/useStartupCompanyData';
 import { checkValidEmail, checkValidUrl } from '../../utils/validation';
@@ -68,6 +68,8 @@ export type CompanyFormProps = Pick<FormProps, 'companyDescription' | 'companyNa
 type EditPageDisplayLayerProps = {
     companyData: CompanyType;
     isLoading: boolean;
+    setCompany: (company: CompanyType) => void;
+    setIsLoading: (isLoading: boolean) => void;
 };
 
 export default function EditPage() {
@@ -77,10 +79,12 @@ export default function EditPage() {
 function EditPage_DisplayLayer({
     companyData,
     isLoading,
+    setCompany,
+    setIsLoading,
 }: EditPageDisplayLayerProps) {
     const [companyAvatar, setCompanyAvatar] = useState<any>(null);
     const [currentPage, setCurrentPage] = useState<'company' | 'employee'>('company');
-    const { description = "", companyName, companyUrl, companyEmail, category, _id } = typeof companyData !== 'undefined' ? companyData as CompanyType : { description: "", companyName: "", companyUrl: "", companyEmail: "", category: "", _id: ""};
+    const { avatar, description, companyName, companyUrl, companyEmail, category, _id } = typeof companyData !== 'undefined' ? companyData as CompanyType : { avatar: "", description: "", companyName: "", companyUrl: "", companyEmail: "", category: "", _id: ""};
     const [selectedCategory, setSelectedCategory] = useState(category);
     const [stateCompanyDescription, setStateCompanyDescription] = useState(description);
     const [descriptionLength, setDescriptionLength] = useState(stateCompanyDescription.length);
@@ -98,6 +102,8 @@ function EditPage_DisplayLayer({
     const newCategory = watchCompany('selectedBusinessCategory');
     const newDescription = watchCompany('companyDescription');
 
+    const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
+
     useEffect(() => {
         setSelectedCategory(newCategory);
     }, [newCategory]);
@@ -111,10 +117,51 @@ function EditPage_DisplayLayer({
         return <div>Loading...</div>
     }
 
-    const handleCompanyAvatarChange = async (e: { target: { files: any }}) => {
+    async function handleCompanyAvatarChange(e: { target: { files: any }}) {
+        setIsLoading(true);
         const file = e.target.files[0];
-        const resizedAvatar = await resizeImage(file);
-        setCompanyAvatar(resizedAvatar as any);
+        const resizedAvatar: any = await resizeImage(file);
+        setCompanyAvatar(resizedAvatar);
+        const fd = new FormData();
+        fd.append('avatar', resizedAvatar, 'avatar.jpg');
+        fd.append('companyId', _id);
+        fd.append('oldAvatar', avatar);
+        
+        await postBinaryData({
+            data: fd,
+            endpoint: `api/update-company-avatar`,
+        }).then(response => {
+            const { isSuccess, message, updatedCompany } = response;
+
+            if (!isSuccess) {
+                setIsLoading(false);
+                setIsError(true);
+                setDialogTitle('Error');
+                setDialogMessage(message);
+                handleDialogMessageChange(true);
+                setCompanyAvatar(null);
+                return;
+            }
+
+            setCompany(updatedCompany);
+            setIsLoading(false);
+            setIsError(false);
+            setDialogTitle('Success');
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
+            setCompanyAvatar(null);
+            return;
+
+        }).catch(e => {
+            console.error(e.message);
+            setIsLoading(false);
+            setIsError(true);
+            setDialogTitle('Error');
+            setDialogMessage('There was an error changing your company avatar! Please try again.');
+            handleDialogMessageChange(true);
+            setCompanyAvatar(null);
+            return;
+        });
     }
 
     return (
@@ -235,5 +282,7 @@ function useDataLayer() {
     return {
         companyData: company as CompanyType,
         isLoading,
+        setCompany,
+        setIsLoading,
     };
 }

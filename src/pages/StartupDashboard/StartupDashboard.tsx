@@ -327,7 +327,6 @@ function StartupDashboard_DisplayLayer({
 
 function useDataLayer() {
     const { employee: startupEmployee } = useStartupEmployeeData();
-    console.log('The startup employee is: ', startupEmployee);
     
     return {
         startupEmployee,

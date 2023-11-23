@@ -47,7 +47,7 @@ router.route('/api/update-company-avatar').post(uploads.single('avatar'), async 
     const filename = req.file.filename;
 
     try {
-        await EmployeeModel.updateOne({ _id: companyId }, { $set: { avatar: filename } });
+        await StartupCompaniesModel.updateOne({ _id: companyId }, { $set: { avatar: filename } });
 
         if (oldAvatar) {
             const { _id } = await gfs.files.findOne({ filename: oldAvatar });
@@ -57,6 +57,7 @@ router.route('/api/update-company-avatar').post(uploads.single('avatar'), async 
         const updatedCompany = await StartupCompaniesModel.findOne({ _id: companyId });
         res.status(200).json({ isSuccess: true, message: 'Company avatar successfully updated!', updatedCompany });
     } catch(e) {
+        console.log(e.message);
         res.status(500).json({ isSuccess: false, message: 'There was an error updating the company avatar! Please try again.' });
     }
 });
