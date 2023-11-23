@@ -5,14 +5,14 @@ type PostBinaryDataProps = {
     endpoint: string;
 }
 
-export default async function putBinaryData({ data, endpoint }: PostBinaryDataProps) {
+export default async function postBinaryData({ data, endpoint }: PostBinaryDataProps) {
     const result = await axios({
         data,
         headers: {
             'Content-Type': 'multipart/form-data',
             'Content-Encoding': 'multipart/form-data',
         },
-        method: 'PUT',
+        method: 'POST',
         url: `http://192.168.1.215:2000/${endpoint}`,
     }).then(res => {
         return res.data;
