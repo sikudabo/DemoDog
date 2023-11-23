@@ -5,6 +5,7 @@ const GridFsStorage = require('multer-gridfs-storage').GridFsStorage;
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
+const { StartupCompaniesModel } = require('../db/models');
 
 const dbUri = process.env.DB_URI;
 
@@ -35,10 +36,6 @@ const storage = new GridFsStorage({
 });
 
 const uploads = multer({ storage });
-
-
-const { StartupCompaniesModel } = require('../db/models');
-
 
 router.route('/api/save-new-company').put(uploads.single('avatar'), async (req, res) => {
     const { category, companyEmail, companyName, companyUrl, description } = req.body;
