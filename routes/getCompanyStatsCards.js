@@ -17,7 +17,8 @@ router.route('/api/get-company-stats-cards/:_id').get(async (req, res) => {
         if (demos.length > 0) {
             demoLikes = demos.reduce((a, b) => a + b.likes, 0);
         }
-        return res.status(200).json({ isSuccess: true, message: 'Company stats cards retrieved successfully.', companyLikes, demoCount, demoLikes, employeeCount });
+        const employees = await EmployeeModel.find({ companyId: _id });
+        return res.status(200).json({ isSuccess: true, message: 'Company stats cards retrieved successfully.', companyLikes, demoCount, demoLikes, employees, employeeCount });
     } catch(e) {
         console.log('There was a an error retrieving company stats cards!');
         console.error(e.stack);

@@ -56,10 +56,10 @@ export const StartupEmployeesTable = (props: any) => {
                 return (
                   <TableRow
                     hover
-                    key={employee.id}
+                    key={employee._id}
                   >
                     <TableCell>
-                      <Avatar src={employee.avatar} alt="Employee avatar" sx={{ height: 30, width: 30 }} />
+                      <Avatar src={`http://192.168.1.215:2000/api/get-photo/${employee.avatar}`} alt={`${employee.firstName} ${employee.lastName} profile picture`} sx={{ height: 30, width: 30 }} />
                     </TableCell>
                     <TableCell onClick={() => console.log(employee)}>
                       {employee.firstName} {employee.lastName}

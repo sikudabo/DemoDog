@@ -23,6 +23,7 @@ type StartupDashboardDisplayLayerProps = {
     companyLikes: number;
     demoCount: number;
     demoLikes: number;
+    employees: any;
     employeeCount: number;
     isLoading: boolean;
     startupEmployee: StartupEmployeeType | {}
@@ -154,6 +155,7 @@ function StartupDashboard_DisplayLayer({
     companyLikes,
     demoCount,
     demoLikes,
+    employees,
     employeeCount,
     isLoading,
     startupEmployee,
@@ -266,43 +268,7 @@ function StartupDashboard_DisplayLayer({
                 </div>
                 <div className="startup-employees-table-section">
                     <StartupEmployeesTable
-                        employees={[
-                           {
-                            id: 1,
-                            firstName: 'Anthony',
-                            lastName: 'Corsaro',
-                            jobTitle: 'Food Director',
-                            avatar: AnthonyAvatar,
-                           },
-                           {
-                            firstName: 'Mark',
-                            lastName: 'Cuban',
-                            id: 2,
-                            jobTitle: 'CTO',
-                            avatar: MarkAvatar,
-                           },
-                           {
-                            firstName: 'Kevin',
-                            lastName: "O'leary",
-                            id: 3,
-                            jobTitle: 'Auditor',
-                            avatar: KevinAvatar,
-                           },
-                           {
-                            firstName: 'Eric',
-                            lastName: 'Legrand',
-                            id: 4,
-                            jobTitle: 'Director of Realness',
-                            avatar: EricAvatar,
-                           },
-                           {
-                            firstName: 'Jeremy',
-                            lastName: 'Card',
-                            id: 5,
-                            jobTitle: 'Lead Engineer',
-                            avatar: JeremyAvatar,
-                           }
-                        ]}
+                        employees={employees}
                     />
                 </div>
                 <div className="startup-demos-table-section">
@@ -349,17 +315,21 @@ function StartupDashboard_DisplayLayer({
 function useDataLayer() {
     const { employee: startupEmployee } = useStartupEmployeeData();
     const { data, isLoading } = useFetchStatsCards();
-    const { companyLikes, demoCount, demoLikes, employeeCount } = typeof data !== 'undefined' && !isLoading ? data : {
+    const { companyLikes, demoCount, demoLikes, employees, employeeCount } = typeof data !== 'undefined' && !isLoading ? data : {
         companyLikes: 0,
         demoCount: 0,
         demoLikes: 0,
+        employees: [],
         employeeCount: 0,
     };
+
+    console.log('The employees are:', employees);
     
     return {
         companyLikes,
         demoCount,
         demoLikes,
+        employees,
         employeeCount,
         isLoading,
         startupEmployee,
