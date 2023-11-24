@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { EmployeesModel } = require('../db/models');
+const { EmployeeModel } = require('../db/models');
 
 router.route('/api/get-employee-data/:_id').get(async (req, res) => {
     const { _id } = req.params;
 
     try {
-        const employeeData = await EmployeesModel.findOne({ _id });
+        const employeeData = await EmployeeModel.findOne({ _id });
         res.status(200).json({
             isSuccess: true,
             message: 'Employee data successfully retrieved!',

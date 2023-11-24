@@ -4,7 +4,7 @@ import { useStartupEmployeeData } from './useStartupEmployeeData';
 import { StartupEmployeeType } from '../typings/StartupEmployeeType';
 
 export const useGetStartupEmployeeData = () => {
-    const { employee } = useStartupEmployeeData();
+    const { employee, setEmployee } = useStartupEmployeeData();
     const { _id } = employee as StartupEmployeeType;
     
     return useQuery(['get-startup-employee-data', _id], async () => {
@@ -20,5 +20,8 @@ export const useGetStartupEmployeeData = () => {
         });
 
         return data;
+    }, {
+        refetchInterval: 3600000,
+        staleTime: 3600000,
     });
 }

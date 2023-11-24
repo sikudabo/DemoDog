@@ -22,12 +22,14 @@ import { useForm } from 'react-hook-form';
 import { DemoDogButton, colors } from '../../components';
 import { GeneralCompanyForm } from '../../components/forms';
 import { DashboardLayout } from '../../components/DashboardLayout';
-import { useFetchCompanyData, useIsLoading, useShowDialog, useStartupCompanyData, useStartupEmployeeData } from '../../hooks';
+import { useFetchCompanyData, useIsLoading, useShowDialog, useStartupCompanyData, useGetStartupEmployeeData, useStartupEmployeeData } from '../../hooks';
 import { postBinaryData, postNonBinaryData } from '../../utils/requests';
 import { CompanyType } from '../../hooks/useStartupCompanyData';
 import { checkValidEmail, checkValidUrl } from '../../utils/validation';
 import { businessCategories } from '../../utils/constants';
 import { resizeImage } from '../../utils/helpers';
+import { StartupEmployeeType } from '../../typings/StartupEmployeeType';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const EditPageContainer = styled.div`
     align-items: center;
@@ -63,10 +65,12 @@ type FormProps = {
     selectedBusinessCategory: string;
 };
 
-export type CompanyFormProps = Pick<FormProps, 'companyDescription' | 'companyName' | 'companyUrl' | 'email' | 'selectedBusinessCategory'>
+export type CompanyFormProps = Pick<FormProps, 'companyDescription' | 'companyName' | 'companyUrl' | 'email' | 'selectedBusinessCategory'>;
+export type EmployeeFormProps = Pick<FormProps, 'firstName' | 'lastName' | 'jobTitle' | 'linkedIn' | 'employeeEmail' | 'password'>;
 
 type EditPageDisplayLayerProps = {
     companyData: CompanyType;
+    employeeData: StartupEmployeeType;
     isLoading: boolean;
     setCompany: (company: CompanyType) => void;
     setIsLoading: (isLoading: boolean) => void;
@@ -78,12 +82,14 @@ export default function EditPage() {
 
 function EditPage_DisplayLayer({
     companyData,
+    employeeData,
     isLoading,
     setCompany,
     setIsLoading,
 }: EditPageDisplayLayerProps) {
     const [currentPage, setCurrentPage] = useState<'company' | 'employee'>('company');
     const { avatar, description, companyName, companyUrl, companyEmail, category, _id } = typeof companyData !== 'undefined' ? companyData as CompanyType : { avatar: "", description: "", companyName: "", companyUrl: "", companyEmail: "", category: "", _id: ""};
+    const { firstName, lastName, jobTitle, linkedIn, email, password, _id: employeeId } = typeof employeeData!== 'undefined'? employeeData as StartupEmployeeType : { firstName: "", lastName: "", jobTitle: "", linkedIn: "", email: "", password: "", _id: ""};
     const [selectedCategory, setSelectedCategory] = useState(category);
     const [stateCompanyDescription, setStateCompanyDescription] = useState(description);
     const [descriptionLength, setDescriptionLength] = useState(stateCompanyDescription.length);
@@ -94,6 +100,18 @@ function EditPage_DisplayLayer({
             companyUrl,
             email: companyEmail,
             selectedBusinessCategory: category,
+        },
+        mode: 'onChange',
+    });
+
+    const { register: registerEmployee, handleSubmit: handleSubmitEmployee, watch: watchEmployee, formState: { errors: employeeErrors} } = useForm<EmployeeFormProps>({
+        defaultValues: {
+            firstName,
+            lastName,
+            jobTitle,
+            linkedIn,
+            employeeEmail: email,
+            password,
         },
         mode: 'onChange',
     });
@@ -111,10 +129,6 @@ function EditPage_DisplayLayer({
         setStateCompanyDescription(newDescription);
         setDescriptionLength(newDescription.length);
     }, [newDescription]);
-
-    if (isLoading || !description) {
-        return <div>Loading...</div>
-    }
 
     async function handleCompanyAvatarChange(e: { target: { files: any }}) {
         setIsLoading(true);
@@ -202,6 +216,14 @@ function EditPage_DisplayLayer({
             handleDialogMessageChange(true);
             return;
         });
+    }
+
+    if (isLoading) {
+        return (
+            <Backdrop open={true}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+        );
     }
 
     return (
@@ -309,8 +331,10 @@ function EditPage_DisplayLayer({
 
 function useDataLayer() {
     const { data: companyData, isLoading } = useFetchCompanyData();
+    const { data: employeeData, isLoading: isEmployeeLoading } = useGetStartupEmployeeData();
     const { setIsLoading } = useIsLoading();
     const { company, setCompany } = useStartupCompanyData();
+    const { employee, setEmployee } = useStartupEmployeeData();
 
     useEffect(() => {
        setIsLoading(isLoading);
@@ -318,9 +342,17 @@ function useDataLayer() {
         setCompany(companyData);
     }
     }, [isLoading, companyData])
+
+    useEffect(() => {
+        setIsLoading(isEmployeeLoading);
+        if (!isEmployeeLoading && typeof employeeData !== 'undefined') {
+            setEmployee(employeeData);
+        }
+    }, [isEmployeeLoading, employeeData]);
     
     return {
         companyData: company as CompanyType,
+        employeeData: employee as StartupEmployeeType,
         isLoading,
         setCompany,
         setIsLoading,

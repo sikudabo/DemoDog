@@ -23,7 +23,7 @@ export default function SignInPage() {
     });
     const navigate = useNavigate();
     const { setCompany } = useStartupCompanyData();
-    const { setEmployee } = useStartupEmployeeData();
+    const { setEmployee, employee} = useStartupEmployeeData();
     const { setIsLoading } = useIsLoading();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
 
@@ -46,6 +46,7 @@ export default function SignInPage() {
 
             setCompany(company);
             setEmployee(user);
+            console.log('Employee after sign is:', employee);
             setIsLoading(false);
             setIsError(false);
             setDialogMessage(message);
