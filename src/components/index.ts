@@ -1,6 +1,7 @@
 import DemoDogAppBar from "./DemoDogAppBar";
 import DemoDogButton from "./DemoDogButton";
 import DemoDogComboBox from './DemoDogComboBox'
+import DemoDogDemoPlayer from './DemoDogDemoPlayer';
 import DemoDogDialog from "./DemoDogDialog";
 import DemoDogComplexStatisticsCard from "./DemoDogStatisticsCard";
 import DemoDogTextField from "./DemoDogTextField";
@@ -16,6 +17,7 @@ export {
     DemoDogAppBar,
     DemoDogButton,
     DemoDogComboBox,
+    DemoDogDemoPlayer,
     DemoDogDialog,
     DemoDogComplexStatisticsCard,
     DemoDogTextField,
