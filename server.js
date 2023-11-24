@@ -13,6 +13,7 @@ const sslRedirect = require('heroku-ssl-redirect');
 const { startDb } = require('./db');
 const {
     GetCompanyData,
+    GetPhoto,
     GetStartupEmployeeData,
     SaveDemo,
     SaveNewCompany,
@@ -50,6 +51,7 @@ app.use(serveStatic(path.join(__dirname, 'build')));
 
 // Routes
 app.use(GetCompanyData);
+app.use(GetPhoto);
 app.use(GetStartupEmployeeData);
 app.use(SaveDemo);
 app.use(SaveNewCompany);
