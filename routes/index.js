@@ -6,6 +6,7 @@ const GetCompanyStatsCards = require('./getCompanyStatsCards');
 const GetPhoto = require('./getPhoto');
 const GetPhotoByUserId = require('./getPhotoByUserId');
 const GetStartupEmployeeData = require('./getStartupEmployeeData');
+const GetVideo = require('./getVideo');
 const SaveDemo = require('./saveDemo');
 const SaveNewCompany = require('./saveNewCompany');
 const SaveNewEmployee = require('./saveNewEmployee');
@@ -24,6 +25,7 @@ module.exports = {
     GetPhoto,
     GetPhotoByUserId,
     GetStartupEmployeeData,
+    GetVideo,
     SaveDemo,
     SaveNewCompany,
     SaveNewEmployee,

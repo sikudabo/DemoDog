@@ -20,6 +20,7 @@ const {
     GetPhoto,
     GetPhotoByUserId,
     GetStartupEmployeeData,
+    GetVideo,
     SaveDemo,
     SaveNewCompany,
     SaveNewEmployee,
@@ -63,6 +64,7 @@ app.use(GetCompanyStatsCards);
 app.use(GetPhoto);
 app.use(GetPhotoByUserId);
 app.use(GetStartupEmployeeData);
+app.use(GetVideo);
 app.use(SaveDemo);
 app.use(SaveNewCompany);
 app.use(SaveNewEmployee);
