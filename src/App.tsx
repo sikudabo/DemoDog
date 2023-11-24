@@ -15,6 +15,7 @@ import { DemoDogAppBar, DemoDogDialog, ScrollToTop, colors } from './components'
 import {
   AddStartupEmployee,
   DemoUploadPage,
+  DemoVideoPage,
   EditPage,
   SignInPage,
   SignUpPage,
@@ -75,6 +76,7 @@ function App_DisplayLayer({
               <Route path="startup-dashboard/demo-upload" element={<DemoUploadPage />} />
               <Route path="startup-dashboard/add-startup-employee" element={<AddStartupEmployee />} />
               <Route path="startup-dashboard/edit-page" element={<EditPage />} />
+              <Route path="startup-dashboard/demo-video/:id" element={<DemoVideoPage />} />
             </Routes>
             <Footer />
           </QueryClientProvider>

@@ -28,7 +28,7 @@ export default function RouteWatch() {
             navigate('/startup-dashboard/main');
         }
 
-        else if (isLoggedIn && !acceptedRoutes.includes(pathname)) {
+        else if (isLoggedIn && (!acceptedRoutes.includes(pathname) && !pathname.includes('video'))) {
             navigate('/startup-dashboard/main');
         }
 

@@ -14,10 +14,11 @@ export default function DemoVideoPage() {
     const { id } = useParams();
 
     return (
-        <DashboardLayout>
             <Container>
+                <div>
+                    Welcome to the video page
+                </div>
                 <DemoDogDemoPlayer src={`http://192.168.1.215:2000/api/get-video/${id}`}/>
             </Container>
-        </DashboardLayout>
     );
 }

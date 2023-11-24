@@ -1,10 +1,11 @@
-import Plyr from 'plyr-react';
+import Plyr from 'react-plyr';
 import styled from '@emotion/styled';
 import Card from '@mui/material/Card';
 
 
 const StyledCard = styled(Card)`
     width: '100%';
+    hight: '100%';
 `;
 
 type DemoDogPlayerProps = {
@@ -15,21 +16,8 @@ export default function DemoDogDemoPlayer({
     src,
 }: DemoDogPlayerProps) {
     return (
-        <StyledCard elevation={10}>
-             <Plyr 
-                source={{
-                    sources: [
-                        {
-                            src: src,
-                            type: 'video',
-
-                        }
-                    ],
-                    type: 'video'
-                }}
-                autoPlay
-                playsInline
-            />
-        </StyledCard>
+        <div>
+             <video src={src} autoPlay loop muted height={700} width={700}/>
+        </div>
     );
 }

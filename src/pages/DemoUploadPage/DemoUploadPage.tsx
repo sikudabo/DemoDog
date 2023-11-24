@@ -102,7 +102,9 @@ function DemoUploadPage_DisplayLayer({
         fd.append('demoName', data.demoName);
         fd.append('description', data.description);
         fd.append('private', !isPublic as any)
-        fd.append('demo', demoVideo, 'demo.mp4');
+        let ext = demoVideo.name.split('.').pop().toString(); //This will get the extension name of the video 
+        ext = 'video.' + ext;
+        fd.append('demo', demoVideo, ext);
 
         await putBinaryData({
             data: fd,

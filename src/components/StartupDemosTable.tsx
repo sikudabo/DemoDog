@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ArrowRightIcon from '@heroicons/react/24/solid/ArrowRightIcon';
+import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   Avatar,
@@ -33,6 +34,7 @@ const statusMap = {
 
 export const StartupDemosTable = (props: any) => {
   const { demos = [], sx } = props;
+  const navigate = useNavigate();
   const { company } = useStartupCompanyData();
   const { _id: companyId } = company as CompanyType;
   const queryClient = useQueryClient();
@@ -67,6 +69,10 @@ export const StartupDemosTable = (props: any) => {
     setIsLoading(false);
     handleDialogMessageChange(true);
   })
+}
+
+function handleNavigate(id: string) {
+  navigate(`/startup-dashboard/demo-video/${id}`);
 }
 
   async function handlePrivacyChange(e: { target: { checked: boolean }}, _id: string) {
@@ -148,6 +154,7 @@ export const StartupDemosTable = (props: any) => {
                     <TableCell>
                         <DemoDogButton 
                             buttonColor={colors.salmonPink}
+                            onClick={() => handleNavigate(demo.videoId)}
                             text="PLAY"
                             isNormal
                         />
