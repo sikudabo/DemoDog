@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useStartupEmployeeData } from './useStartupEmployeeData';
 import { StartupEmployeeType } from '../typings/StartupEmployeeType';
 import { useShowDialog } from './useShowDialog';
+import { useStartupCompanyData } from './useStartupCompanyData';
 
 export const useFetchCompanyData = () => {
     const { employee } = useStartupEmployeeData();
     const { companyId } = employee as StartupEmployeeType;
     const { setDialogTitle, setDialogMessage, setIsError, handleDialogMessageChange } = useShowDialog();
 
-    return useQuery(['fetch-company-data', companyId], async () => {
+    return useQuery(['fetch-company-data'], async () => {
         const data = await axios({
             method: 'GET',
             url: `http://192.168.1.215:2000/api/fetch-company-data/${companyId}`,

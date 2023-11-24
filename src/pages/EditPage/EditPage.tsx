@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import SelectInput from '@mui/material/Select/SelectInput'; 
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Chip from '@mui/material/Chip';
@@ -19,6 +18,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
 import { DemoDogButton, colors } from '../../components';
 import { GeneralCompanyForm } from '../../components/forms';
 import { DashboardLayout } from '../../components/DashboardLayout';
@@ -88,11 +88,11 @@ function EditPage_DisplayLayer({
     setIsLoading,
 }: EditPageDisplayLayerProps) {
     const [currentPage, setCurrentPage] = useState<'company' | 'employee'>('company');
-    const { avatar, description, companyName, companyUrl, companyEmail, category, _id } = typeof companyData !== 'undefined' ? companyData as CompanyType : { avatar: "", description: "", companyName: "", companyUrl: "", companyEmail: "", category: "", _id: ""};
-    const { firstName, lastName, jobTitle, linkedIn, email, password, _id: employeeId } = typeof employeeData!== 'undefined'? employeeData as StartupEmployeeType : { firstName: "", lastName: "", jobTitle: "", linkedIn: "", email: "", password: "", _id: ""};
+    const { avatar, description, companyName, companyUrl, companyEmail, category, _id } = typeof companyData !== 'undefined' && companyData ? companyData as CompanyType : { avatar: "", description: "", companyName: "", companyUrl: "", companyEmail: "", category: "", _id: ""};
+    const { companyId, firstName, lastName, jobTitle, linkedIn, email, password, _id: employeeId } = typeof employeeData!== 'undefined'? employeeData as StartupEmployeeType : { companyId: "", firstName: "", lastName: "", jobTitle: "", linkedIn: "", email: "", password: "", _id: ""};
     const [selectedCategory, setSelectedCategory] = useState(category);
     const [stateCompanyDescription, setStateCompanyDescription] = useState(description);
-    const [descriptionLength, setDescriptionLength] = useState(stateCompanyDescription.length);
+    const [descriptionLength, setDescriptionLength] = useState(typeof stateCompanyDescription !== 'undefined' && typeof stateCompanyDescription.length !== 'undefined' ? stateCompanyDescription.length : 0);
     const { register: registerCompany, handleSubmit: handleSubmitCompany, watch: watchCompany, formState: { errors: companyErrors }} = useForm<CompanyFormProps>({
         defaultValues: {
             companyDescription: description,
@@ -103,6 +103,7 @@ function EditPage_DisplayLayer({
         },
         mode: 'onChange',
     });
+    const queryClient = useQueryClient();
 
     const { register: registerEmployee, handleSubmit: handleSubmitEmployee, watch: watchEmployee, formState: { errors: employeeErrors} } = useForm<EmployeeFormProps>({
         defaultValues: {
@@ -127,7 +128,7 @@ function EditPage_DisplayLayer({
 
     useEffect(() => {
         setStateCompanyDescription(newDescription);
-        setDescriptionLength(newDescription.length);
+        setDescriptionLength(typeof newDescription !== 'undefined' && typeof newDescription.length !== 'undefined' ? newDescription.length : 0);
     }, [newDescription]);
 
     async function handleCompanyAvatarChange(e: { target: { files: any }}) {
@@ -154,6 +155,7 @@ function EditPage_DisplayLayer({
                 return;
             }
 
+            queryClient.invalidateQueries(['fetch-company-data', companyId]);
             setCompany(updatedCompany);
             setIsLoading(false);
             setIsError(false);
@@ -182,7 +184,7 @@ function EditPage_DisplayLayer({
             companyUrl,
             companyEmail,
             category,
-            _id,
+            _id: companyId,
         };
 
         await postNonBinaryData({
@@ -201,6 +203,7 @@ function EditPage_DisplayLayer({
             }
 
             setCompany(updatedCompany);
+            queryClient.invalidateQueries(['fetch-company-data', companyId]);
             setIsLoading(false);
             setIsError(false);
             setDialogTitle('Success');
@@ -213,6 +216,54 @@ function EditPage_DisplayLayer({
             setIsError(true);
             setDialogTitle('Error');
             setDialogMessage('There was an error updating your company! Please try again.');
+            handleDialogMessageChange(true);
+            return;
+        });
+    }
+
+    async function sendEmployeeData(data: EmployeeFormProps) {
+        setIsLoading(true);
+        const { firstName, lastName, jobTitle, linkedIn, employeeEmail, password } = data;
+        const currentData = {
+            companyId,
+            firstName,
+            lastName,
+            jobTitle,
+            linkedIn,
+            employeeEmail,
+            password,
+            _id: employeeId,
+        };
+
+        await postNonBinaryData({
+            data: currentData,
+            endpoint: `api/update-employee`,
+        }).then(response => {
+            const { isSuccess, message, user} = response;
+
+            if (!isSuccess) {
+                setIsLoading(false);
+                setIsError(true);
+                setDialogTitle('Error');
+                setDialogMessage(message);
+                handleDialogMessageChange(true);
+                return;
+            }
+
+            queryClient.invalidateQueries(['get-startup-employee-data', user._id]);
+            setCompany(user);
+            setIsLoading(false);
+            setIsError(false);
+            setDialogTitle('Success');
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
+            return;
+        }).catch(e => {
+            console.error(e.message);
+            setIsLoading(false);
+            setIsError(true);
+            setDialogTitle('Error');
+            setDialogMessage('There was an error updating your account! Please try again.');
             handleDialogMessageChange(true);
             return;
         });
@@ -317,11 +368,40 @@ function EditPage_DisplayLayer({
                     </form>
                 )}
                 {currentPage === 'employee' && (
-                    <GeneralCompanyForm>
-                        <div className="company-form-header">
-                            <h1 className="company-form-header-text">Employee Information</h1>
-                        </div>
-                    </GeneralCompanyForm>
+                    <form onSubmit={handleSubmitEmployee(sendEmployeeData)}>
+                        <GeneralCompanyForm>
+                            <div className="company-form-header">
+                                <h1 className="company-form-header-text">Employee Information</h1>
+                            </div>
+                            <div className="company-name-email">
+                                <div className="company-name-container">
+                                    <TextField aria-label="Employee first name" color={employeeErrors.firstName ? 'error' : 'primary'} helperText={<p style={{ color: employeeErrors.firstName ? colors.error : colors.black}}>Required</p>} label="First Name" {...registerEmployee('firstName', { required: true })} fullWidth required />
+                                </div>
+                                <div className="email-container">
+                                    <TextField aria-label="Employee last name" color={employeeErrors.lastName ? 'error' : 'primary'} helperText={<p style={{ color: employeeErrors.lastName ? colors.error : colors.black }}>Required {employeeErrors.lastName ? 'Must enter a valid last name' : ''}</p>}  label="Last Name" {...registerEmployee('lastName', { required: true })} fullWidth required />
+                                </div>
+                            </div>
+                            <div className="company-name-email">
+                                <div className="company-name-container">
+                                    <TextField aria-label="Employee email" color={employeeErrors.employeeEmail ? 'error' : 'primary'} helperText={<p style={{ color: employeeErrors.employeeEmail ? colors.error : colors.black}}>Required</p>} label="Employee email" {...registerEmployee('employeeEmail', { required: true })} type="email" fullWidth required />
+                                </div>
+                                <div className="email-container">
+                                    <TextField aria-label="Employee password" color={employeeErrors.password ? 'error' : 'primary'} helperText={<p style={{ color: employeeErrors.password ? colors.error : colors.black }}>Required (6 character min) {employeeErrors.password ? 'Must enter a valid password' : ''}</p>}  label="Password" type="password" {...registerEmployee('password', { required: true, validate: { enoughChars: v => v.length >= 6 || "Password must be at least 6 characters long" } })} fullWidth required />
+                                </div>
+                            </div>
+                            <div className="company-name-email">
+                                <div className="company-name-container">
+                                    <TextField aria-label="Employee job title" color={employeeErrors.jobTitle ? 'error' : 'primary'} helperText={<p style={{ color: employeeErrors.jobTitle ? colors.error : colors.black }}>Required</p>} label="Job Title" {...registerEmployee('jobTitle', { required: true })} fullWidth required />
+                                </div>
+                                <div className="email-container">
+                                    <TextField aria-label="Employee LinkedIn" color={employeeErrors.linkedIn ? 'error' : 'primary'} helperText={<p style={{ color: employeeErrors.linkedIn ? colors.error : colors.black }}>Required {employeeErrors.linkedIn ? 'Must enter a valid LinkedIn URL.' : ''}</p>}  label="LinkedIn" type="url" {...registerEmployee('linkedIn', { required: true, validate: { validEmail: v => checkValidUrl(v)|| "Must enter a valid LinkedIn URL." } })} fullWidth required />
+                                </div>
+                            </div>
+                            <div className="next-button-container">
+                                <DemoDogButton buttonColor={colors.navyBlue} className="next-button" type="submit"  text="Submit" fullWidth isNormal/>
+                            </div>
+                        </GeneralCompanyForm>
+                    </form>
                 )}
             </EditPageContainer>
         </DashboardLayout>
@@ -337,8 +417,9 @@ function useDataLayer() {
     const { employee, setEmployee } = useStartupEmployeeData();
 
     useEffect(() => {
+        console.log('The company data is: ', companyData);
        setIsLoading(isLoading);
-       if (!isLoading && companyData) {
+       if (!isLoading && typeof companyData !== 'undefined') {
         setCompany(companyData);
     }
     }, [isLoading, companyData])

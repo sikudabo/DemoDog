@@ -50,8 +50,13 @@ router.route('/api/update-company-avatar').post(uploads.single('avatar'), async 
         await StartupCompaniesModel.updateOne({ _id: companyId }, { $set: { avatar: filename } });
 
         if (oldAvatar) {
-            const { _id } = await gfs.files.findOne({ filename: oldAvatar });
-            await gridfsBucket.delete(_id)
+            const { _id } = (await gfs.files.findOne({ filename: oldAvatar })) || { _id: 'kmfdka'};
+            try {
+                await gridfsBucket.delete(_id)
+            } catch (e) {
+                const updatedCompany = await StartupCompaniesModel.findOne({ _id: companyId });
+                res.status(200).json({ isSuccess: true, message: 'Company avatar successfully updated!', updatedCompany });
+            }
         }
 
         const updatedCompany = await StartupCompaniesModel.findOne({ _id: companyId });
