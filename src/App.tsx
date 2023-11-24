@@ -23,6 +23,7 @@ import {
 import { useIsLoading } from './hooks';
 import { DemoDogLandingPage } from './static-pages';
 import { Footer } from './static-pages/footer';
+import RouteWatch from './utils/RouteWatch';
 
 const ApplicationContainer = styled(Grid)`
   font-family: 'Montserrat', 'Varela Round', sans-serif;
@@ -52,6 +53,7 @@ function App_DisplayLayer({
         <Router>
           <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools initialIsOpen={false} />
+            <RouteWatch />
             <ScrollToTop />
             <Backdrop
               open={isLoading}
