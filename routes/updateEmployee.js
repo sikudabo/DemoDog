@@ -1,4 +1,5 @@
 const express = require('express');
+const ObjectID = require('mongodb').ObjectID;
 const router = express.Router();
 const { EmployeeModel } = require('../db/models');
 
@@ -7,7 +8,7 @@ router.route('/api/update-employee').post(async (req, res) => {
 
     try {
         const emailExists = await EmployeeModel.findOne({ email });
-        if (emailExists && _id !== emailExists._id) {
+        if (emailExists && _id !== emailExists._id.toString()) {
             res.status(400).json({
                 isSuccess: false,
                 message: 'That email exists! Please select another.',

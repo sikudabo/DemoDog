@@ -3,7 +3,6 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import styled from '@emotion/styled';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
 import {
@@ -53,7 +52,6 @@ function App_DisplayLayer({
       <ApplicationContainer container>
         <Router>
           <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools initialIsOpen={false} />
             <RouteWatch />
             <ScrollToTop />
             <Backdrop

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Grid = require('gridfs-stream');
-const GridFsStorage = require('multer-gridfs-storage').GridFsStorage;
+const GridFsStorage = require('multer-gridfs-storage');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
@@ -16,12 +16,9 @@ let gfs;
 
 let gridfsBucket
 
-conn.once('open', async () => {
+conn.once('open', () => {
     // Init Stream
-    gfs = await Grid(conn.db, mongoose.mongo);
-    gridfsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
-        bucketName: 'uploads',
-    });
+    gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('uploads');
     return 'done';
 });

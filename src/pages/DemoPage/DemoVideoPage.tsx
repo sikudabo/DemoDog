@@ -8,17 +8,17 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
 `;
 
 export default function DemoVideoPage() {
     const { id } = useParams();
 
     return (
+        <DashboardLayout>
             <Container>
-                <div>
-                    Welcome to the video page
-                </div>
                 <DemoDogDemoPlayer src={`http://192.168.1.215:2000/api/get-video/${id}`}/>
             </Container>
+        </DashboardLayout>
     );
 }
