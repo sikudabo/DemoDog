@@ -11,9 +11,11 @@ import {
   useMediaQuery
 } from '@mui/material';
 import { DemoDogLogoIcon } from '../icons';
+import { useStartupCompanyData } from '../../hooks';
 import { items } from './Items/items';
 import { SideNavItem } from './Items/SideNavItem';
 import { colors } from '../colors';
+import { CompanyType } from '../../hooks/useStartupCompanyData';
 const AnimaLogo = require('../../static-site-images/anima_logo.jpeg');
 export const Scrollbar = styled(SimpleBar)``;
 
@@ -40,6 +42,8 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
   const { open, onClose } = props;
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
   const { pathname } = useLocation();
+  const { company } = useStartupCompanyData();
+  const { avatar } = company as CompanyType
 
   const content = (
     <Scrollbar
@@ -67,7 +71,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
             component="div"
           >
             {/* <DemoDogLogoIcon height={70} logoColor={colors.white} width={70} /> */}
-            <img  alt="Company logo" src={AnimaLogo} height={70} width={70} />
+            <img  alt="Company logo" src={`http://192.168.1.215:2000/api/get-photo/${avatar}`} height={70} width={70} />
           </Box>
           <Box
             sx={{
