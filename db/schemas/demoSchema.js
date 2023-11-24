@@ -5,6 +5,7 @@ const demoSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now, required: true },
     demoName: { type: String, required: true },
     description: { type: String, required: true },
+    likes: { type: Number, required: true, default: 0 },
     videoId: { type: String, required: true },
     uploaderId: { type: String, required: true },
     uploaderName: { type: String, required: true },

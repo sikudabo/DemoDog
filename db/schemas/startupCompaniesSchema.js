@@ -9,6 +9,7 @@ const startupCompaniesSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now, required: true },
     demos: [String],
     description: { type: String, required: true },
+    likes: { type: Number, required: true, default: 0 },
     profileViews: [String],
 }, 
 {

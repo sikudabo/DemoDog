@@ -20,7 +20,7 @@ import { DemoDogButton, colors } from '../../components';
 import { businessCategories } from '../../utils/constants';
 import { resizeImage } from '../../utils/helpers';
 import { putBinaryData } from '../../utils/requests';
-import { useIsLoading, useShowDialog, useStartupEmployeeData } from '../../hooks';
+import { useIsLoading, useShowDialog, useStartupCompanyData, useStartupEmployeeData } from '../../hooks';
 import { checkValidEmail, checkValidUrl } from '../../utils/validation';
 
 export type FormProps = {
@@ -48,6 +48,7 @@ export default function SignUpPage() {
     const headerTextRef = useRef(null); 
     const navigate = useNavigate();
     const { setIsLoading } = useIsLoading();
+    const { setCompany } = useStartupCompanyData();
     const { setEmployee } = useStartupEmployeeData();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
 
@@ -140,7 +141,8 @@ export default function SignUpPage() {
             data: formData,
             endpoint: 'api/save-new-company',
         }).then(response => {
-            const { companyId, isSuccess, message } = response;
+            const { updatedCompany, isSuccess, message } = response;
+            const { _id } = updatedCompany;
             if (!isSuccess) {
                 setDialogMessage(message);
                 setDialogTitle('Error');
@@ -150,8 +152,10 @@ export default function SignUpPage() {
                 return;
             }
 
+            setCompany(updatedCompany);
+
             const fd = new FormData();
-            fd.append('companyId', companyId);
+            fd.append('companyId', _id);
             fd.append('firstName', firstName);
             fd.append('lastName', lastName);
             fd.append('email', employeeEmail);

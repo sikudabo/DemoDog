@@ -59,8 +59,8 @@ router.route('/api/save-new-company').put(uploads.single('avatar'), async (req, 
         };
 
         await StartupCompaniesModel.insertMany([newCompany]);
-        const { _id: companyId } = await StartupCompaniesModel.findOne({ companyName });
-        return res.status(200).json({ isSuccess: true, message: 'New company added successfully.', companyId: 1, companyId });
+        const updatedCompany = await StartupCompaniesModel.findOne({ companyName });
+        return res.status(200).json({ isSuccess: true, message: 'New company added successfully.', updatedCompany });
     } catch(e) {
         console.log('There was a an error saving a new company!');
         console.error(e.stack);

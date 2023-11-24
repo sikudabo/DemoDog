@@ -163,7 +163,7 @@ function StartupDashboard_DisplayLayer({
                         color: "success",
                         label: "This month",
                         }}
-                        timeTable="This month"
+                        timeTable="All Time"
                     />
                     <DemoDogComplexStatisticsCard
                         color="dark"
@@ -175,7 +175,7 @@ function StartupDashboard_DisplayLayer({
                         color: "success",
                         label: "This month",
                         }}
-                        timeTable="This month"
+                        timeTable="All Time"
                     />
                      <DemoDogComplexStatisticsCard
                         color="dark"
@@ -187,7 +187,7 @@ function StartupDashboard_DisplayLayer({
                         color: "success",
                         label: "This month",
                         }}
-                        timeTable="Forever"
+                        timeTable="Total"
                     />
                     <DemoDogComplexStatisticsCard
                         color="dark"
@@ -199,7 +199,7 @@ function StartupDashboard_DisplayLayer({
                         color: "success",
                         label: "This month",
                         }}
-                        timeTable="Forever"
+                        timeTable="Total"
                     />
                 </div>
                 <div className="company-views-overview-section">
