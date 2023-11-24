@@ -21,9 +21,9 @@ import Switch from '@mui/material/Switch';
 import { Scrollbar } from './Sidenav/Sidenav';
 import DemoDogButton from './DemoDogButton';
 import { colors } from './colors';
-import { postNonBinaryData } from '../utils/requests';
+import { deleteData, postNonBinaryData } from '../utils/requests';
 import { CompanyType, useStartupCompanyData } from '../hooks/useStartupCompanyData';
-import { useIsLoading } from '../hooks';
+import { useIsLoading, useShowDialog } from '../hooks';
 
 const statusMap = {
   pending: 'warning',
@@ -37,6 +37,37 @@ export const StartupDemosTable = (props: any) => {
   const { _id: companyId } = company as CompanyType;
   const queryClient = useQueryClient();
   const { setIsLoading } = useIsLoading();
+  const { setDialogTitle, setIsError, setDialogMessage, handleDialogMessageChange } = useShowDialog();
+
+  async function handleDeleteDemo(demoId: string, videoId: string) {
+    setIsLoading(true);
+    await deleteData({
+      data: {},
+      endpoint: `api/delete-demo/${demoId}/${videoId}`,
+    }).then(res => {
+      const { isSuccess, message } = res;
+      if (!isSuccess) {
+        setIsLoading(false);
+        setDialogTitle('Error');
+        setIsError(true);
+        setDialogMessage(message);
+        setIsLoading(false);
+        handleDialogMessageChange(true);
+        return;
+      }
+
+      queryClient.invalidateQueries(['get-company-stats-cards', companyId]);
+      setIsLoading(false);
+
+  }).catch(() => {
+    setIsLoading(false);
+    setDialogTitle('Error');
+    setIsError(true);
+    setDialogMessage('There was an error deleting that demo. Please try again!');
+    setIsLoading(false);
+    handleDialogMessageChange(true);
+  })
+}
 
   async function handlePrivacyChange(e: { target: { checked: boolean }}, _id: string) {
     setIsLoading(true);
@@ -109,6 +140,7 @@ export const StartupDemosTable = (props: any) => {
                     <TableCell>
                         <DemoDogButton 
                             buttonColor={colors.error}
+                            onClick={(() => handleDeleteDemo(demo._id, demo.videoId)) }
                             text="DELETE"
                             isNormal
                         />
