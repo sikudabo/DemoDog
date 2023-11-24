@@ -1,4 +1,5 @@
 const GetCompanyData = require('./getCompanyData');
+const GetStartupEmployeeData = require('./getStartupEmployeeData');
 const SaveDemo = require('./saveDemo');
 const SaveNewCompany = require('./saveNewCompany');
 const SaveNewEmployee = require('./saveNewEmployee');
@@ -10,6 +11,7 @@ const UpdateEmployeeAvatar = require('./updateEmployeeAvatar');
 
 module.exports = {
     GetCompanyData,
+    GetStartupEmployeeData,
     SaveDemo,
     SaveNewCompany,
     SaveNewEmployee,
