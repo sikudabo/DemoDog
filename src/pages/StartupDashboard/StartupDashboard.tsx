@@ -21,6 +21,7 @@ import { Backdrop, CircularProgress } from '@mui/material';
 
 type StartupDashboardDisplayLayerProps = {
     companyLikes: number;
+    demos: any;
     demoCount: number;
     demoLikes: number;
     employees: any;
@@ -153,6 +154,7 @@ export default function StartupDashboard() {
 
 function StartupDashboard_DisplayLayer({
     companyLikes,
+    demos,
     demoCount,
     demoLikes,
     employees,
@@ -273,38 +275,7 @@ function StartupDashboard_DisplayLayer({
                 </div>
                 <div className="startup-demos-table-section">
                     <StartupDemosTable
-                        demos={[
-                           {
-                            id: 1,
-                            uploaderName: 'Anthony Corsaro',
-                            uploaderAvatar: AnthonyAvatar,
-                            name: 'How to chuck wood',
-                           },
-                           {
-                            id: 2,
-                            uploaderName: 'Mark Cuban',
-                            uploaderAvatar: MarkAvatar,
-                            name: 'Quick and easy',
-                           },
-                           {
-                            id: 3,
-                            uploaderName: 'Kevin O\'leary',
-                            uploaderAvatar: KevinAvatar,
-                            name: 'Bug fixer',
-                           },
-                           {
-                            id: 4,
-                            uploaderName: 'Eric Legrand',
-                            uploaderAvatar: EricAvatar,
-                            name: 'How to fix bug',
-                           },
-                           {
-                            id: 5,
-                            uploaderName: 'Jeremy Card',
-                            uploaderAvatar: JeremyAvatar,
-                            name: 'New date picker component',
-                           }
-                        ]}
+                        demos={demos}
                     />
                 </div>
             </StartupDashboardContainer>
@@ -315,18 +286,20 @@ function StartupDashboard_DisplayLayer({
 function useDataLayer() {
     const { employee: startupEmployee } = useStartupEmployeeData();
     const { data, isLoading } = useFetchStatsCards();
-    const { companyLikes, demoCount, demoLikes, employees, employeeCount } = typeof data !== 'undefined' && !isLoading ? data : {
+    const { companyLikes, demos, demoCount, demoLikes, employees, employeeCount } = typeof data !== 'undefined' && !isLoading ? data : {
         companyLikes: 0,
+        demos: [],
         demoCount: 0,
         demoLikes: 0,
         employees: [],
         employeeCount: 0,
     };
 
-    console.log('The employees are:', employees);
+    console.log('The demos are:', demos);
     
     return {
         companyLikes,
+        demos,
         demoCount,
         demoLikes,
         employees,

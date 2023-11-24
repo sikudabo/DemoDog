@@ -1,3 +1,5 @@
+const ChangeDemoPrivacy = require('./changeDemoPrivacy');
+const DeleteDemo = require('./deleteDemo');
 const DeleteEmployee = require('./deleteEmployee');
 const GetCompanyData = require('./getCompanyData');
 const GetCompanyStatsCards = require('./getCompanyStatsCards');
@@ -14,6 +16,8 @@ const UpdateCompanyAvatar = require('./updateCompanyAvatar');
 const UpdateEmployeeAvatar = require('./updateEmployeeAvatar');
 
 module.exports = {
+    ChangeDemoPrivacy,
+    DeleteDemo,
     DeleteEmployee,
     GetCompanyData,
     GetCompanyStatsCards,

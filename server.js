@@ -12,6 +12,8 @@ const cors = require('cors');
 const sslRedirect = require('heroku-ssl-redirect');
 const { startDb } = require('./db');
 const {
+    ChangeDemoPrivacy,
+    DeleteDemo,
     DeleteEmployee,
     GetCompanyData,
     GetCompanyStatsCards,
@@ -53,6 +55,8 @@ app.use(history({
 app.use(serveStatic(path.join(__dirname, 'build')));
 
 // Routes
+app.use(ChangeDemoPrivacy);
+app.use(DeleteDemo);
 app.use(DeleteEmployee);
 app.use(GetCompanyData);
 app.use(GetCompanyStatsCards);

@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ArrowRightIcon from '@heroicons/react/24/solid/ArrowRightIcon';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   Avatar,
   Box,
@@ -19,6 +21,9 @@ import Switch from '@mui/material/Switch';
 import { Scrollbar } from './Sidenav/Sidenav';
 import DemoDogButton from './DemoDogButton';
 import { colors } from './colors';
+import { postNonBinaryData } from '../utils/requests';
+import { CompanyType, useStartupCompanyData } from '../hooks/useStartupCompanyData';
+import { useIsLoading } from '../hooks';
 
 const statusMap = {
   pending: 'warning',
@@ -28,6 +33,30 @@ const statusMap = {
 
 export const StartupDemosTable = (props: any) => {
   const { demos = [], sx } = props;
+  const { company } = useStartupCompanyData();
+  const { _id: companyId } = company as CompanyType;
+  const queryClient = useQueryClient();
+  const { setIsLoading } = useIsLoading();
+
+  async function handlePrivacyChange(e: { target: { checked: boolean }}, _id: string) {
+    setIsLoading(true);
+    await postNonBinaryData({
+      data: { _id, isPrivate: !e.target.checked},
+      endpoint: 'api/demo-privacy-change',
+    }).then(res => {  
+      const { isSuccess, message } = res;
+      if (!isSuccess) {
+        setIsLoading(false);
+        console.log('Error:', message);
+      }
+
+      queryClient.invalidateQueries(['get-company-stats-cards', companyId]);
+      setIsLoading(false);
+    }).catch(err => {
+      setIsLoading(false);
+      console.log('Error:', err.message);
+    });
+  }
 
   return (
     <Card className="demos-table-card">
@@ -66,16 +95,16 @@ export const StartupDemosTable = (props: any) => {
                     key={demo.id}
                   >
                     <TableCell>
-                      <Avatar src={demo.uploaderAvatar} alt="Employee avatar" sx={{ height: 30, width: 30 }} />
+                      <Avatar src={`http://192.168.1.215:2000/api/get-photo-by-id/${demo.uploaderId}`} alt="Employee avatar" sx={{ height: 30, width: 30 }} />
                     </TableCell>
                     <TableCell>
                       {demo.uploaderName}
                     </TableCell>
                     <TableCell>
-                        {demo.name}
+                        {demo.demoName}
                     </TableCell>
                     <TableCell>
-                        <Switch color="secondary" defaultChecked />
+                        <Switch color="secondary" checked={!demo.private} onChange={(e) => handlePrivacyChange(e, demo._id)}/>
                     </TableCell>
                     <TableCell>
                         <DemoDogButton 
