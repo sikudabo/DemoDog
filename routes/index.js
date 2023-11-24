@@ -1,4 +1,5 @@
 const GetCompanyData = require('./getCompanyData');
+const GetCompanyStatsCards = require('./getCompanyStatsCards');
 const GetPhoto = require('./getPhoto');
 const GetStartupEmployeeData = require('./getStartupEmployeeData');
 const SaveDemo = require('./saveDemo');
@@ -12,6 +13,7 @@ const UpdateEmployeeAvatar = require('./updateEmployeeAvatar');
 
 module.exports = {
     GetCompanyData,
+    GetCompanyStatsCards,
     GetPhoto,
     GetStartupEmployeeData,
     SaveDemo,
