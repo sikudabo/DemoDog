@@ -6,6 +6,7 @@ import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form'
+import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../../components/DashboardLayout';
 import { GeneralCompanyForm } from '../../components/forms';
@@ -66,6 +67,7 @@ function AddStartupEmployee_DisplayLayer({
         },
         mode: 'onChange',
     });
+    const queryClient = useQueryClient();
     const { setIsLoading } = useIsLoading();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
 
@@ -120,6 +122,7 @@ function AddStartupEmployee_DisplayLayer({
                 return;
             }
 
+            queryClient.invalidateQueries(['get-company-stats-cards', companyId]);
             setDialogTitle('Success');
             setIsError(false);
             setDialogMessage(message);
