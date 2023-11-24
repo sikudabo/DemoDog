@@ -1,12 +1,20 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Box, ButtonBase } from '@mui/material';
+import { useStartupEmployeeData, useStartupCompanyData } from '../../../hooks';
 
 export const SideNavItem = (props: any) => {
   const { active = false, disabled, icon, path, title } = props;
   const navigate = useNavigate();
+  const { setCompany } = useStartupCompanyData();
+  const { setEmployee } = useStartupEmployeeData();
 
   function handleNavigate() {
+    if (path === '/logout') {
+      setCompany({} as any);
+      setEmployee({} as any);
+      navigate('/');
+    }
     navigate(path);
   }
   
