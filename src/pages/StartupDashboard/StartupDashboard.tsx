@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useStartupEmployeeData } from "../../hooks";
+import { useFetchStatsCards, useStartupEmployeeData } from "../../hooks";
 import { StartupEmployeeType } from "../../typings/StartupEmployeeType";
 import { DashboardLayout } from "../../components/DashboardLayout";
 import { deviceBreakPointsMaxWidth } from '../../utils/constants';
@@ -17,8 +17,14 @@ import EricAvatar from '../../static-site-images/eric.jpeg';
 import MarkAvatar from '../../static-site-images/mark.jpeg';
 import JeremyAvatar from '../../static-site-images/jeremy.jpeg';
 import AnthonyAvatar from '../../static-site-images/anthony.jpeg';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 type StartupDashboardDisplayLayerProps = {
+    companyLikes: number;
+    demoCount: number;
+    demoLikes: number;
+    employeeCount: number;
+    isLoading: boolean;
     startupEmployee: StartupEmployeeType | {}
 };
 
@@ -145,9 +151,24 @@ export default function StartupDashboard() {
 }
 
 function StartupDashboard_DisplayLayer({
+    companyLikes,
+    demoCount,
+    demoLikes,
+    employeeCount,
+    isLoading,
     startupEmployee,
 }: StartupDashboardDisplayLayerProps) {
     const { firstName, lastName } = startupEmployee as StartupEmployeeType;
+
+    if (isLoading) {
+        return (
+            <Backdrop open={true} style={{ color: '#fff', zIndex: 30 }}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100vw' }}>
+                    <CircularProgress color="inherit" />
+                </div>
+            </Backdrop>
+        );
+    }
 
     return (
         <DashboardLayout>
@@ -158,7 +179,7 @@ function StartupDashboard_DisplayLayer({
                         className="stats-card"
                         icon={<ThumbUpIcon style={{ color: colors.salmonPink, fontSize: 30 }} />}
                         title="Demo Likes"
-                        count={281}
+                        count={demoLikes}
                         percentage={{
                         color: "success",
                         label: "This month",
@@ -170,7 +191,7 @@ function StartupDashboard_DisplayLayer({
                         className="stats-card-follow"
                         icon={<ThumbUpIcon style={{ color: colors.navyBlue, fontSize: 30 }} />}
                         title="Company Likes"
-                        count={25}
+                        count={companyLikes}
                         percentage={{
                         color: "success",
                         label: "This month",
@@ -182,7 +203,7 @@ function StartupDashboard_DisplayLayer({
                         className="stats-card-follow"
                         icon={<FileUploadIcon style={{ color: colors.success, fontSize: 30 }} />}
                         title="Demo Uploads"
-                        count={400}
+                        count={demoCount}
                         percentage={{
                         color: "success",
                         label: "This month",
@@ -194,7 +215,7 @@ function StartupDashboard_DisplayLayer({
                         className="stats-card-follow"
                         icon={<EmojiPeopleIcon style={{ color: colors.atosGreen, fontSize: 30 }} />}
                         title="Employees"
-                        count={10}
+                        count={employeeCount}
                         percentage={{
                         color: "success",
                         label: "This month",
@@ -327,8 +348,20 @@ function StartupDashboard_DisplayLayer({
 
 function useDataLayer() {
     const { employee: startupEmployee } = useStartupEmployeeData();
+    const { data, isLoading } = useFetchStatsCards();
+    const { companyLikes, demoCount, demoLikes, employeeCount } = typeof data !== 'undefined' && !isLoading ? data : {
+        companyLikes: 0,
+        demoCount: 0,
+        demoLikes: 0,
+        employeeCount: 0,
+    };
     
     return {
+        companyLikes,
+        demoCount,
+        demoLikes,
+        employeeCount,
+        isLoading,
         startupEmployee,
     };
 }

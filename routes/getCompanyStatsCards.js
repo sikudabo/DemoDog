@@ -15,7 +15,7 @@ router.route('/api/get-company-stats-cards/:_id').get(async (req, res) => {
         const { likes: companyLikes } = company;
         const demos = await DemoModel.find({ companyId: _id });
         if (demos.length > 0) {
-            demoLikes = demos.reduce((a, b) => a.likes + b.likes, 0);
+            demoLikes = demos.reduce((a, b) => a + b.likes, 0);
         }
         return res.status(200).json({ isSuccess: true, message: 'Company stats cards retrieved successfully.', companyLikes, demoCount, demoLikes, employeeCount });
     } catch(e) {
