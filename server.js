@@ -16,6 +16,7 @@ const {
     GetCompanyData,
     GetCompanyStatsCards,
     GetPhoto,
+    GetPhotoByUserId,
     GetStartupEmployeeData,
     SaveDemo,
     SaveNewCompany,
@@ -56,6 +57,7 @@ app.use(DeleteEmployee);
 app.use(GetCompanyData);
 app.use(GetCompanyStatsCards);
 app.use(GetPhoto);
+app.use(GetPhotoByUserId);
 app.use(GetStartupEmployeeData);
 app.use(SaveDemo);
 app.use(SaveNewCompany);
