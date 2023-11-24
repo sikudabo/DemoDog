@@ -28,7 +28,7 @@ export const useFetchCompanyData = () => {
 
         return data;
     }, {
-        refetchInterval: 3600000,
-        staleTime: 3600000,
+        refetchInterval: 1000,
+        staleTime: 1000,
     });
 }

@@ -43,7 +43,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
   const { pathname } = useLocation();
   const { company } = useStartupCompanyData();
-  const { avatar } = company as CompanyType
+  const { avatar, companyName } = company as CompanyType
 
   const content = (
     <Scrollbar
@@ -90,7 +90,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
                 color="inherit"
                 variant="subtitle1"
               >
-                Anima
+                {companyName}
               </Typography>
             </div>
           </Box>

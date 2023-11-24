@@ -297,7 +297,7 @@ function EditPage_DisplayLayer({
             }
 
             queryClient.invalidateQueries(['get-startup-employee-data', user._id]);
-            setCompany(user);
+            setEmployee(user);
             setIsLoading(false);
             setIsError(false);
             setDialogTitle('Success');
