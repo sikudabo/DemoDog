@@ -9,6 +9,7 @@ const path = require('path');
 const serveStatic = require('serve-static');
 const history = require('connect-history-api-fallback');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const sslRedirect = require('heroku-ssl-redirect');
 const { startDb } = require('./db');
 const {
@@ -30,6 +31,8 @@ const {
     UpdateCompanyAvatar,
     UpdateEmployeeAvatar,
 } = require('./routes');
+
+mongoose.connect('mongodb://localhost:27017/demodog', {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.set('port', process.env.PORT || 2000);
 app.set('appName', 'DemoDog');

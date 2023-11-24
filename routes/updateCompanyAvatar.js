@@ -8,25 +8,26 @@ const path = require('path');
 const dotenv = require('dotenv').config();
 const { StartupCompaniesModel } = require('../db/models');
 
-const dbUri = dotenv.parsed.DB_URI;
+const dbUri = process.env.DB_URI;
+console.log('The dbUri is: ', dbUri);
 
 var conn = mongoose.createConnection(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+var promise = mongoose.connect(dbUri, {useNewUrlParser: true, useUnifiedTopology: true});
 
 let gfs;
 
-let gridfsBucket
-
 conn.once('open', () => {
     // Init Stream
-    gfs = Grid(conn.db, mongoose.mongo);
+    gfs = Grid(conn, mongoose.mongo);
     gfs.collection('uploads');
     return 'done';
 });
 
 const storage = new GridFsStorage({
+    db: promise,
     url: dbUri,
-    file: async (req, file) => {
-      return await new Promise((resolve) => {
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
           const filename = Date.now() + "-" + file.fieldname + path.extname(file.originalname);
           const fileInfo = {
             filename: filename,
@@ -49,7 +50,7 @@ router.route('/api/update-company-avatar').post(uploads.single('avatar'), async 
         if (oldAvatar) {
             const { _id } = (await gfs.files.findOne({ filename: oldAvatar })) || { _id: 'kmfdka'};
             try {
-                await gridfsBucket.delete(_id)
+                await gfs.remove({ filename, root: 'uploads' });
             } catch (e) {
                 const updatedCompany = await StartupCompaniesModel.findOne({ _id: companyId });
                 res.status(200).json({ isSuccess: true, message: 'Company avatar successfully updated!', updatedCompany });

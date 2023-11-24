@@ -1,10 +1,10 @@
 const express = require('express');
-const ObjectID = require('mongodb').ObjectID;
 const router = express.Router();
 const { EmployeeModel } = require('../db/models');
 
 router.route('/api/update-employee').post(async (req, res) => {
     const { firstName, lastName, companyId, email, jobTitle, linkedIn, password, _id } = req.body;
+    console.log('The email being sent in is: ', email);
 
     try {
         const emailExists = await EmployeeModel.findOne({ email });
