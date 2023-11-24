@@ -73,6 +73,7 @@ type EditPageDisplayLayerProps = {
     employeeData: StartupEmployeeType;
     isLoading: boolean;
     setCompany: (company: CompanyType) => void;
+    setEmployee: (employee: StartupEmployeeType) => void;
     setIsLoading: (isLoading: boolean) => void;
 };
 
@@ -85,11 +86,12 @@ function EditPage_DisplayLayer({
     employeeData,
     isLoading,
     setCompany,
+    setEmployee,
     setIsLoading,
 }: EditPageDisplayLayerProps) {
     const [currentPage, setCurrentPage] = useState<'company' | 'employee'>('company');
     const { avatar, description, companyName, companyUrl, companyEmail, category, _id } = typeof companyData !== 'undefined' && companyData ? companyData as CompanyType : { avatar: "", description: "", companyName: "", companyUrl: "", companyEmail: "", category: "", _id: ""};
-    const { companyId, firstName, lastName, jobTitle, linkedIn, email, password, _id: employeeId } = typeof employeeData!== 'undefined'? employeeData as StartupEmployeeType : { companyId: "", firstName: "", lastName: "", jobTitle: "", linkedIn: "", email: "", password: "", _id: ""};
+    const { avatar: employeeAvatar, companyId, firstName, lastName, jobTitle, linkedIn, email, password, _id: employeeId } = typeof employeeData!== 'undefined'? employeeData as StartupEmployeeType : { avatar: "", companyId: "", firstName: "", lastName: "", jobTitle: "", linkedIn: "", email: "", password: "", _id: ""};
     const [selectedCategory, setSelectedCategory] = useState(category);
     const [stateCompanyDescription, setStateCompanyDescription] = useState(description);
     const [descriptionLength, setDescriptionLength] = useState(typeof stateCompanyDescription !== 'undefined' && typeof stateCompanyDescription.length !== 'undefined' ? stateCompanyDescription.length : 0);
@@ -170,6 +172,50 @@ function EditPage_DisplayLayer({
             setIsError(true);
             setDialogTitle('Error');
             setDialogMessage('There was an error changing your company avatar! Please try again.');
+            handleDialogMessageChange(true);
+            return;
+        });
+    }
+
+    async function handleEmployeeAvatarChange(e: { target: { files: any }}) {
+        setIsLoading(true);
+        const file = e.target.files[0];
+        const resizedAvatar: any = await resizeImage(file);
+        const fd = new FormData();
+        fd.append('avatar', resizedAvatar, 'avatar.jpg');
+        fd.append('employeeId', employeeId);
+        fd.append('oldAvatar', employeeAvatar);
+        
+        await postBinaryData({
+            data: fd,
+            endpoint: `api/update-employee-avatar`,
+        }).then(response => {
+            const { isSuccess, message, updatedEmployee } = response;
+
+            if (!isSuccess) {
+                setIsLoading(false);
+                setIsError(true);
+                setDialogTitle('Error');
+                setDialogMessage(message);
+                handleDialogMessageChange(true);
+                return;
+            }
+
+            queryClient.invalidateQueries(['fetch-company-data', companyId]);
+            setEmployee(updatedEmployee);
+            setIsLoading(false);
+            setIsError(false);
+            setDialogTitle('Success');
+            setDialogMessage(message);
+            handleDialogMessageChange(true);
+            return;
+
+        }).catch(e => {
+            console.error(e.message);
+            setIsLoading(false);
+            setIsError(true);
+            setDialogTitle('Error');
+            setDialogMessage('There was an error changing your profile avatar! Please try again.');
             handleDialogMessageChange(true);
             return;
         });
@@ -359,7 +405,7 @@ function EditPage_DisplayLayer({
                                     <input aria-label="Company Avatar Photo" accept="image/jpeg, image/jpg, image/png" name="companyAvatar" onChange={handleCompanyAvatarChange} type="file" hidden/>
                                     <PhotoCameraIcon />
                                 </IconButton>
-                                Company Avatar (required)
+                                Company Avatar
                             </div>
                             <div className="next-button-container">
                                 <DemoDogButton buttonColor={colors.navyBlue} className="next-button" type="submit"  text="Submit" fullWidth isNormal/>
@@ -396,6 +442,13 @@ function EditPage_DisplayLayer({
                                 <div className="email-container">
                                     <TextField aria-label="Employee LinkedIn" color={employeeErrors.linkedIn ? 'error' : 'primary'} helperText={<p style={{ color: employeeErrors.linkedIn ? colors.error : colors.black }}>Required {employeeErrors.linkedIn ? 'Must enter a valid LinkedIn URL.' : ''}</p>}  label="LinkedIn" type="url" {...registerEmployee('linkedIn', { required: true, validate: { validEmail: v => checkValidUrl(v)|| "Must enter a valid LinkedIn URL." } })} fullWidth required />
                                 </div>
+                            </div>
+                            <div className="company-avatar-section">
+                                <IconButton aria-label="Employee Avatar Upload Button" color="primary" component="label">
+                                    <input aria-label="Employee Avatar Photo" accept="image/jpeg, image/jpg, image/png" name="employeeAvatar" onChange={handleEmployeeAvatarChange} type="file" hidden />
+                                    <PhotoCameraIcon />
+                                </IconButton>
+                                Employee Avatar
                             </div>
                             <div className="next-button-container">
                                 <DemoDogButton buttonColor={colors.navyBlue} className="next-button" type="submit"  text="Submit" fullWidth isNormal/>
@@ -436,6 +489,7 @@ function useDataLayer() {
         employeeData: employee as StartupEmployeeType,
         isLoading,
         setCompany,
+        setEmployee,
         setIsLoading,
     };
 }
