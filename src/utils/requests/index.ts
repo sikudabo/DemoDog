@@ -1,8 +1,10 @@
+import deleteData from "./deleteData";
 import postBinaryData from "./postBinaryData";
 import putBinaryData from "./putBinaryData";
 import { postNonBinaryData } from "./postNonBinaryData";
 
-export {
+export { 
+    deleteData,
     postBinaryData,
     postNonBinaryData,
     putBinaryData,
