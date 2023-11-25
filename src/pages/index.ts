@@ -5,6 +5,7 @@ import EditPage from "./EditPage/EditPage";
 import SignInPage from "./SignInPage/SignInPage";
 import SignupDecision from "./SignupDecision";
 import SignUpPage from "./SignUpPage/SignUpPage";
+import SignupOrganization from "./SignupOrganization";
 import StartupDashboard from "./StartupDashboard/StartupDashboard";
 
 export {
@@ -14,6 +15,7 @@ export {
     EditPage,
     SignInPage,
     SignupDecision,
+    SignupOrganization,
     SignUpPage,
     StartupDashboard,
 };

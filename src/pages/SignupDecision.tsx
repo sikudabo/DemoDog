@@ -54,7 +54,7 @@ export default function SignupDecision() {
             return;
         }
 
-        console.log('Hello');
+        navigate('/sign-up-organization');
     };
 
     return (

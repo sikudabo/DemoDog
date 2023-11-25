@@ -13,6 +13,7 @@ export default function RouteWatch() {
         '/sign-in',
         '/sign-up',
         '/sign-up-decision',
+        '/sign-up-organization',
         '/startup-dashboard/main',
         '/startup-dashboard/demo-upload',
         '/startup-dashboard/add-startup-employee',

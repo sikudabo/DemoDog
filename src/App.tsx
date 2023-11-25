@@ -18,6 +18,7 @@ import {
   EditPage,
   SignInPage,
   SignupDecision,
+  SignupOrganization,
   SignUpPage,
   StartupDashboard,
 } from './pages';
@@ -68,6 +69,7 @@ function App_DisplayLayer({
               <Route path="sign-up-decision" element={<SignupDecision />} />
               <Route path="sign-in" element={<SignInPage />} />
               <Route path="sign-up" element={<SignUpPage />} />
+              <Route path="sign-up-organization" element={<SignupOrganization />} />
               <Route path="startup-dashboard/main" element={<StartupDashboard />}>
 
               {/* <Route element={<SideComponent />} path="main"/>
