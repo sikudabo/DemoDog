@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
 const sslRedirect = require('heroku-ssl-redirect');
 const { startDb } = require('./db');
 const {
+    AddCompanyLike,
     ChangeDemoPrivacy,
     DeleteDemo,
     DeleteEmployee,
@@ -64,6 +65,7 @@ app.use(history({
 app.use(serveStatic(path.join(__dirname, 'build')));
 
 // Routes
+app.use(AddCompanyLike);
 app.use(ChangeDemoPrivacy);
 app.use(DeleteDemo);
 app.use(DeleteEmployee);

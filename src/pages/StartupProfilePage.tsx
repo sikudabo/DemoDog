@@ -3,11 +3,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import LikeIcon from '@mui/icons-material/ThumbUp'; 
 import { useParams } from 'react-router-dom';
-import { useFetchStartupProfileData } from '../hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { useFetchStartupProfileData, useIsLoading, useOrganizationData, useShowDialog } from '../hooks';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { StartupEmployeeType } from '../typings/StartupEmployeeType';
 import { CompanyType } from '../hooks/useStartupCompanyData';
 import { DemoDogButton, StartupProfileEmployeesTable, StartupProfilesDemosTable } from '../components';
+import { OrganizationType } from '../typings/OrganizationType';
+import { postNonBinaryData } from '../utils/requests';
 
 const Container = styled.div`
     display: flex;
@@ -78,7 +81,9 @@ const Container = styled.div`
 type StartupProfilePageDisplayLayerProps = {
     demos: Array<any>;
     employees: Array<StartupEmployeeType>;
+    handleOrganizationLike: () => void;
     isLoading: boolean;
+    organizationIsLoggedIn: boolean;
     startupCompanyData: CompanyType;
 };
 
@@ -90,7 +95,9 @@ export default function StartupProfilePage() {
 function StartupProfilePage_DisplayLayer({
     demos,
     employees,
+    handleOrganizationLike,
     isLoading,
+    organizationIsLoggedIn,
     startupCompanyData,
 }: StartupProfilePageDisplayLayerProps) {
 
@@ -119,9 +126,11 @@ function StartupProfilePage_DisplayLayer({
                 <p className="company-name">{companyName}</p>
             </div>
             <div className="like-company-section">
-                <Button color="secondary" startIcon={<LikeIcon />} variant="outlined">
-                    Like 
-                </Button>
+                {organizationIsLoggedIn && (
+                    <Button color="secondary" onClick={handleOrganizationLike} startIcon={<LikeIcon />} variant="outlined">
+                        Like 
+                    </Button>
+                )}
             </div>
             <div className="company-description-section">
                 <p className="company-description-section-text">{description}</p>
@@ -137,6 +146,10 @@ function StartupProfilePage_DisplayLayer({
 }
 
 function useDataLayer(_id: string) {
+    const queryClient = useQueryClient();
+    const { setIsLoading } = useIsLoading();
+    const { setIsError, handleDialogMessageChange, setDialogMessage, setDialogTitle } = useShowDialog();
+    const { organization } = useOrganizationData();
     const { data, isLoading } = useFetchStartupProfileData(_id);
     const { demos, employees, startupCompanyData } = typeof data!== 'undefined' &&!isLoading ? data : {
         demos: [],
@@ -144,11 +157,37 @@ function useDataLayer(_id: string) {
         startupCompanyData: {},
     };
 
+    async function handleOrganizationLike() {
+        const { _id } = startupCompanyData;
+        const { _id: organizationId } = organization as OrganizationType;
+        setIsLoading(true);
+
+        await postNonBinaryData({
+            data: {
+                _id,
+                organizationId,
+            },
+            endpoint: 'api/add-company-like',
+        }).then(() => {
+            setIsLoading(false);
+            queryClient.invalidateQueries(['get-startup-profile-data']);
+        }).catch(err => {
+            console.log(err.message);
+            setIsLoading(false);
+            setIsError(true);
+            setDialogTitle('Error');
+            setDialogMessage('There was an error like the company! Please try again.');
+            handleDialogMessageChange(true);
+        });
+    }
+
     return {
         data,
         demos,
         employees,
+        handleOrganizationLike,
         isLoading,
+        organizationIsLoggedIn: typeof organization !== 'undefined',
         startupCompanyData,
     };
 }

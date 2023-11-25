@@ -30,6 +30,7 @@ const Container = styled.div`
         flex-direction: row;
         flex-wrap: wrap;
         gap: 10px;
+        padding-bottom: 30px;
         padding-left: 20px;
         padding-right: 20px;
         width: 100vw;
