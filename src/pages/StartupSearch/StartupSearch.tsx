@@ -96,9 +96,10 @@ function StartupSearch_DisplayLayer({
                 <Grid className="companies-list-container">
                     {startups.map((startup, index) => (
                         <div className="companies-list-item-container" key={index}>
-                                <CompanyCard
-                                    className="companies-list-item"
-                                    {...startup} />
+                            <CompanyCard
+                                className="companies-list-item"
+                                {...startup} 
+                            />
                         </div>
                     ))}
                 </Grid>

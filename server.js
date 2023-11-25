@@ -18,6 +18,7 @@ const {
     DeleteEmployee,
     FetchAllStartups,
     FetchDemo,
+    FetchStartupCompanyData,
     GetCompanyData,
     GetCompanyStatsCards,
     GetPhoto,
@@ -68,6 +69,7 @@ app.use(DeleteDemo);
 app.use(DeleteEmployee);
 app.use(FetchAllStartups);
 app.use(FetchDemo);
+app.use(FetchStartupCompanyData);
 app.use(GetCompanyData);
 app.use(GetCompanyStatsCards);
 app.use(GetPhoto);
