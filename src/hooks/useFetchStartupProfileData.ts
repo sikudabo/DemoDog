@@ -7,17 +7,21 @@ export const useFetchStartupProfileData = (_id: string) => {
                 method: 'GET',
                 url: `http://192.168.1.215:2000/api/fetch-startup-profile-data/${_id}`,
             }).then(res => {
-                const { startup } = res.data;
-                return startup;
+                const { demos, employees, startupCompanyData } = res.data;
+                return { demos, employees, startupCompanyData };
             }).catch(err => {
                 console.log('Error sending request:', err.message);
-                return {};
+                return {
+                    demos: [],
+                    employees: [],
+                    startupCompanyData: [],
+                };
             });
 
             return data;
         }, {
-            refetchInterval: 3600000,
-            staleTime: 3600000,
+            refetchInterval: 1000,
+            staleTime: 1000,
         }
     );
 }

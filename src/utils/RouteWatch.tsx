@@ -18,11 +18,12 @@ export default function RouteWatch() {
         '/startup-dashboard/demo-upload',
         '/startup-dashboard/add-startup-employee',
         '/startup-dashboard/edit-page',
+        '/startup-profile',
         '/search-companies',
     ];
 
     useEffect(() => {
-        if (!isLoggedIn && pathname.includes('startup-dashboard')) {
+        /*if (!isLoggedIn && pathname.includes('startup-dashboard')) {
             navigate('/');
             return;
         }
@@ -39,9 +40,11 @@ export default function RouteWatch() {
             navigate('/');
         } else if (!isLoggedIn && pathname.includes('search')) {
             navigate('/search-companies');
+        } else if (!isLoggedIn && pathname.includes('company-profile')) {
+            return;
         }
 
-        console.log('the pathname is:', pathname);
+        console.log('the pathname is:', pathname);*/
     }, [pathname])
 
     return null;

@@ -21,6 +21,7 @@ import {
   SignupOrganization,
   SignUpPage,
   StartupDashboard,
+  StartupProfilePage,
   StartupSearch,
 } from './pages';
 import { useIsLoading } from './hooks';
@@ -75,6 +76,7 @@ function App_DisplayLayer({
               <Route path="search-companies" element={<StartupSearch />} />
               <Route path="startup-dashboard/demo-upload" element={<DemoUploadPage />} />
               <Route path="startup-dashboard/add-startup-employee" element={<AddStartupEmployee />} />
+              <Route path="startup-profile/:_id" element={<StartupProfilePage />} />
               <Route path="startup-dashboard/edit-page" element={<EditPage />} />
               <Route path="startup-dashboard/demo-video/:id" element={<DemoVideoPage />} />
             </Routes>

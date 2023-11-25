@@ -1,5 +1,6 @@
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
 import truncate from 'lodash/truncate';
+import { useNavigate } from 'react-router-dom';
 import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography } from '@mui/material';
 import { DemoDogButton } from '../components';
 
@@ -25,6 +26,12 @@ export const CompanyCard = ({
     description,
     _id,
 }: CompanyType & { className: string }) => {
+
+    const navigate = useNavigate();
+
+    function handleNavigation(_id: string) {
+        navigate(`/startup-profile/${_id}`);
+    }
 
   return (
     <Card
@@ -79,7 +86,7 @@ export const CompanyCard = ({
           spacing={1}
         >
         
-          <DemoDogButton text="View Profile" variant="outlined" />
+          <DemoDogButton text="View Profile" onClick={() => handleNavigation(_id)} isOutlined />
         </Stack>
         <Stack
           alignItems="center"
