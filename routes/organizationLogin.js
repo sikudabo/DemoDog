@@ -39,3 +39,5 @@ router.route('/api/login-organization').post(async (req, res) => {
         });
     }
 });
+
+module.exports = router;
