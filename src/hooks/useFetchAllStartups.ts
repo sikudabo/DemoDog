@@ -7,7 +7,8 @@ export const useFetchAllStartups = () => {
             method: 'GET',
             url: 'http://192.168.1.215:2000/api/fetch-all-startups',
         }).then((res) => {
-            return res.data;
+            const { startups } = res.data;
+            return startups;
         }).catch((err) => {
             console.log(err);
             const { isError, message } = err.response.data;

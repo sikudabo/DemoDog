@@ -18,18 +18,21 @@ export type CompanyType = {
 
 export const CompanyCard = ({
     avatar,
+    className,
     companyEmail,
     companyName,
     description,
     _id,
-}: CompanyType) => {
+}: CompanyType & { className: string }) => {
 
   return (
     <Card
+      className={className}
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: 500,
+        overflow: 'auto',
       }}
     >
       <CardContent>
@@ -37,7 +40,7 @@ export const CompanyCard = ({
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            pb: 3
+            pb: 3,
           }}
         >
           <Avatar
@@ -53,10 +56,11 @@ export const CompanyCard = ({
           {companyName}
         </Typography>
         <Typography
-          align="center"
-          variant="body1"
+            align="center"
+            color="textSecondary"
+            variant="body2"
         >
-          {description}
+            {description}
         </Typography>
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
