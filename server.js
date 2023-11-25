@@ -26,6 +26,7 @@ const {
     SaveDemo,
     SaveNewCompany,
     SaveNewEmployee,
+    SaveNewOrganization,
     StartupEmployeeLogin,
     UpdateCompany,
     UpdateEmployee,
@@ -73,6 +74,7 @@ app.use(GetVideo);
 app.use(SaveDemo);
 app.use(SaveNewCompany);
 app.use(SaveNewEmployee);
+app.use(SaveNewOrganization);
 app.use(StartupEmployeeLogin);
 app.use(UpdateCompany);
 app.use(UpdateEmployee);

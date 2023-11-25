@@ -11,6 +11,7 @@ const GetVideo = require('./getVideo');
 const SaveDemo = require('./saveDemo');
 const SaveNewCompany = require('./saveNewCompany');
 const SaveNewEmployee = require('./saveNewEmployee');
+const SaveNewOrganization = require('./saveNewOrganization');
 const StartupEmployeeLogin = require('./startupEmployeeLogin');
 const UpdateCompany = require('./updateCompany');
 const UpdateEmployee = require('./updateEmployee');
@@ -31,6 +32,7 @@ module.exports = {
     SaveDemo,
     SaveNewCompany,
     SaveNewEmployee,
+    SaveNewOrganization,
     StartupEmployeeLogin,
     UpdateCompany,
     UpdateEmployee,
