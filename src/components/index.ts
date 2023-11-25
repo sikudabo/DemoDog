@@ -11,6 +11,7 @@ import StaticPageContainer from "./StaticPageContainer";
 import { CompaniesViewedOverview } from "./CompaniesViewedOverview";
 import { StartupDemosTable } from "./StartupDemosTable";
 import { StartupEmployeesTable } from "./StartupEmployeesTable";
+import { StartupProfileEmployeesTable } from './StartupProfileEmployeesTable';
 import { colors } from "./colors";
 
 export {
@@ -26,6 +27,7 @@ export {
     ScrollToTop,
     StartupDemosTable,
     StartupEmployeesTable,
+    StartupProfileEmployeesTable,
     StaticPageContainer,
     colors,
 };
