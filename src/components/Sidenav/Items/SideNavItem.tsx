@@ -14,6 +14,7 @@ export const SideNavItem = (props: any) => {
       setCompany({} as any);
       setEmployee({} as any);
       navigate('/');
+      return;
     }
     navigate(path);
   }

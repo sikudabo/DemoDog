@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
+import truncate from 'lodash/truncate';
 import { useParams } from 'react-router-dom';
 import { useFetchStartupProfileData } from '../hooks';
 import { Backdrop, CircularProgress } from '@mui/material';
@@ -8,7 +9,55 @@ import { CompanyType } from '../hooks/useStartupCompanyData';
 import { StartupEmployeesTable } from '../components';
 
 const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-top: 100px;
+    width: 100vw;
+
+    .top-avatar-section {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-bottom: 20px;
+        width: 100%;
+
+      .top-avatar {
+        height: 200px;
+        width: 200px;
+      }
+    }
+
+    .company-name-section {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding-bottom: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        width: 100%;
+
+        .company-name {
+            font-size: 40px;
+            font-weight: 900;
+        }
+    }
+
+    .company-description-section {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+        text-align: left;
+        width: 100%;
+
+        .company-description-section-text {
+            font-size: 24px;
+            font-weight: normal;
+        }
+    }
 `;
 
 type StartupProfilePageDisplayLayerProps = {
@@ -30,6 +79,12 @@ function StartupProfilePage_DisplayLayer({
     startupCompanyData,
 }: StartupProfilePageDisplayLayerProps) {
 
+    const { avatar, companyName, description } = typeof startupCompanyData !== 'undefined' ? startupCompanyData : {
+        avatar: '',
+        companyName: '',
+        description: '',
+    };
+
     if (isLoading) {
         return (
             <Backdrop open={true} style={{ color: '#fff', zIndex: 30 }}>
@@ -42,8 +97,14 @@ function StartupProfilePage_DisplayLayer({
 
     return (
        <Container>
-            <div>
-                Company profile
+            <div className="top-avatar-section">
+                <Avatar alt="Company avatar" className="top-avatar" src={`http://192.168.1.215:2000/api/get-photo/${avatar}`} />
+            </div>
+            <div className="company-name-section">
+                <p className="company-name">{companyName}</p>
+            </div>
+            <div className="company-description-section">
+                <p className="company-description-section-text">{description}</p>
             </div>
        </Container>
     );
@@ -56,8 +117,6 @@ function useDataLayer(_id: string) {
         employees: [] ,
         startupCompanyData: {},
     };
-
-    console.log('The data is:', data);
 
     return {
         data,
