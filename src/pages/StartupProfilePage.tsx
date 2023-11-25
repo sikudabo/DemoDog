@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import LikeIcon from '@mui/icons-material/ThumbUp'; 
 import { useParams } from 'react-router-dom';
 import { useFetchStartupProfileData } from '../hooks';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { StartupEmployeeType } from '../typings/StartupEmployeeType';
 import { CompanyType } from '../hooks/useStartupCompanyData';
-import { StartupProfileEmployeesTable } from '../components';
+import { DemoDogButton, StartupProfileEmployeesTable } from '../components';
 
 const Container = styled.div`
     display: flex;
@@ -63,6 +65,14 @@ const Container = styled.div`
         padding-right: 10px;
         width: 100vw;
     }
+
+    .like-company-section {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100vw;
+    }
 `;
 
 type StartupProfilePageDisplayLayerProps = {
@@ -107,6 +117,11 @@ function StartupProfilePage_DisplayLayer({
             </div>
             <div className="company-name-section">
                 <p className="company-name">{companyName}</p>
+            </div>
+            <div className="like-company-section">
+                <Button color="secondary" startIcon={<LikeIcon />} variant="outlined">
+                    Like 
+                </Button>
             </div>
             <div className="company-description-section">
                 <p className="company-description-section-text">{description}</p>
