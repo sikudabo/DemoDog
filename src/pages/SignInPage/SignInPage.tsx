@@ -1,3 +1,9 @@
+import { useState } from 'react';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +20,8 @@ type SignInFormProps = {
 };
 
 export default function SignInPage() {
+    const [isStartupCustomer, setIsStartupCustomer] = useState('startup-customer');
+
     const { register, handleSubmit, formState: { errors } } = useForm<SignInFormProps>({
         defaultValues: {
             email: '',
@@ -63,6 +71,10 @@ export default function SignInPage() {
         });
     }
 
+    function toggleIsStartupCustomer(e: { target: { value: string }}) {
+        setIsStartupCustomer(e.target.value);
+    };
+
     return (
         <SignUpPageContainer backgroundColor={colors.salmonPink}>
             <div className="sign-up-page-header">
@@ -76,6 +88,20 @@ export default function SignInPage() {
                         </div>
                         <div className="company-url-section" style={{ paddingTop: 40 }}>
                             <TextField aria-label="Employee Password" color={errors.password ? 'error' : 'primary'} helperText={<p style={{ color: errors.password ? colors.error : colors.black  }}>Must enter a valid Password</p>} label="Password" type="password" {...register('password', { required: true, validate: { validUrl: v => v.length >= 6 || "You must enter a valid password!" } })} fullWidth required />
+                        </div>
+                        <div style={{ paddingLeft: 20, paddingRight: 20}}>
+                            <FormControl component="fieldset">
+                                <FormLabel component="legend">Are you signing in as a startup customer or an organization/investor?</FormLabel>
+                                <RadioGroup
+                                    aria-label="startup customer  question"
+                                    name="startup-customer"
+                                    onChange={toggleIsStartupCustomer}
+                                    value={isStartupCustomer}
+                                >
+                                    <FormControlLabel value="startup-customer" control={<Radio />} label="Startup" />
+                                    <FormControlLabel value="organization-customer" control={<Radio />} label="Organization/Investor" />
+                                </RadioGroup>
+                            </FormControl>
                         </div>
                         <div className="back-submit-buttons-container" style={{ paddingTop: 40 }}>
                             <DemoDogButton buttonColor={colors.salmonPink} className="back-button" text="Forgot?" isOutlined/>
