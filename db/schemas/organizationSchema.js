@@ -7,6 +7,8 @@ const organizationSchema = new mongoose.Schema({
     password: { type: String, required: true },
     name: { type: String, required: true, unique: true },
     userType: { type: String, required: true, default: 'organization' },
+}, {
+    collection: 'organizations',
 });
 
 module.exports = organizationSchema;

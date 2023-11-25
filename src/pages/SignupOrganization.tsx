@@ -10,7 +10,7 @@ import { GeneralCompanyForm } from "../components/forms";
 import { checkValidEmail } from "../utils/validation";
 import { resizeImage } from "../utils/helpers";
 import { useIsLoading, useOrganizationData, useShowDialog } from "../hooks";
-import { postBinaryData } from "../utils/requests";
+import { putBinaryData } from "../utils/requests";
 
 const SignupOrganizationContainer = styled.div`
     align-items: center;
@@ -62,7 +62,7 @@ export default function SignupOrganization() {
         fd.append('password', password);
         fd.append('avatar', companyAvatar, 'company-logo.jpg');
 
-        await postBinaryData({
+        await putBinaryData({
             data: fd,
             endpoint: 'api/save-new-organization',
         }).then(res => {
@@ -100,7 +100,7 @@ export default function SignupOrganization() {
                                 <TextField aria-label="Company Email" color={errors.email ? 'error' : 'primary'} helperText={<p style={{ color: errors.email ? colors.error : colors.black}}>Required</p>} label="Company Email" {...register('email', { required: true, validate: { checkEmail: (v) =>  checkValidEmail(v) || "You must enter a valid email for the company."} })} type="email" fullWidth required />
                             </div>
                             <div className="email-container">
-                                <TextField aria-label="Organization Pass" color={errors.password ? 'error' : 'primary'} helperText={<p style={{ color: errors.password ? colors.error : colors.black }}>Required (at least 6 characters){errors.password ? 'Must enter a valid password' : ''}</p>}  label="Password" {...register('password', { required: true, validate: { checkValid: (v) => v.length >= 6 || 'Your password must be at least 6 characters'} })} fullWidth required />
+                                <TextField aria-label="Organization Pass" color={errors.password ? 'error' : 'primary'} helperText={<p style={{ color: errors.password ? colors.error : colors.black }}>Required (at least 6 characters){errors.password ? 'Must enter a valid password' : ''}</p>}  label="Password" type="password" {...register('password', { required: true, validate: { checkValid: (v) => v.length >= 6 || 'Your password must be at least 6 characters'} })} fullWidth required />
                             </div>
                         </div>
                         <div className="company-name-email">

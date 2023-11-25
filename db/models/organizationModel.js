@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { organizationSchema } = require('./organizationSchema');
+const { organizationSchema } = require('../schemas');
 
 const OrganizationModel = mongoose.model('OrganizationModel', organizationSchema);
 
