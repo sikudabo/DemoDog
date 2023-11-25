@@ -121,7 +121,7 @@ export default function DemoDogAppBar() {
     }, [pathname]);
 
     const isHidden = useMemo(() => {
-        if (pathname.includes('dashboard') || pathname.includes('search-companies')) {
+        if (pathname.includes('dashboard')) {
             return true;
         }
 

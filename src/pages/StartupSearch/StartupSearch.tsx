@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import Grid from '@mui/material/Grid';
 import { CompanyCard } from '../../components';
 import { useFetchAllStartups } from '../../hooks';
 import { CompanyType } from '../../hooks/useStartupCompanyData';
@@ -27,26 +28,36 @@ const Container = styled.div`
     .companies-list-container {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         gap: 10px;
         padding-left: 20px;
         padding-right: 20px;
-        width: 100%;
+        width: 100vw;
 
         @media ${deviceBreakPointsMaxWidth.laptop}  {
-            flex-direction: column;
+            
         }
 
         .companies-list-item-container {
-            width: 33%;
+            flex-basis: 32%;
+            max-width: 100vw;
 
             @media ${deviceBreakPointsMaxWidth.laptop}  {
-                width: 100%;
+                flex-basis: 100%;
+                max-width: 100vw;
             }
 
             .companies-list-item {
                 height: 100%;
-                width: 100%;
                 margin-bottom: 10px;
+
+                @media ${deviceBreakPointsMaxWidth.laptop}  {
+                    width: 90vw;
+                }
+
+                .link-tag {
+                    text-decoration: none;
+                }
             }
         }
     }
@@ -81,18 +92,17 @@ function StartupSearch_DisplayLayer({
              <>
                 <div className="top-header-container">
                     <p className="top-header-text">Search Companies</p>
-                </div><div className="companies-list-container">
-                        {startups.map((startup, index) => (
-                            <div className="companies-list-item-container" key={index}>
-                                <div className="companies-list-item">
-                                    <CompanyCard
-                                        className="companies-list-item"
-                                        {...startup} />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </>
+                </div> 
+                <Grid className="companies-list-container">
+                    {startups.map((startup, index) => (
+                        <div className="companies-list-item-container" key={index}>
+                                <CompanyCard
+                                    className="companies-list-item"
+                                    {...startup} />
+                        </div>
+                    ))}
+                </Grid>
+            </>
            ) : (
             <div>
                 No Startups

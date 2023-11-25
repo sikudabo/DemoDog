@@ -1,4 +1,5 @@
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
+import truncate from 'lodash/truncate';
 import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography } from '@mui/material';
 import { DemoDogButton } from '../components';
 
@@ -56,7 +57,7 @@ export const CompanyCard = ({
           {companyName}
         </Typography>
         <Typography
-            align="center"
+            align="left"
             color="textSecondary"
             variant="body2"
         >
@@ -91,13 +92,11 @@ export const CompanyCard = ({
           >
             <ArrowDownOnSquareIcon />
           </SvgIcon>
-          <Typography
-            color="text.secondary"
-            display="inline"
-            variant="body2"
+          <a
+            href={`mailto:${companyEmail}`}
           >
-            {companyEmail}
-          </Typography>
+            {truncate(companyEmail, { length: 20 })}
+          </a>
         </Stack>
       </Stack>
     </Card>
