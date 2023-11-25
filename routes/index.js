@@ -1,6 +1,7 @@
 const ChangeDemoPrivacy = require('./changeDemoPrivacy');
 const DeleteDemo = require('./deleteDemo');
 const DeleteEmployee = require('./deleteEmployee');
+const FetchAllStartups = require('./fetchAllStartups');
 const FetchDemo = require('./fetchDemo');
 const GetCompanyData = require('./getCompanyData');
 const GetCompanyStatsCards = require('./getCompanyStatsCards');
@@ -23,6 +24,7 @@ module.exports = {
     ChangeDemoPrivacy,
     DeleteDemo,
     DeleteEmployee,
+    FetchAllStartups,
     FetchDemo,
     GetCompanyData,
     GetCompanyStatsCards,

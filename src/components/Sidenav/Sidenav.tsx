@@ -16,7 +16,6 @@ import { items } from './Items/items';
 import { SideNavItem } from './Items/SideNavItem';
 import { colors } from '../colors';
 import { CompanyType } from '../../hooks/useStartupCompanyData';
-const AnimaLogo = require('../../static-site-images/anima_logo.jpeg');
 export const Scrollbar = styled(SimpleBar)``;
 
 const StyledRoot = styled('div')({
@@ -143,7 +142,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
           sx: {
             backgroundColor: 'neutral.800',
             color: colors.white,
-            width: 280
+            width: 220
           }
         }}
         variant="permanent"

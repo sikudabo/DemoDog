@@ -7,6 +7,7 @@ import SignupDecision from "./SignupDecision";
 import SignUpPage from "./SignUpPage/SignUpPage";
 import SignupOrganization from "./SignupOrganization";
 import StartupDashboard from "./StartupDashboard/StartupDashboard";
+import StartupSearch from "./StartupSearch/StartupSearch";
 
 export {
     AddStartupEmployee,
@@ -18,4 +19,5 @@ export {
     SignupOrganization,
     SignUpPage,
     StartupDashboard,
+    StartupSearch,
 };

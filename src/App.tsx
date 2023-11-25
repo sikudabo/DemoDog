@@ -21,6 +21,7 @@ import {
   SignupOrganization,
   SignUpPage,
   StartupDashboard,
+  StartupSearch,
 } from './pages';
 import { useIsLoading } from './hooks';
 import { DemoDogLandingPage } from './static-pages';
@@ -70,11 +71,8 @@ function App_DisplayLayer({
               <Route path="sign-in" element={<SignInPage />} />
               <Route path="sign-up" element={<SignUpPage />} />
               <Route path="sign-up-organization" element={<SignupOrganization />} />
-              <Route path="startup-dashboard/main" element={<StartupDashboard />}>
-
-              {/* <Route element={<SideComponent />} path="main"/>
-                <Route element={<TestComponent />} path="test"/> */}
-              </Route>
+              <Route path="startup-dashboard/main" element={<StartupDashboard />} />
+              <Route path="search-companies" element={<StartupSearch />} />
               <Route path="startup-dashboard/demo-upload" element={<DemoUploadPage />} />
               <Route path="startup-dashboard/add-startup-employee" element={<AddStartupEmployee />} />
               <Route path="startup-dashboard/edit-page" element={<EditPage />} />

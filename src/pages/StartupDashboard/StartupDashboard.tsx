@@ -45,7 +45,7 @@ const StartupDashboardContainer = styled.div`
         padding-right: 20px;
         width: 75vw;
 
-        @media ${deviceBreakPointsMaxWidth.laptopL}  {
+        @media ${deviceBreakPointsMaxWidth.laptop}  {
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -57,7 +57,7 @@ const StartupDashboardContainer = styled.div`
             width: 300px;
             height: 300px;
 
-            @media ${deviceBreakPointsMaxWidth.laptopL}  {
+            @media ${deviceBreakPointsMaxWidth.laptop}  {
                 height: 100%;
                 width: 100%;
             }
@@ -68,7 +68,7 @@ const StartupDashboardContainer = styled.div`
             height: 300px;
             margin-left: 20px;
 
-            @media ${deviceBreakPointsMaxWidth.laptopL}  {
+            @media ${deviceBreakPointsMaxWidth.laptop}  {
                 height: 100%;
                 width: 100%;
                 margin-left: 0;
@@ -85,7 +85,7 @@ const StartupDashboardContainer = styled.div`
         padding-right: 20px;
         width: 75vw;
 
-        @media ${deviceBreakPointsMaxWidth.laptopL}  {
+        @media ${deviceBreakPointsMaxWidth.laptop}  {
             padding-left: 0;
             padding-right: 0;
             width: 100%;
@@ -94,7 +94,7 @@ const StartupDashboardContainer = styled.div`
         .companies-viewed-card {
             width: 1100px;
 
-            @media ${deviceBreakPointsMaxWidth.laptopL}  {
+            @media ${deviceBreakPointsMaxWidth.laptop}  {
                 max-height: 100%;
                 width: 100%;
             }
@@ -108,7 +108,7 @@ const StartupDashboardContainer = styled.div`
         padding-right: 20px;
         width: 75vw;
 
-        @media ${deviceBreakPointsMaxWidth.laptopL}  {
+        @media ${deviceBreakPointsMaxWidth.laptop}  {
             padding-left: 0;
             padding-right: 0;
             width: 100%;
@@ -117,7 +117,7 @@ const StartupDashboardContainer = styled.div`
         .team-table-card {
             width: 1100px;
 
-            @media ${deviceBreakPointsMaxWidth.laptopL}  {
+            @media ${deviceBreakPointsMaxWidth.laptop}  {
                 max-height: 100%;
                 width: 100%;
             }
@@ -131,7 +131,7 @@ const StartupDashboardContainer = styled.div`
         padding-right: 20px;
         width: 75vw;
 
-        @media ${deviceBreakPointsMaxWidth.laptopL}  {
+        @media ${deviceBreakPointsMaxWidth.laptop}  {
             padding-left: 0;
             padding-right: 0;
             width: 100%;
@@ -140,7 +140,7 @@ const StartupDashboardContainer = styled.div`
         .demos-table-card {
             width: 1100px;
 
-            @media ${deviceBreakPointsMaxWidth.laptopL}  {
+            @media ${deviceBreakPointsMaxWidth.laptop}  {
                 max-height: 100%;
                 width: 100%;
             }

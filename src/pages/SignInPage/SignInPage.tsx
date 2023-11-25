@@ -12,7 +12,7 @@ import GeneralCompanyForm from '../../components/forms/GeneralCompanyForm';
 import { DemoDogButton, colors } from "../../components";
 import { checkValidEmail } from '../../utils/validation'
 import { postNonBinaryData } from "../../utils/requests";
-import { useIsLoading, useShowDialog, useStartupCompanyData, useStartupEmployeeData } from "../../hooks";
+import { useIsLoading, useOrganizationData, useShowDialog, useStartupCompanyData, useStartupEmployeeData } from "../../hooks";
 
 type SignInFormProps = {
     email: string;
@@ -31,7 +31,8 @@ export default function SignInPage() {
     });
     const navigate = useNavigate();
     const { setCompany } = useStartupCompanyData();
-    const { setEmployee, employee} = useStartupEmployeeData();
+    const { setEmployee } = useStartupEmployeeData();
+    const { setOrganization } = useOrganizationData();
     const { setIsLoading } = useIsLoading();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
 
@@ -40,7 +41,7 @@ export default function SignInPage() {
 
         postNonBinaryData({
             data,
-            endpoint: 'api/login-startup-employee',
+            endpoint: isStartupCustomer === 'startup-customer' ? 'api/login-startup-employee' : 'api/login-organization',
         }).then(res => {
             const { company, isSuccess, message, user } = res;
             if (!isSuccess) {
@@ -52,15 +53,25 @@ export default function SignInPage() {
                 return;
             }
 
-            setCompany(company);
-            setEmployee(user);
-            console.log('Employee after sign is:', employee);
+            if (isStartupCustomer === 'startup-customer') {
+                setCompany(company);
+                setEmployee(user);
+                setIsLoading(false);
+                setIsError(false);
+                setDialogMessage(message);
+                setDialogTitle('Success');
+                handleDialogMessageChange(true);
+                navigate('/startup-dashboard/main');
+                return;
+            }
+
             setIsLoading(false);
             setIsError(false);
             setDialogMessage(message);
             setDialogTitle('Success');
             handleDialogMessageChange(true);
-            navigate('/startup-dashboard/main');
+            setOrganization(user);
+            navigate('/search-companies');
             return;
         }).catch(errors => {
             setIsLoading(false);

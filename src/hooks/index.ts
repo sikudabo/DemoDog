@@ -1,5 +1,6 @@
 import { useFetchCompanyData } from "./useFetchCompanyData";
 import { useFetchDemo } from "./useFetchDemo";
+import { useFetchCompanies } from "./useFetchCompanies";
 import { useGetStartupEmployeeData } from "./useGetStartupEmployeeData";
 import { useFetchStatsCards } from "./useFetchStatsCards";
 import { useIsLoading } from "./useIsLoading";
@@ -10,6 +11,7 @@ import { useStartupEmployeeData } from "./useStartupEmployeeData";
 
 export {
     useFetchCompanyData,
+    useFetchCompanies,
     useFetchDemo,
     useFetchStatsCards,
     useGetStartupEmployeeData,

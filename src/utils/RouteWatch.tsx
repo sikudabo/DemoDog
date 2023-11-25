@@ -18,6 +18,7 @@ export default function RouteWatch() {
         '/startup-dashboard/demo-upload',
         '/startup-dashboard/add-startup-employee',
         '/startup-dashboard/edit-page',
+        '/search-companies',
     ];
 
     useEffect(() => {
@@ -36,6 +37,8 @@ export default function RouteWatch() {
 
         else if (!isLoggedIn && !acceptedRoutes.includes(pathname)) {
             navigate('/');
+        } else if (!isLoggedIn && pathname.includes('search')) {
+            navigate('/search-companies');
         }
 
         console.log('the pathname is:', pathname);
