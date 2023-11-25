@@ -10,6 +10,7 @@ import ScrollToTop from "./ScrollToTop";
 import StaticPageContainer from "./StaticPageContainer";
 import { CompaniesViewedOverview } from "./CompaniesViewedOverview";
 import { StartupDemosTable } from "./StartupDemosTable";
+import { StartupProfilesDemosTable } from './StartupProfileDemosTable';
 import { StartupEmployeesTable } from "./StartupEmployeesTable";
 import { StartupProfileEmployeesTable } from './StartupProfileEmployeesTable';
 import { colors } from "./colors";
@@ -26,6 +27,7 @@ export {
     DemoDogTextField,
     ScrollToTop,
     StartupDemosTable,
+    StartupProfilesDemosTable,
     StartupEmployeesTable,
     StartupProfileEmployeesTable,
     StaticPageContainer,

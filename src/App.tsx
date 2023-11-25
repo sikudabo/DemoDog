@@ -15,6 +15,7 @@ import {
   AddStartupEmployee,
   DemoUploadPage,
   DemoVideoPage,
+  DemoVideoProfilePage,
   EditPage,
   SignInPage,
   SignupDecision,
@@ -79,6 +80,7 @@ function App_DisplayLayer({
               <Route path="startup-profile/:_id" element={<StartupProfilePage />} />
               <Route path="startup-dashboard/edit-page" element={<EditPage />} />
               <Route path="startup-dashboard/demo-video/:id" element={<DemoVideoPage />} />
+              <Route path="demo-video-profile-page/:id" element={<DemoVideoProfilePage />} />
             </Routes>
             <Footer />
           </QueryClientProvider>

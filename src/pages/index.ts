@@ -1,6 +1,7 @@
 import AddStartupEmployee from "./AddStartupEmployee/AddStartupEmployee";
 import DemoUploadPage from "./DemoUploadPage/DemoUploadPage";
 import DemoVideoPage from "./DemoPage/DemoVideoPage";
+import DemoVideoProfilePage from "./DemoPage/DemoVideoProfilePage";
 import EditPage from "./EditPage/EditPage";
 import SignInPage from "./SignInPage/SignInPage";
 import SignupDecision from "./SignupDecision";
@@ -14,6 +15,7 @@ export {
     AddStartupEmployee,
     DemoUploadPage,
     DemoVideoPage,
+    DemoVideoProfilePage,
     EditPage,
     SignInPage,
     SignupDecision,

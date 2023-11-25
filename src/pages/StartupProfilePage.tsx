@@ -7,7 +7,7 @@ import { useFetchStartupProfileData } from '../hooks';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { StartupEmployeeType } from '../typings/StartupEmployeeType';
 import { CompanyType } from '../hooks/useStartupCompanyData';
-import { DemoDogButton, StartupProfileEmployeesTable } from '../components';
+import { DemoDogButton, StartupProfileEmployeesTable, StartupProfilesDemosTable } from '../components';
 
 const Container = styled.div`
     display: flex;
@@ -128,6 +128,9 @@ function StartupProfilePage_DisplayLayer({
             </div>
             <div className="team-table-container">
                 <StartupProfileEmployeesTable employees={employees} />
+            </div>
+            <div className="demos-table-container">
+                <StartupProfilesDemosTable demos={demos} />
             </div>
        </Container>
     );
