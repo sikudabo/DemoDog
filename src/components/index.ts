@@ -1,3 +1,4 @@
+import { CompanyCard } from "./CompanyCard";
 import DemoDogAppBar from "./DemoDogAppBar";
 import DemoDogButton from "./DemoDogButton";
 import DemoDogComboBox from './DemoDogComboBox'
@@ -13,6 +14,7 @@ import { StartupEmployeesTable } from "./StartupEmployeesTable";
 import { colors } from "./colors";
 
 export {
+    CompanyCard,
     CompaniesViewedOverview,
     DemoDogAppBar,
     DemoDogButton,

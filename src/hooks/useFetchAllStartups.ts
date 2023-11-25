@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-export const useFetchCompanies = () => {
+export const useFetchAllStartups = () => {
     return useQuery(['fetchAllStartups'], async () => {
         const result = await axios({
             method: 'GET',
