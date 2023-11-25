@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DemoDogDemoPlayer } from "../../components";
 import { DashboardLayout } from '../../components/DashboardLayout';
+import { useFetchDemo } from '../../hooks';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const Container = styled.div`
     align-items: center;
@@ -9,17 +11,66 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     padding-bottom: 20px;
-    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
 `;
+
+type DemoVideoPageDisplayLayerProps = {
+    description: string;
+    demoName: string;
+    id: string;
+    isLoading: boolean;
+    uploaderId: string;
+    uploaderName: string;
+};
 
 export default function DemoVideoPage() {
     const { id } = useParams();
+    return <DemoVideoPage_DisplayLayer {...useDataLayer(id as string)} />;
+}
 
+function DemoVideoPage_DisplayLayer({
+    description,
+    demoName,
+    id,
+    isLoading,
+    uploaderId,
+    uploaderName,
+}: DemoVideoPageDisplayLayerProps) {
+    if (isLoading) {
+        return (
+            <Backdrop open={isLoading}>
+                <CircularProgress color="primary" />
+            </Backdrop>
+        )
+    }
     return (
         <DashboardLayout>
             <Container>
-                <DemoDogDemoPlayer src={`http://192.168.1.215:2000/api/get-video/${id}`}/>
+                <DemoDogDemoPlayer
+                    demoName={demoName}
+                    src={`http://192.168.1.215:2000/api/get-video/${id}`}
+                />
             </Container>
         </DashboardLayout>
     );
+}
+
+function useDataLayer(id: string) {
+    const { data, isLoading } = useFetchDemo(id);
+    const { description, demoName, uploaderId, uploaderName } = typeof data !== 'undefined' ? data : {
+        description: '',
+        demoName: '',
+        uploaderId: '',
+        uploaderName: ''
+    };
+
+    return {
+        description,
+        demoName,
+        id,
+        isLoading,
+        uploaderId,
+        uploaderName,
+    };
 }
