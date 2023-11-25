@@ -16,6 +16,7 @@ const {
     ChangeDemoPrivacy,
     DeleteDemo,
     DeleteEmployee,
+    FetchDemo,
     GetCompanyData,
     GetCompanyStatsCards,
     GetPhoto,
@@ -62,6 +63,7 @@ app.use(serveStatic(path.join(__dirname, 'build')));
 app.use(ChangeDemoPrivacy);
 app.use(DeleteDemo);
 app.use(DeleteEmployee);
+app.use(FetchDemo);
 app.use(GetCompanyData);
 app.use(GetCompanyStatsCards);
 app.use(GetPhoto);

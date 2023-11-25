@@ -1,21 +1,34 @@
-import Plyr from 'plyr-react';
 import '../../node_modules/plyr-react/plyr.css';
 import styled from '@emotion/styled';
-import Videojs from 'video.js';
 import Card from '@mui/material/Card';
-import { Player } from 'video-react';
-const MyVideo = require('../static-site-images/recording.mov');
+import { deviceBreakPointsMaxWidth } from '../utils/constants/breakpoints';
 
 
 const StyledCard = styled(Card)`
-    width: '100%';
-    hight: '100%';
+    width: 75%;
+    hight: 50%;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+
+    .video-player {
+        height: 100%;
+        width: 100%;
+
+        @media ${deviceBreakPointsMaxWidth.tablet} {
+            height: 350px;
+            width: 350px;
+        }
+    }
 `;
 
 export default function DemoDogDemoPlayer({
     src,
 }) {
     return (
-        <video height={300} width={500} src={src} loop muted controls />
+        <StyledCard elevation={10}>
+            <video className="video-player" src={src} controls playsInline />
+        </StyledCard>
     );
 }
