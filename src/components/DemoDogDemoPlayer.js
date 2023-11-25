@@ -10,7 +10,7 @@ const StyledCard = styled(Card)`
     flex-direction: column;
     justify-content: center;
     width: '500px';
-    height: '500px';
+    height: '450px';
     max-width: 100%;
     padding-bottom: 20px;
     padding-left: 20px;

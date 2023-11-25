@@ -100,7 +100,7 @@ export default function Footer() {
                 <a className="link" href="https://www.linkedin.com/in/simeon-ikudabo-562542117/">
                     LinkedIn
                 </a>
-                <a className="link" onClick={() => navigate('sign-up')}>
+                <a className="link" onClick={() => navigate('sign-up-decision')}>
                     Sign Up 
                 </a>
                 <a className="link" onClick={() => navigate('sign-in')}>

@@ -164,7 +164,7 @@ export default function DemoDogAppBar() {
                         }}
                     >
                         <List className="drawer-list">
-                            <ListItem onClick={() => navigate('sign-up')}>
+                            <ListItem onClick={() => navigate('sign-up-decision')}>
                                 <ListItemButton style={{ color: colors.white }}>
                                     <ListItemText className="drawer-text" primary="Sign Up" style={{ fontWeight: '900' }} />
                                     <SignUpIcon className="drawer-icon" />
@@ -202,7 +202,7 @@ export default function DemoDogAppBar() {
             <div className="large-screen-links-container">
                 <IconButton 
                     className="link"
-                    onClick={() => navigate('sign-up')}
+                    onClick={() => navigate('sign-up-decision')}
                     disableRipple
                 >
                     Sign Up 

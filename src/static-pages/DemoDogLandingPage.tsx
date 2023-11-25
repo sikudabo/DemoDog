@@ -32,7 +32,7 @@ export default function DemoDogLandingPage() {
                         <DemoDogButton 
                             buttonColor={colors.salmonPink}
                             className="btn"
-                            onClick={() => navigate('sign-up')}
+                            onClick={() => navigate('sign-up-decision')}
                             text="Sign Up"
                             isNormal 
                         />
@@ -91,7 +91,7 @@ export default function DemoDogLandingPage() {
                         <DemoDogButton 
                             buttonColor={colors.navyBlue}
                             className="btn"
-                            onClick={() => navigate('sign-up')}
+                            onClick={() => navigate('sign-up-decision')}
                             text="Sign Up"
                             isNormal 
                         />
@@ -152,7 +152,7 @@ export default function DemoDogLandingPage() {
                         <DemoDogButton 
                             buttonColor={colors.aqua}
                             className="btn"
-                            onClick={() => navigate('sign-up')}
+                            onClick={() => navigate('sign-up-decision')}
                             text="Sign Up"
                             isNormal 
                         />

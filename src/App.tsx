@@ -17,6 +17,7 @@ import {
   DemoVideoPage,
   EditPage,
   SignInPage,
+  SignupDecision,
   SignUpPage,
   StartupDashboard,
 } from './pages';
@@ -64,6 +65,7 @@ function App_DisplayLayer({
             <DemoDogAppBar />
             <Routes>
               <Route path="/" element={<DemoDogLandingPage />} />
+              <Route path="sign-up-decision" element={<SignupDecision />} />
               <Route path="sign-in" element={<SignInPage />} />
               <Route path="sign-up" element={<SignUpPage />} />
               <Route path="startup-dashboard/main" element={<StartupDashboard />}>
