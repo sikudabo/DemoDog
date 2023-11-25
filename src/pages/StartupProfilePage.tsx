@@ -1,12 +1,11 @@
 import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
-import truncate from 'lodash/truncate';
 import { useParams } from 'react-router-dom';
 import { useFetchStartupProfileData } from '../hooks';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { StartupEmployeeType } from '../typings/StartupEmployeeType';
 import { CompanyType } from '../hooks/useStartupCompanyData';
-import { StartupEmployeesTable } from '../components';
+import { StartupProfileEmployeesTable } from '../components';
 
 const Container = styled.div`
     display: flex;
@@ -58,6 +57,12 @@ const Container = styled.div`
             font-weight: normal;
         }
     }
+
+    .team-table-container {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100vw;
+    }
 `;
 
 type StartupProfilePageDisplayLayerProps = {
@@ -105,6 +110,9 @@ function StartupProfilePage_DisplayLayer({
             </div>
             <div className="company-description-section">
                 <p className="company-description-section-text">{description}</p>
+            </div>
+            <div className="team-table-container">
+                <StartupProfileEmployeesTable employees={employees} />
             </div>
        </Container>
     );

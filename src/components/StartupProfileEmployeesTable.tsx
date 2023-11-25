@@ -66,10 +66,14 @@ export const StartupProfileEmployeesTable = (props: any) => {
                         {employee.jobTitle}
                     </TableCell>
                     <TableCell onClick={() => handleLinkedIn(employee.linkedIn)}>
-                        {employee.linkedIn}
+                        <p style={{ cursor: 'pointer' }}>
+                            {employee.linkedIn}
+                        </p>
                     </TableCell>
                     <TableCell>
-                        {employee.email}
+                        <a href={`mailto:${employee.email}`} rel="email">
+                            {employee.email}
+                        </a>
                     </TableCell>
                   </TableRow>
                 );
