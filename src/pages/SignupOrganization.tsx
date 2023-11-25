@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
-import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { DemoDogButton, colors } from "../components";
@@ -10,7 +9,7 @@ import { OrganizationFormType } from "../typings/OrganizationType";
 import { GeneralCompanyForm } from "../components/forms";
 import { checkValidEmail } from "../utils/validation";
 import { resizeImage } from "../utils/helpers";
-import { useIsLoading, useShowDialog } from "../hooks";
+import { useIsLoading, useOrganizationData, useShowDialog } from "../hooks";
 import { postBinaryData } from "../utils/requests";
 
 const SignupOrganizationContainer = styled.div`
@@ -26,6 +25,7 @@ const SignupOrganizationContainer = styled.div`
 export default function SignupOrganization() {
     const [companyAvatar, setCompanyAvatar] = useState<any>(null);
     const { setIsLoading } = useIsLoading();
+    const { setOrganization } = useOrganizationData();
     const { handleDialogMessageChange, setDialogMessage, setDialogTitle, setIsError } = useShowDialog();
 
     const { register, handleSubmit, formState: { errors } } = useForm<OrganizationFormType>({
@@ -75,6 +75,13 @@ export default function SignupOrganization() {
                 handleDialogMessageChange(true);
                 return;
             }
+            setIsLoading(false);
+            setIsError(false);
+            setDialogMessage(message);
+            setDialogTitle("Success");
+            setOrganization(organization);
+            handleDialogMessageChange(true);
+            
         }).catch(err => {
             setIsLoading(false);
             setIsError(true);
