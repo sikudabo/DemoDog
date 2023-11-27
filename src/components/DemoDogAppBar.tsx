@@ -27,6 +27,7 @@ import {
 import { DemoDogLogoIcon } from './icons';
 import { colors } from './colors';
 import { deviceBreakPointsMaxWidth } from '../utils/constants';
+import { useOrganizationData } from '../hooks';
 
 const StyledDemoDogAppBar = styled(AppBar)<{
     isHidden: boolean;
@@ -114,7 +115,13 @@ const StyledDemoDogAppBar = styled(AppBar)<{
 export default function DemoDogAppBar() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const navigate = useNavigate();
+    const { organization, setOrganization } = useOrganizationData();
     const { pathname } = useLocation();
+
+    function handleLogout() {
+        setOrganization({} as any);
+        navigate('/');
+    }
 
     useEffect(() => {
         setIsDrawerOpen(false);
@@ -127,6 +134,15 @@ export default function DemoDogAppBar() {
 
         return false;
     }, [pathname]);
+
+    const shouldDisplayNav = useMemo(() => {
+        console.log('The organization is:', organization);
+        if (typeof organization === 'undefined' || typeof (organization as any).password === 'undefined') {
+            return true
+        }
+
+        return false
+    }, [organization]);
 
     function toggleDrawer() {
         setIsDrawerOpen(!isDrawerOpen);
@@ -163,32 +179,41 @@ export default function DemoDogAppBar() {
                             overflow: 'scroll',
                         }}
                     >
-                        <List className="drawer-list">
-                            <ListItem onClick={() => navigate('sign-up-decision')}>
+                        {shouldDisplayNav ? (
+                            <List className="drawer-list">
+                                <ListItem onClick={() => navigate('sign-up-decision')}>
+                                    <ListItemButton style={{ color: colors.white }}>
+                                        <ListItemText className="drawer-text" primary="Sign Up" style={{ fontWeight: '900' }} />
+                                        <SignUpIcon className="drawer-icon" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem onClick={() => navigate('sign-in')}>
+                                    <ListItemButton style={{ color: colors.white }}>
+                                        <ListItemText className="drawer-text" primary="Sign In" style={{ fontWeight: '900' }} />
+                                        <LoginIcon className="drawer-icon" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemButton style={{ color: colors.white }}>
+                                        <ListItemText className="drawer-text" primary="Contact" style={{ fontWeight: '900' }} />
+                                        <ContactIcon className="drawer-icon" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemButton style={{ color: colors.white }}>
+                                        <ListItemText className="drawer-text" primary="LinkedIn" style={{ fontWeight: '900' }} />
+                                        <LinkedInIcon className="drawer-icon" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </List>
+                        ): (
+                            <ListItem onClick={handleLogout}>
                                 <ListItemButton style={{ color: colors.white }}>
-                                    <ListItemText className="drawer-text" primary="Sign Up" style={{ fontWeight: '900' }} />
-                                    <SignUpIcon className="drawer-icon" />
-                                </ListItemButton>
-                            </ListItem>
-                            <ListItem onClick={() => navigate('sign-in')}>
-                                <ListItemButton style={{ color: colors.white }}>
-                                    <ListItemText className="drawer-text" primary="Sign In" style={{ fontWeight: '900' }} />
+                                    <ListItemText className="drawer-text" primary="Log out" style={{ fontWeight: '900' }} />
                                     <LoginIcon className="drawer-icon" />
                                 </ListItemButton>
                             </ListItem>
-                            <ListItem>
-                                <ListItemButton style={{ color: colors.white }}>
-                                    <ListItemText className="drawer-text" primary="Contact" style={{ fontWeight: '900' }} />
-                                    <ContactIcon className="drawer-icon" />
-                                </ListItemButton>
-                            </ListItem>
-                            <ListItem>
-                                <ListItemButton style={{ color: colors.white }}>
-                                    <ListItemText className="drawer-text" primary="LinkedIn" style={{ fontWeight: '900' }} />
-                                    <LinkedInIcon className="drawer-icon" />
-                                </ListItemButton>
-                            </ListItem>
-                        </List>
+                        )}
                     </Box>
                 </Drawer>
                 {/* End of the navigation drawer for small screen devices here */}
