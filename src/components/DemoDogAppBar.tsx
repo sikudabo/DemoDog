@@ -225,32 +225,43 @@ export default function DemoDogAppBar() {
                 </div>
             </div>
             <div className="large-screen-links-container">
-                <IconButton 
-                    className="link"
-                    onClick={() => navigate('sign-up-decision')}
-                    disableRipple
-                >
-                    Sign Up 
-                </IconButton>
-                <IconButton 
-                    className="link-after"
-                    onClick={() => navigate('sign-in')}
-                    disableRipple
-                >
-                    Sign In
-                </IconButton>
-                <IconButton 
-                    className="link-after"
-                    disableRipple
-                >
-                    Contact Us 
-                </IconButton>
-                <IconButton 
-                    className="link-after"
-                    disableRipple
-                >
-                    LinkedIn 
-                </IconButton>
+                {shouldDisplayNav ? (
+                    <>
+                        <IconButton 
+                            className="link"
+                            onClick={() => navigate('sign-up-decision')}
+                            disableRipple
+                        >
+                            Sign Up 
+                        </IconButton>
+                        <IconButton 
+                            className="link-after"
+                            onClick={() => navigate('sign-in')}
+                            disableRipple
+                        >
+                            Sign In
+                        </IconButton>
+                        <IconButton 
+                            className="link-after"
+                            disableRipple
+                        >
+                            Contact Us 
+                        </IconButton>
+                        <IconButton 
+                            className="link-after"
+                            disableRipple
+                        >
+                            LinkedIn 
+                        </IconButton>
+                    </>): (
+                        <IconButton 
+                            className="link"
+                            onClick={handleLogout}
+                            disableRipple
+                        >
+                            Log out
+                        </IconButton>
+                    )}
             </div>
         </StyledDemoDogAppBar>
     );

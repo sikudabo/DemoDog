@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useStartupEmployeeData } from '../hooks';
+import { useOrganizationData, useStartupEmployeeData } from '../hooks';
 import { StartupEmployeeType } from '../typings/StartupEmployeeType';
 
 export default function RouteWatch() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const { organization } = useOrganizationData();
     const { employee } = useStartupEmployeeData();
     const isLoggedIn = typeof employee !== 'undefined' && employee !== null && typeof (employee as StartupEmployeeType)._id !== 'undefined';
     const acceptedRoutes = [
@@ -21,6 +22,12 @@ export default function RouteWatch() {
         '/startup-profile',
         '/search-companies',
     ];
+
+    useEffect(() => {
+        if (pathname !== '/startup-profile' && pathname !== '/search-companies' && typeof organization !== 'undefined' && typeof (organization as any).password !== 'undefined') {
+            navigate('/search-companies');
+        }
+    }, [pathname]);
 
     useEffect(() => {
         /*if (!isLoggedIn && pathname.includes('startup-dashboard')) {
