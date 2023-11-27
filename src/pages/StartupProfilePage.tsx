@@ -82,6 +82,7 @@ type StartupProfilePageDisplayLayerProps = {
     demos: Array<any>;
     employees: Array<StartupEmployeeType>;
     handleOrganizationLike: () => void;
+    inLikes: boolean;
     isLoading: boolean;
     organizationIsLoggedIn: boolean;
     startupCompanyData: CompanyType;
@@ -96,6 +97,7 @@ function StartupProfilePage_DisplayLayer({
     demos,
     employees,
     handleOrganizationLike,
+    inLikes,
     isLoading,
     organizationIsLoggedIn,
     startupCompanyData,
@@ -126,7 +128,7 @@ function StartupProfilePage_DisplayLayer({
                 <p className="company-name">{companyName}</p>
             </div>
             <div className="like-company-section">
-                {organizationIsLoggedIn && (
+                {organizationIsLoggedIn && !inLikes && (
                     <Button color="secondary" onClick={handleOrganizationLike} startIcon={<LikeIcon />} variant="outlined">
                         Like 
                     </Button>
@@ -150,6 +152,9 @@ function useDataLayer(_id: string) {
     const { setIsLoading } = useIsLoading();
     const { setIsError, handleDialogMessageChange, setDialogMessage, setDialogTitle } = useShowDialog();
     const { organization } = useOrganizationData();
+    const { _id: organizationId } = organization as OrganizationType;
+    let inLikes = false;
+    console.log('The organization in the data layer is:', organization);
     const { data, isLoading } = useFetchStartupProfileData(_id);
     const { demos, employees, startupCompanyData } = typeof data!== 'undefined' &&!isLoading ? data : {
         demos: [],
@@ -159,7 +164,7 @@ function useDataLayer(_id: string) {
 
     async function handleOrganizationLike() {
         const { _id } = startupCompanyData;
-        const { _id: organizationId } = organization as OrganizationType;
+        console.log('The organizationId is:', organization);
         setIsLoading(true);
 
         await postNonBinaryData({
@@ -181,11 +186,18 @@ function useDataLayer(_id: string) {
         });
     }
 
+    if (typeof startupCompanyData !== 'undefined' && typeof startupCompanyData.inLikes !== 'undefined') {
+        inLikes = !startupCompanyData.inLikes.includes(organizationId);
+    }
+
+    console.log('InLikes is:', inLikes);
+
     return {
         data,
         demos,
         employees,
         handleOrganizationLike,
+        inLikes,
         isLoading,
         organizationIsLoggedIn: typeof organization !== 'undefined',
         startupCompanyData,

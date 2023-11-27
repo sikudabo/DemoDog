@@ -270,7 +270,6 @@ function EditPage_DisplayLayer({
     async function sendEmployeeData(data: EmployeeFormProps) {
         setIsLoading(true);
         const { firstName, lastName, jobTitle, linkedIn, employeeEmail, password } = data;
-        console.log('The employee email is:', employeeEmail);
         const currentData = {
             companyId,
             firstName,

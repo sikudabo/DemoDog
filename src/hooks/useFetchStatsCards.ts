@@ -11,6 +11,7 @@ export const useFetchStatsCards = () => {
             method: 'GET',
             url: `http://192.168.1.215:2000/api/get-company-stats-cards/${_id}`,
         }).then(res => {
+            console.log('The return data is:', res.data);
             return res.data;
         });
 

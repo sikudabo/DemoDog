@@ -70,6 +70,7 @@ export default function SignInPage() {
             setDialogMessage(message);
             setDialogTitle('Success');
             handleDialogMessageChange(true);
+            console.log('The user when we sign up is:', user);
             setOrganization(user);
             navigate('/search-companies');
             return;

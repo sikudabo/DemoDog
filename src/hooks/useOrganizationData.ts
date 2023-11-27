@@ -16,7 +16,7 @@ export const useOrganizationData = create(
       (set) => ({
         organization: {},
         clearOrganization: () => set(() => ({ organization: {} })),
-        setOrganization: () => set(() => ({ organization: {} })),
+        setOrganization: (organization: OrganizationType) => set(() => ({ organization })),
       }),
       {
         name: 'organization-company-data-storage',

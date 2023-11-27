@@ -25,6 +25,7 @@ import { useIsLoading, useShowDialog } from '../hooks';
 
 export const StartupProfilesDemosTable = (props: any) => {
   const { demos = [] } = props;
+  let filteredDemos = demos.filter((demo: { private: boolean; }) => !demo.private);
   const navigate = useNavigate();
   const { company } = useStartupCompanyData();
   const { _id: companyId } = company as CompanyType;
@@ -60,7 +61,7 @@ function handleNavigate(id: string) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {demos.map((demo: any) => {
+              {filteredDemos.map((demo: any) => {
 
                 return (
                   <TableRow

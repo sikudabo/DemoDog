@@ -99,7 +99,7 @@ export const StartupEmployeesTable = (props: any) => {
                     <TableCell>
                       <Avatar src={`http://192.168.1.215:2000/api/get-photo/${employee.avatar}`} alt={`${employee.firstName} ${employee.lastName} profile picture`} sx={{ height: 30, width: 30 }} />
                     </TableCell>
-                    <TableCell onClick={() => console.log(employee)}>
+                    <TableCell>
                       {employee.firstName} {employee.lastName}
                     </TableCell>
                     <TableCell>

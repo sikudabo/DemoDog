@@ -26,8 +26,10 @@ type StartupDashboardDisplayLayerProps = {
     demoLikes: number;
     employees: any;
     employeeCount: number;
+    inLikes: Array<string>;
     isLoading: boolean;
-    startupEmployee: StartupEmployeeType | {}
+    startupEmployee: StartupEmployeeType | {};
+    totalLikes: number;
 };
 
 const StartupDashboardContainer = styled.div`
@@ -159,8 +161,10 @@ function StartupDashboard_DisplayLayer({
     demoLikes,
     employees,
     employeeCount,
+    inLikes,
     isLoading,
     startupEmployee,
+    totalLikes,
 }: StartupDashboardDisplayLayerProps) {
     const { firstName, lastName } = startupEmployee as StartupEmployeeType;
 
@@ -195,7 +199,7 @@ function StartupDashboard_DisplayLayer({
                         className="stats-card-follow"
                         icon={<ThumbUpIcon style={{ color: colors.navyBlue, fontSize: 30 }} />}
                         title="Company Likes"
-                        count={companyLikes}
+                        count={totalLikes}
                         percentage={{
                         color: "success",
                         label: "This month",
@@ -286,14 +290,18 @@ function StartupDashboard_DisplayLayer({
 function useDataLayer() {
     const { employee: startupEmployee } = useStartupEmployeeData();
     const { data, isLoading } = useFetchStatsCards();
-    const { companyLikes, demos, demoCount, demoLikes, employees, employeeCount } = typeof data !== 'undefined' && !isLoading ? data : {
+    const { companyLikes, demos, demoCount, demoLikes, inLikes, employees, employeeCount, totalLikes } = typeof data !== 'undefined' && !isLoading ? data : {
         companyLikes: 0,
         demos: [],
         demoCount: 0,
         demoLikes: 0,
+        inLikes: [],
         employees: [],
         employeeCount: 0,
+        totalLikes: 0,
     };
+
+    console.log('The inLikes are:', inLikes);
 
     console.log('The demos are:', demos);
     
@@ -304,7 +312,9 @@ function useDataLayer() {
         demoLikes,
         employees,
         employeeCount,
+        inLikes,
         isLoading,
         startupEmployee,
+        totalLikes,
     };
 }
