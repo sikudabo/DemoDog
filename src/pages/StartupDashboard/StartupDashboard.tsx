@@ -12,11 +12,6 @@ import MicrosoftLogo from '../../static-site-images/microsoft_logo.jpeg';
 import GoogleLogo from '../../static-site-images/google_logo.jpeg';
 import AmazonLogo from '../../static-site-images/amazon_logo.jpeg';
 import AirBnBLogo from '../../static-site-images/airbnb_logo.jpeg';
-import KevinAvatar from '../../static-site-images/kevin.jpeg';
-import EricAvatar from '../../static-site-images/eric.jpeg';
-import MarkAvatar from '../../static-site-images/mark.jpeg';
-import JeremyAvatar from '../../static-site-images/jeremy.jpeg';
-import AnthonyAvatar from '../../static-site-images/anthony.jpeg';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 type StartupDashboardDisplayLayerProps = {

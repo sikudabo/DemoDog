@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const { StartupCompaniesModel } = require('../db/models');
 
 router.route('/api/add-company-like').post(async (req, res) => {
     const { _id, organizationId } = req.body;
+    const sanitizedId = mongoose.Types.ObjectId(organizationId);
     
     try {
         const { inLikes } = await StartupCompaniesModel.find({ _id });
         console.log('The inLikes are:', inLikes);
-        if (StartupCompaniesModel.find({ _id, organizationId: { $in: inLikes}})) {
+        if (typeof inLikes !== 'undefined' && typeof inLikes.find(like => like === sanitizedId) !== 'undefined') {
             res.status(400).json({ isSuccess: 'false', message: 'Already liked' });
         } else {
             await StartupCompaniesModel.updateOne({ _id }, { $addToSet: { inLikes: organizationId } });

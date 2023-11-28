@@ -134,7 +134,7 @@ function StartupProfilePage_DisplayLayer({
                 <p className="company-name">{companyName}</p>
             </div>
             <div className="like-company-section">
-                {organizationIsLoggedIn && (
+                {organizationIsLoggedIn && !inLikes && (
                     <Button color="secondary" onClick={handleOrganizationLike} startIcon={<LikeIcon />} variant="outlined">
                         Like 
                     </Button>
@@ -192,7 +192,7 @@ function useDataLayer(_id: string) {
     }
 
     if (typeof startupCompanyData !== 'undefined' && typeof startupCompanyData.inLikes !== 'undefined') {
-        inLikes = !startupCompanyData.inLikes.includes(organizationId);
+        inLikes = typeof startupCompanyData.inLikes.find((likeId: any) => likeId?.toString() === organizationId.toString()) !== 'undefined';
     }
 
     console.log('InLikes is:', inLikes);
