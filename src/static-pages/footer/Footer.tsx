@@ -97,7 +97,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="links-container">
-                <a className="link" href="https://www.linkedin.com/company/99041744/admin/feed/posts/">
+                <a className="link" href="https://www.linkedin.com/company/demodog?trk=public_profile_experience-item_profile-section-card_subtitle-click">
                     LinkedIn
                 </a>
                 <a className="link" onClick={() => navigate('sign-up-decision')}>

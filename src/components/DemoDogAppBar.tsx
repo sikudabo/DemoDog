@@ -194,7 +194,7 @@ export default function DemoDogAppBar() {
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem>
-                                    <ListItemButton onClick={() => window.open('https://www.linkedin.com/company/99041744/admin/feed/posts/')} style={{ color: colors.white }}>
+                                    <ListItemButton onClick={() => window.open('https://www.linkedin.com/company/demodog?trk=public_profile_experience-item_profile-section-card_subtitle-click')} style={{ color: colors.white }}>
                                         <ListItemText className="drawer-text" primary="LinkedIn" style={{ fontWeight: '900' }} />
                                         <LinkedInIcon className="drawer-icon" />
                                     </ListItemButton>
@@ -256,7 +256,7 @@ export default function DemoDogAppBar() {
                         </IconButton>
                         <IconButton 
                             className="link-after"
-                            onClick={() => window.open('https://www.linkedin.com/company/99041744/admin/feed/posts/')}
+                            onClick={() => window.open('https://www.linkedin.com/company/demodog?trk=public_profile_experience-item_profile-section-card_subtitle-click')}
                             disableRipple
                         >
                             LinkedIn 
