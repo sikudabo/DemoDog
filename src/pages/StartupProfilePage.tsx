@@ -134,7 +134,7 @@ function StartupProfilePage_DisplayLayer({
                 <p className="company-name">{companyName}</p>
             </div>
             <div className="like-company-section">
-                {organizationIsLoggedIn && !inLikes && (
+                {organizationIsLoggedIn && (
                     <Button color="secondary" onClick={handleOrganizationLike} startIcon={<LikeIcon />} variant="outlined">
                         Like 
                     </Button>
@@ -204,7 +204,7 @@ function useDataLayer(_id: string) {
         handleOrganizationLike,
         inLikes,
         isLoading,
-        organizationIsLoggedIn: typeof organization !== 'undefined' && typeof (organization as OrganizationType)._id! == 'undefined',
+        organizationIsLoggedIn: typeof organization !== 'undefined' && typeof (organization as OrganizationType)._id !== 'undefined',
         startupCompanyData,
     };
 }

@@ -24,7 +24,7 @@ export default function RouteWatch() {
     ];
 
     useEffect(() => {
-        if (pathname !== '/startup-profile' && !pathname.includes('startup-profile') && typeof organization !== 'undefined' && typeof (organization as any).password !== 'undefined') {
+        if (pathname !== '/startup-profile' && !pathname.includes('startup-profile') && !pathname.includes('/demo-video-profile-page') && typeof organization !== 'undefined' && typeof (organization as any).password !== 'undefined') {
             navigate('/search-companies');
         } else if (pathname.includes('/startup-dashboard') && !isLoggedIn) {
             navigate('/');
@@ -32,31 +32,6 @@ export default function RouteWatch() {
             navigate('/startup-dashboard/main');
         }
     }, [pathname]);
-
-    /* useEffect(() => {
-        if (!isLoggedIn && pathname.includes('startup-dashboard')) {
-            navigate('/');
-            return;
-        }
-
-       else if (isLoggedIn && !pathname.includes('startup-dashboard')) {
-            navigate('/startup-dashboard/main');
-        }
-
-        else if (isLoggedIn && (!acceptedRoutes.includes(pathname) && !pathname.includes('video'))) {
-            navigate('/startup-dashboard/main');
-        }
-
-        else if (!isLoggedIn && !acceptedRoutes.includes(pathname)) {
-            navigate('/');
-        } else if (!isLoggedIn && pathname.includes('search')) {
-            navigate('/search-companies');
-        } else if (!isLoggedIn && pathname.includes('company-profile')) {
-            return;
-        }
-
-        console.log('the pathname is:', pathname);
-    }, [pathname]);*/
 
     return null;
 }
