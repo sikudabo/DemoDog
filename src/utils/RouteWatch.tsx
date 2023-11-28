@@ -26,11 +26,15 @@ export default function RouteWatch() {
     useEffect(() => {
         if (pathname !== '/startup-profile' && pathname !== '/search-companies' && typeof organization !== 'undefined' && typeof (organization as any).password !== 'undefined') {
             navigate('/search-companies');
+        } else if (pathname.includes('/startup-dashboard') && !isLoggedIn) {
+            navigate('/');
+        } else if (!pathname.includes('/startup-dashboard') && isLoggedIn) {
+            navigate('/startup-dashboard/main');
         }
     }, [pathname]);
 
-    useEffect(() => {
-        /*if (!isLoggedIn && pathname.includes('startup-dashboard')) {
+    /* useEffect(() => {
+        if (!isLoggedIn && pathname.includes('startup-dashboard')) {
             navigate('/');
             return;
         }
@@ -51,8 +55,8 @@ export default function RouteWatch() {
             return;
         }
 
-        console.log('the pathname is:', pathname);*/
-    }, [pathname])
+        console.log('the pathname is:', pathname);
+    }, [pathname]);*/
 
     return null;
 }

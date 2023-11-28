@@ -4,6 +4,7 @@ import ContactIcon from '@mui/icons-material/Email';
 import LoginIcon from '@mui/icons-material/Login';
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 import SignUpIcon from '@mui/icons-material/AppRegistration';
 import { css } from '@emotion/react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -203,6 +204,12 @@ export default function DemoDogAppBar() {
                                     <ListItemButton style={{ color: colors.white }}>
                                         <ListItemText className="drawer-text" primary="LinkedIn" style={{ fontWeight: '900' }} />
                                         <LinkedInIcon className="drawer-icon" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemButton onClick={() => navigate('/search-companies')} style={{ color: colors.white }}>
+                                        <ListItemText className="drawer-text" primary="Search" style={{ fontWeight: '900' }} />
+                                        <SearchIcon className="drawer-icon" />
                                     </ListItemButton>
                                 </ListItem>
                             </List>

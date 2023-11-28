@@ -25,11 +25,15 @@ const Container = styled.div`
         flex-direction: column;
         justify-content: center;
         padding-bottom: 20px;
-        width: 100%;
 
-      .top-avatar {
+      .top-avatar-container {
         height: 200px;
         width: 200px;
+
+        .top-avatar {
+            height: 100%;
+            width: 100%;
+        }
       }
     }
 
@@ -122,7 +126,9 @@ function StartupProfilePage_DisplayLayer({
     return (
        <Container>
             <div className="top-avatar-section">
-                <Avatar alt="Company avatar" className="top-avatar" src={`http://192.168.1.215:2000/api/get-photo/${avatar}`} />
+                <div className="top-avatar-container">
+                    <Avatar alt="Company avatar" className="top-avatar" src={`http://192.168.1.215:2000/api/get-photo/${avatar}`} />
+                </div>
             </div>
             <div className="company-name-section">
                 <p className="company-name">{companyName}</p>

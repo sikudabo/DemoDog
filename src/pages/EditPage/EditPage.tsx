@@ -407,7 +407,7 @@ function EditPage_DisplayLayer({
                                 </IconButton>
                                 Company Avatar
                             </div>
-                            <div className="next-button-container">
+                            <div className="next-button-container" style={{ paddingLeft: 20 }}>
                                 <DemoDogButton buttonColor={colors.navyBlue} className="next-button" type="submit"  text="Submit" fullWidth isNormal/>
                             </div>
                         </GeneralCompanyForm>
@@ -450,7 +450,7 @@ function EditPage_DisplayLayer({
                                 </IconButton>
                                 Employee Avatar
                             </div>
-                            <div className="next-button-container">
+                            <div className="next-button-container" style={{ paddingLeft: 20 }}>
                                 <DemoDogButton buttonColor={colors.navyBlue} className="next-button" type="submit"  text="Submit" fullWidth isNormal/>
                             </div>
                         </GeneralCompanyForm>
