@@ -14,7 +14,7 @@ export type CompanyType = {
     createdAt: Date;
     demos: Array<string>;
     description: string;
-    inLikes: Array<string>;
+    inLikes: Array<any>;
     profileViews: Array<string>;
     _id: string;
 };

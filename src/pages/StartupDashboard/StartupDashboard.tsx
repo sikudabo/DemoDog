@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useFetchStatsCards, useStartupEmployeeData } from "../../hooks";
 import { StartupEmployeeType } from "../../typings/StartupEmployeeType";
@@ -285,7 +286,7 @@ function StartupDashboard_DisplayLayer({
 function useDataLayer() {
     const { employee: startupEmployee } = useStartupEmployeeData();
     const { data, isLoading } = useFetchStatsCards();
-    const { companyLikes, demos, demoCount, demoLikes, inLikes, employees, employeeCount, totalLikes } = typeof data !== 'undefined' && !isLoading ? data : {
+    const { companyLikes, demos, demoCount, demoLikes, inLikes, employees, employeeCount, totalLikes  } = typeof data !== 'undefined' && !isLoading ? data : {
         companyLikes: 0,
         demos: [],
         demoCount: 0,
@@ -296,9 +297,9 @@ function useDataLayer() {
         totalLikes: 0,
     };
 
-    console.log('The inLikes are:', inLikes);
-
-    console.log('The demos are:', demos);
+    useEffect(() => {
+        console.log('The in likes are:', inLikes);
+    }, [inLikes]);
     
     return {
         companyLikes,
