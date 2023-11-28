@@ -26,6 +26,7 @@ type StartupDashboardDisplayLayerProps = {
     isLoading: boolean;
     startupEmployee: StartupEmployeeType | {};
     totalLikes: number;
+    totalProfileViews: number;
 };
 
 const StartupDashboardContainer = styled.div`
@@ -161,6 +162,7 @@ function StartupDashboard_DisplayLayer({
     isLoading,
     startupEmployee,
     totalLikes,
+    totalProfileViews,
 }: StartupDashboardDisplayLayerProps) {
     const { firstName, lastName } = startupEmployee as StartupEmployeeType;
 
@@ -286,7 +288,7 @@ function StartupDashboard_DisplayLayer({
 function useDataLayer() {
     const { employee: startupEmployee } = useStartupEmployeeData();
     const { data, isLoading } = useFetchStatsCards();
-    const { companyLikes, demos, demoCount, demoLikes, inLikes, employees, employeeCount, totalLikes  } = typeof data !== 'undefined' && !isLoading ? data : {
+    const { companyLikes, demos, demoCount, demoLikes, inLikes, employees, employeeCount, totalLikes, totalProfileViews  } = typeof data !== 'undefined' && !isLoading ? data : {
         companyLikes: 0,
         demos: [],
         demoCount: 0,
@@ -295,6 +297,7 @@ function useDataLayer() {
         employees: [],
         employeeCount: 0,
         totalLikes: 0,
+        totalProfileViews: 0,
     };
 
     useEffect(() => {
@@ -312,5 +315,6 @@ function useDataLayer() {
         isLoading,
         startupEmployee,
         totalLikes,
+        totalProfileViews,
     };
 }

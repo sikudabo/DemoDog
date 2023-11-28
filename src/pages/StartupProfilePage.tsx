@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -166,6 +167,23 @@ function useDataLayer(_id: string) {
         employees: [] ,
         startupCompanyData: {},
     };
+
+
+    async function postProfileView() {
+        await postNonBinaryData({
+            data: {
+                _id,
+                organizationId: (organization as OrganizationType)._id,
+            },
+            endpoint: 'api/add-startup-company-view',
+        });
+    }
+
+    useEffect(() => {
+        if (typeof organization !== 'undefined' && typeof (organization as OrganizationType)._id !== 'undefined') {
+            postProfileView();
+        }
+    }, [])
 
     async function handleOrganizationLike() {
         const { _id } = startupCompanyData;
