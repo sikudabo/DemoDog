@@ -14,6 +14,7 @@ const sslRedirect = require('heroku-ssl-redirect');
 const { startDb } = require('./db');
 const {
     AddCompanyLike,
+    AddDemoLike,
     AddStartupProfileView,
     ChangeDemoPrivacy,
     DeleteDemo,
@@ -67,6 +68,7 @@ app.use(serveStatic(path.join(__dirname, 'build')));
 
 // Routes
 app.use(AddCompanyLike);
+app.use(AddDemoLike);
 app.use(AddStartupProfileView);
 app.use(ChangeDemoPrivacy);
 app.use(DeleteDemo);

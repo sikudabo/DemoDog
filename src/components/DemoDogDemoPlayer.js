@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import LikeIcon from '@mui/icons-material/ThumbUp';
 import { deviceBreakPointsMaxWidth } from '../utils/constants/breakpoints';
 import { useOrganizationData } from '../hooks';
+import { postNonBinaryData } from '../utils/requests';
 
 
 const StyledCard = styled(Card)`
@@ -53,6 +54,16 @@ export default function DemoDogDemoPlayer({
     src,
 }) {
     const { organization } = useOrganizationData();
+
+    function handleLikeButtonClick() {
+        postNonBinaryData({
+            data: {
+                videoId: src,
+            },
+            endpoint: 'api/add-demo-like',
+        });
+    }
+
     return (
         <StyledCard elevation={10}>
             <div className="title-container">
@@ -61,7 +72,7 @@ export default function DemoDogDemoPlayer({
             <video className="video-player" src={src} controls playsInline />
             {typeof organization !== 'undefined' && typeof organization._id !== 'undefined' && (
                 <div className="like-button-section">
-                    <IconButton color="primary"> 
+                    <IconButton color="primary" onClick={handleLikeButtonClick}> 
                         <LikeIcon />
                     </IconButton>
                 </div>
