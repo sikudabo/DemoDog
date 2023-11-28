@@ -249,6 +249,13 @@ export default function DemoDogAppBar() {
                             Sign In
                         </IconButton>
                         <IconButton 
+                            className="link"
+                            onClick={() =>  navigate('/search-companies')}
+                            disableRipple
+                        >
+                            Search
+                        </IconButton>
+                        <IconButton 
                             className="link-after"
                             disableRipple
                         >
