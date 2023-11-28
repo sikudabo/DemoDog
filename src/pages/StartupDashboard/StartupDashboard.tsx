@@ -14,6 +14,7 @@ import GoogleLogo from '../../static-site-images/google_logo.jpeg';
 import AmazonLogo from '../../static-site-images/amazon_logo.jpeg';
 import AirBnBLogo from '../../static-site-images/airbnb_logo.jpeg';
 import { Backdrop, CircularProgress } from '@mui/material';
+import { OrganizationType } from '../../typings/OrganizationType';
 
 type StartupDashboardDisplayLayerProps = {
     companyLikes: number;
@@ -26,7 +27,7 @@ type StartupDashboardDisplayLayerProps = {
     isLoading: boolean;
     startupEmployee: StartupEmployeeType | {};
     totalLikes: number;
-    totalProfileViews: number;
+    viewingOrganizations: Array<OrganizationType>;
 };
 
 const StartupDashboardContainer = styled.div`
@@ -42,6 +43,7 @@ const StartupDashboardContainer = styled.div`
         flex-direction: row;
         padding-left: 20px;
         padding-right: 20px;
+        padding-bottom: 30px;
         width: 75vw;
 
         @media ${deviceBreakPointsMaxWidth.laptop}  {
@@ -162,7 +164,7 @@ function StartupDashboard_DisplayLayer({
     isLoading,
     startupEmployee,
     totalLikes,
-    totalProfileViews,
+    viewingOrganizations,
 }: StartupDashboardDisplayLayerProps) {
     const { firstName, lastName } = startupEmployee as StartupEmployeeType;
 
@@ -229,47 +231,16 @@ function StartupDashboard_DisplayLayer({
                         timeTable="Total"
                     />
                 </div>
-                <div className="company-views-overview-section">
-                    <CompaniesViewedOverview
-                        companies={[
-                            {
-                                id: 1,
-                                image: StanfordLogo,
-                                name: "Stanford",
-                                email: "stanford@stanford.edu",
-                            },
-                            {
-                                id: 2,
-                                image: MicrosoftLogo,
-                                name: "Microsoft",
-                                email: "microsoft@microsoft.com",
-
-                            },
-                            {
-                                id: 3,
-                                image: GoogleLogo,
-                                name: "Google",
-                                email: "google@google.com",
-
-                            },
-                            {
-                                id: 4,
-                                image: AmazonLogo,
-                                name: "Amazon",
-                                email: "amazon@amazon.com",
-                            },
-                            {
-                                id: 5,
-                                image: AirBnBLogo,
-                                name: "AirBnB",
-                                email: "airbnb@airbnb.com",
-                            }
-                        ]}
-                        sx={{
-                            width: '100%',
-                        }}
-                    />
-                </div>
+                {typeof viewingOrganizations !== 'undefined' && typeof viewingOrganizations.length !== 'undefined' && (
+                    <div className="company-views-overview-section">
+                        <CompaniesViewedOverview
+                            companies={viewingOrganizations}
+                            sx={{
+                                width: '100%',
+                            }}
+                        />
+                    </div>
+                )}
                 <div className="startup-employees-table-section">
                     <StartupEmployeesTable
                         employees={employees}
@@ -288,7 +259,7 @@ function StartupDashboard_DisplayLayer({
 function useDataLayer() {
     const { employee: startupEmployee } = useStartupEmployeeData();
     const { data, isLoading } = useFetchStatsCards();
-    const { companyLikes, demos, demoCount, demoLikes, inLikes, employees, employeeCount, totalLikes, totalProfileViews  } = typeof data !== 'undefined' && !isLoading ? data : {
+    const { companyLikes, demos, demoCount, demoLikes, inLikes, employees, employeeCount, totalLikes, viewingOrganizations  } = typeof data !== 'undefined' && !isLoading ? data : {
         companyLikes: 0,
         demos: [],
         demoCount: 0,
@@ -297,12 +268,8 @@ function useDataLayer() {
         employees: [],
         employeeCount: 0,
         totalLikes: 0,
-        totalProfileViews: 0,
+        viewingOrganizations: [],
     };
-
-    useEffect(() => {
-        console.log('The in likes are:', inLikes);
-    }, [inLikes]);
     
     return {
         companyLikes,
@@ -315,6 +282,6 @@ function useDataLayer() {
         isLoading,
         startupEmployee,
         totalLikes,
-        totalProfileViews,
+        viewingOrganizations,
     };
 }

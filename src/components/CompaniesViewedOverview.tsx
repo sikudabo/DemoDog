@@ -1,43 +1,36 @@
-import PropTypes from 'prop-types';
-import ArrowRightIcon from '@heroicons/react/24/solid/ArrowRightIcon';
-import EllipsisVerticalIcon from '@heroicons/react/24/solid/EllipsisVerticalIcon';
 import {
   Box,
-  Button,
   Card,
-  CardActions,
   CardHeader,
-  Divider,
-  IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  SvgIcon
 } from '@mui/material';
+import { OrganizationType } from '../typings/OrganizationType';
 
 export const CompaniesViewedOverview = (props: any) => {
-  const { companies = [], sx } = props;
+  const { companies = [] } = props;
 
   return (
     <Card className="companies-viewed-card" elevation={10}>
       <CardHeader title="Companies that viewed you" />
       <List>
-        {companies.map((company: any, index: number) => {
+        {companies.map((company: OrganizationType, index: number) => {
           const hasDivider = index < companies.length - 1;
 
           return (
             <ListItem
               divider={hasDivider}
-              key={company.id}
+              key={company._id}
             >
               <ListItemAvatar>
                 {
-                  company.image
+                  company.avatar
                     ? (
                       <Box
                         component="img"
-                        src={company.image}
+                        src={`http://192.168.1.215:2000/api/get-photo/${company.avatar}`}
                         sx={{
                           borderRadius: 1,
                           height: 48,
