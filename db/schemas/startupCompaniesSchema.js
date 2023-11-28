@@ -11,7 +11,7 @@ const startupCompaniesSchema = new mongoose.Schema({
     description: { type: String, required: true },
     likes: { type: Number, required: true, default: 0 },
     inLikes: [String],
-    profileViews: [String],
+    profileViews: { type: [String], default: [], required: true, unique: true},
 }, 
 {
     collection:'startupCompanies',

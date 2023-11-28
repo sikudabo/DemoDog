@@ -1,4 +1,5 @@
 const AddCompanyLike = require('./addCompanyLike');
+const AddStartupProfileView = require('./addStartupProfileView');
 const ChangeDemoPrivacy = require('./changeDemoPrivacy');
 const DeleteDemo = require('./deleteDemo');
 const DeleteEmployee = require('./deleteEmployee');
@@ -24,6 +25,7 @@ const UpdateEmployeeAvatar = require('./updateEmployeeAvatar');
 
 module.exports = {
     AddCompanyLike,
+    AddStartupProfileView,
     ChangeDemoPrivacy,
     DeleteDemo,
     DeleteEmployee,
