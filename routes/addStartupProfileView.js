@@ -14,3 +14,5 @@ router.route('/add-startup-company-view').post(async (req, res) => {
         res.status(400).send('There was an error adding a company profile view');
     }
 });
+
+module.exports = router;

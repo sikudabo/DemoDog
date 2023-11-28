@@ -160,7 +160,6 @@ function useDataLayer(_id: string) {
     const { organization } = useOrganizationData();
     const { _id: organizationId } = organization as OrganizationType;
     let inLikes = false;
-    console.log('The organization in the data layer is:', organization);
     const { data, isLoading } = useFetchStartupProfileData(_id);
     const { demos, employees, startupCompanyData } = typeof data!== 'undefined' &&!isLoading ? data : {
         demos: [],
@@ -205,7 +204,7 @@ function useDataLayer(_id: string) {
         handleOrganizationLike,
         inLikes,
         isLoading,
-        organizationIsLoggedIn: typeof organization !== 'undefined',
+        organizationIsLoggedIn: typeof organization !== 'undefined' && typeof (organization as OrganizationType)._id! == 'undefined',
         startupCompanyData,
     };
 }
