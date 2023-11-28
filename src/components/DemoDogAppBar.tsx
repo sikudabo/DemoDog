@@ -11,19 +11,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import {
     AppBar,
     Box,
-    Collapse,
     Drawer,
-    Hidden,
     IconButton,
     List,
     ListItem,
     ListItemButton,
-    ListItemIcon,
     ListItemText,
-    Menu,
-    MenuItem,
-    Toolbar,
-    Typography
 } from '@mui/material';
 import { DemoDogLogoIcon } from './icons';
 import { colors } from './colors';
@@ -201,7 +194,7 @@ export default function DemoDogAppBar() {
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem>
-                                    <ListItemButton style={{ color: colors.white }}>
+                                    <ListItemButton onClick={() => window.open('https://www.linkedin.com/company/99041744/admin/feed/posts/')} style={{ color: colors.white }}>
                                         <ListItemText className="drawer-text" primary="LinkedIn" style={{ fontWeight: '900' }} />
                                         <LinkedInIcon className="drawer-icon" />
                                     </ListItemButton>
@@ -263,6 +256,7 @@ export default function DemoDogAppBar() {
                         </IconButton>
                         <IconButton 
                             className="link-after"
+                            onClick={() => window.open('https://www.linkedin.com/company/99041744/admin/feed/posts/')}
                             disableRipple
                         >
                             LinkedIn 
