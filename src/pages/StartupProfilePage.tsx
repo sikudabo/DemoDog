@@ -210,7 +210,7 @@ function useDataLayer(_id: string) {
     }
 
     if (typeof startupCompanyData !== 'undefined' && typeof startupCompanyData.inLikes !== 'undefined') {
-        inLikes = typeof startupCompanyData.inLikes.find((likeId: any) => likeId?.toString() === organizationId.toString()) !== 'undefined';
+        inLikes = typeof startupCompanyData.inLikes.find((likeId: any) => likeId?.toString() === organizationId?.toString()) !== 'undefined';
     }
 
     console.log('InLikes is:', inLikes);

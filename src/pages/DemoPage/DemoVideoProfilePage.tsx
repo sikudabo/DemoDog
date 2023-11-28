@@ -13,6 +13,10 @@ const Container = styled.div`
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 100px;
+
+    .like-video-btn-section {
+        padding-top: 30px;
+    }
 `;
 
 type DemoVideoPageDisplayLayerProps = {

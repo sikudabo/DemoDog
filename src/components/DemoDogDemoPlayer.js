@@ -1,7 +1,10 @@
 import '../../node_modules/plyr-react/plyr.css';
 import styled from '@emotion/styled';
 import Card from '@mui/material/Card';
+import IconButton from '@mui/material/IconButton';
+import LikeIcon from '@mui/icons-material/ThumbUp';
 import { deviceBreakPointsMaxWidth } from '../utils/constants/breakpoints';
+import { useOrganizationData } from '../hooks';
 
 
 const StyledCard = styled(Card)`
@@ -29,8 +32,8 @@ const StyledCard = styled(Card)`
     }
 
     .video-player {
-        height: 100%;
-        width: 100%;
+        height: 500px;
+        width: 500px;
 
         @media ${deviceBreakPointsMaxWidth.tablet} {
             height: 350px;
@@ -38,18 +41,31 @@ const StyledCard = styled(Card)`
             max-width: 100%;
         }
     }
+
+    .like-button-section {
+        padding-left: 20px;
+        padding-top: 30px;
+    }
 `;
 
 export default function DemoDogDemoPlayer({
     demoName,
     src,
 }) {
+    const { organization } = useOrganizationData();
     return (
         <StyledCard elevation={10}>
             <div className="title-container">
                 <h1 className="title-text">{demoName}</h1>
             </div>
             <video className="video-player" src={src} controls playsInline />
+            {typeof organization !== 'undefined' && typeof organization._id !== 'undefined' && (
+                <div className="like-button-section">
+                    <IconButton color="primary"> 
+                        <LikeIcon />
+                    </IconButton>
+                </div>
+            )}
         </StyledCard>
     );
 }
