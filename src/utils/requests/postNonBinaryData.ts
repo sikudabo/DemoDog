@@ -12,7 +12,7 @@ export const postNonBinaryData = async ({ data, endpoint }: PostNonBinaryDataPro
             'Content-Type': 'application/json',
         },
         method: 'POST',
-        url: `http://192.168.1.215:2000/${endpoint}`,
+        url: `${process.env.REACT_APP_BASE_URI}${endpoint}`,
     }).then(res => {
         return res.data;
     })

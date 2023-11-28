@@ -49,7 +49,7 @@ function DemoVideoPage_DisplayLayer({
             <Container>
                 <DemoDogDemoPlayer
                     demoName={demoName}
-                    src={`http://192.168.1.215:2000/api/get-video/${id}`}
+                    src={`${process.env.REACT_APP_BASE_URI}api/get-video/${id}`}
                 />
             </Container>
         </DashboardLayout>

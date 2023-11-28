@@ -13,7 +13,7 @@ export const useFetchCompanyData = () => {
     return useQuery(['fetch-company-data'], async () => {
         const data = await axios({
             method: 'GET',
-            url: `http://192.168.1.215:2000/api/fetch-company-data/${companyId}`,
+            url: `${process.env.REACT_APP_BASE_URI}api/fetch-company-data/${companyId}`,
         }).then(res => {
             const { company } = res.data;
             return company;

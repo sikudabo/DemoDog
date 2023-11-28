@@ -13,7 +13,7 @@ export default async function postBinaryData({ data, endpoint }: PostBinaryDataP
             'Content-Encoding': 'multipart/form-data',
         },
         method: 'POST',
-        url: `http://192.168.1.215:2000/${endpoint}`,
+        url: `${process.env.REACT_APP_BASE_URI}${endpoint}`,
     }).then(res => {
         return res.data;
     })

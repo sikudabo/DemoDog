@@ -57,7 +57,7 @@ export const StartupProfileEmployeesTable = (props: any) => {
                     key={employee._id}
                   >
                     <TableCell>
-                      <Avatar src={`http://192.168.1.215:2000/api/get-photo/${employee.avatar}`} alt={`${employee.firstName} ${employee.lastName} profile picture`} sx={{ height: 30, width: 30 }} />
+                      <Avatar src={`${process.env.REACT_APP_BASE_URI}api/get-photo/${employee.avatar}`} alt={`${employee.firstName} ${employee.lastName} profile picture`} sx={{ height: 30, width: 30 }} />
                     </TableCell>
                     <TableCell>
                       {employee.firstName} {employee.lastName}

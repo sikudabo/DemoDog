@@ -9,7 +9,7 @@ export const useFetchStatsCards = () => {
     return useQuery(['get-company-stats-cards', _id], async () => {
         const result = await axios({
             method: 'GET',
-            url: `http://192.168.1.215:2000/api/get-company-stats-cards/${_id}`,
+            url: `${process.env.REACT_APP_BASE_URI}api/get-company-stats-cards/${_id}`,
         }).then(res => {
             console.log('The return data is:', res.data);
             return res.data;

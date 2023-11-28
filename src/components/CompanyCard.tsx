@@ -53,7 +53,7 @@ export const CompanyCard = ({
           }}
         >
           <Avatar
-            src={`http://192.168.1.215:2000/api/get-photo/${avatar}`}
+            src={`${process.env.REACT_APP_BASE_URI}api/get-photo/${avatar}`}
             variant="square"
           />
         </Box>

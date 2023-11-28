@@ -70,7 +70,7 @@ export const SideNav = (props: { open: any; onClose: any; }) => {
             component="div"
           >
             {/* <DemoDogLogoIcon height={70} logoColor={colors.white} width={70} /> */}
-            <img  alt="Company logo" src={`http://192.168.1.215:2000/api/get-photo/${avatar}`} height={70} width={70} />
+            <img  alt="Company logo" src={`${process.env.REACT_APP_BASE_URI}api/get-photo/${avatar}`} height={70} width={70} />
           </Box>
           <Box
             sx={{

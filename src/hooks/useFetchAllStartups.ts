@@ -5,7 +5,7 @@ export const useFetchAllStartups = () => {
     return useQuery(['fetchAllStartups'], async () => {
         const result = await axios({
             method: 'GET',
-            url: 'http://192.168.1.215:2000/api/fetch-all-startups',
+            url:   `${process.env.REACT_APP_BASE_URI}api/fetch-all-startups`,
         }).then((res) => {
             const { startups } = res.data;
             return startups;

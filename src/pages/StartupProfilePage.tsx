@@ -128,7 +128,7 @@ function StartupProfilePage_DisplayLayer({
        <Container>
             <div className="top-avatar-section">
                 <div className="top-avatar-container">
-                    <Avatar alt="Company avatar" className="top-avatar" src={`http://192.168.1.215:2000/api/get-photo/${avatar}`} />
+                    <Avatar alt="Company avatar" className="top-avatar" src={`${process.env.REACT_APP_BASE_URI}api/get-photo/${avatar}`} />
                 </div>
             </div>
             <div className="company-name-section">

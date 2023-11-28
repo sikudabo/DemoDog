@@ -69,7 +69,7 @@ function handleNavigate(id: string) {
                     key={demo.id}
                   >
                     <TableCell>
-                      <Avatar src={`http://192.168.1.215:2000/api/get-photo-by-id/${demo.uploaderId}`} alt="Employee avatar" sx={{ height: 30, width: 30 }} />
+                      <Avatar src={`${process.env.REACT_APP_BASE_URI}api/get-photo-by-id/${demo.uploaderId}`} alt="Employee avatar" sx={{ height: 30, width: 30 }} />
                     </TableCell>
                     <TableCell>
                       {demo.uploaderName}

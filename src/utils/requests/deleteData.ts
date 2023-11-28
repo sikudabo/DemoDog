@@ -9,7 +9,7 @@ export default async function deleteData({ data, endpoint }: DeleteDataProps) {
     const result = await axios({
         data,
         method: 'DELETE',
-        url: `http://192.168.1.215:2000/${endpoint}`,
+        url: `${process.env.REACT_APP_BASE_URI}${endpoint}`,
     }).then(res => {
         return res.data;
     })

@@ -30,7 +30,7 @@ export const CompaniesViewedOverview = (props: any) => {
                     ? (
                       <Box
                         component="img"
-                        src={`http://192.168.1.215:2000/api/get-photo/${company.avatar}`}
+                        src={`${process.env.REACT_APP_BASE_URI}api/get-photo/${company.avatar}`}
                         sx={{
                           borderRadius: 1,
                           height: 48,
