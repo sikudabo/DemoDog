@@ -17,6 +17,7 @@ const {
     AddDemoLike,
     AddStartupProfileView,
     ChangeDemoPrivacy,
+    Contact,
     DeleteDemo,
     DeleteEmployee,
     FetchAllStartups,
@@ -71,6 +72,7 @@ app.use(AddCompanyLike);
 app.use(AddDemoLike);
 app.use(AddStartupProfileView);
 app.use(ChangeDemoPrivacy);
+app.use(Contact);
 app.use(DeleteDemo);
 app.use(DeleteEmployee);
 app.use(FetchAllStartups);

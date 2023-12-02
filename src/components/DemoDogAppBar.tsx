@@ -188,7 +188,7 @@ export default function DemoDogAppBar() {
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem>
-                                    <ListItemButton style={{ color: colors.white }}>
+                                    <ListItemButton onClick={() => navigate('contact')} style={{ color: colors.white }}>
                                         <ListItemText className="drawer-text" primary="Contact" style={{ fontWeight: '900' }} />
                                         <ContactIcon className="drawer-icon" />
                                     </ListItemButton>
@@ -250,6 +250,7 @@ export default function DemoDogAppBar() {
                         </IconButton>
                         <IconButton 
                             className="link-after"
+                            onClick={() => navigate('/contact')}
                             disableRipple
                         >
                             Contact Us 

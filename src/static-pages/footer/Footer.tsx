@@ -106,7 +106,7 @@ export default function Footer() {
                 <a className="link" onClick={() => navigate('sign-in')}>
                     Sign In 
                 </a>
-                <a className="link">
+                <a className="link" onClick={() => navigate('contact')}>
                     Contact 
                 </a>
             </div>

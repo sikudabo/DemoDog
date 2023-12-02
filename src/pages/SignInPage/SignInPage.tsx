@@ -116,7 +116,7 @@ export default function SignInPage() {
                             </FormControl>
                         </div>
                         <div className="back-submit-buttons-container" style={{ paddingTop: 40 }}>
-                            <DemoDogButton buttonColor={colors.salmonPink} className="back-button" text="Forgot?" isOutlined/>
+                            <DemoDogButton buttonColor={colors.salmonPink} className="back-button" text="Forgot?" onClick={() => navigate('/contact')} isOutlined/>
                             <DemoDogButton buttonColor={colors.navyBlue} className="submit-button" text="Login" type="submit" isNormal/>
                         </div>
                     </GeneralCompanyForm>

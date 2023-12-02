@@ -26,7 +26,7 @@ import {
   StartupSearch,
 } from './pages';
 import { useIsLoading } from './hooks';
-import { DemoDogLandingPage } from './static-pages';
+import { ContactPage, DemoDogLandingPage } from './static-pages';
 import { Footer } from './static-pages/footer';
 import RouteWatch from './utils/RouteWatch';
 
@@ -69,6 +69,7 @@ function App_DisplayLayer({
             <DemoDogAppBar />
             <Routes>
               <Route path="/" element={<DemoDogLandingPage />} />
+              <Route path="contact" element={<ContactPage />} />
               <Route path="sign-up-decision" element={<SignupDecision />} />
               <Route path="sign-in" element={<SignInPage />} />
               <Route path="sign-up" element={<SignUpPage />} />
