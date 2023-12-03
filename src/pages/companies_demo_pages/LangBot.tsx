@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import { colors } from '../../components';
 import { deviceBreakPointsMaxWidth } from '../../utils/constants';
 import { useIsLoading, useShowDialog } from '../../hooks';
+import { postNonBinaryData } from '../../utils/requests';
 const LangBotAvatar = require('../../static-site-images/lang_bot.jpeg');
 
 const LangBotDemoContainer = styled.div`
@@ -13,7 +14,7 @@ const LangBotDemoContainer = styled.div`
     padding-right: 20px;
     padding-top: 100px;
     height: 100%;
-    max-width: 95vw;
+    max-width: 100vw;
 
     .top-header-container {
         align-items: center;
@@ -37,8 +38,11 @@ const LangBotDemoContainer = styled.div`
     .chat-container {
         height: 300px;
         padding-bottom: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
         padding-top: 10px;
         overflow: auto;
+        width: 100%;
 
         @media ${deviceBreakPointsMaxWidth.tablet} {
             height: 200px;
@@ -52,7 +56,7 @@ const LangBotDemoContainer = styled.div`
         padding-top: 20px;
         padding-right: 40px;
         position: fixed;
-        width: 100%;
+        width: 100vw;
 
         .text-field {
             width: 100%;
@@ -66,6 +70,27 @@ const LangBotDemoContainer = styled.div`
         padding-left: 20px;
         padding-right: 20px;
         padding-top: 20px;
+        width: 100vw;
+
+        @media ${deviceBreakPointsMaxWidth.tablet} {
+            width: 100%;
+        }
+    }
+
+    .chat-bubble-container-bot {
+        background-color: ${colors.atlassianBlue};
+        border-radius: 5px;
+        color: ${colors.white};
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+        width: 100vw;
+
+        @media ${deviceBreakPointsMaxWidth.tablet} {
+            width: 100%;
+        }
     }
 `;
 
@@ -73,6 +98,7 @@ export default function LangBot() {
     const [englishText, setEnglishText] = useState('');
     const [messages, setMessages] = useState<any>([]);
     const chatContainerRef = useRef<any>();
+    const { setIsLoading } = useIsLoading();
 
     useEffect(() => {
         if(chatContainerRef.current) {
@@ -80,12 +106,30 @@ export default function LangBot() {
         }
     }, [messages]);
 
-    function handleKeyPress(e: { keyCode: number }) {
+    async function handleKeyPress(e: { keyCode: number }) {
         const { keyCode } = e;
         if (keyCode === 13) {
             if (englishText.trim().length > 0) {
-                setMessages([...messages, { txt: englishText, from : 'user' }]);
-                setEnglishText('');
+                setIsLoading(true);
+
+                await postNonBinaryData({
+                    data: {
+                        'english_text': englishText,
+                    },
+                    endpoint: 'translate',
+                    microServiceUrl: 'http://192.168.1.237:5000/'
+                }).then(response => {
+                    setIsLoading(false);
+                    const { spanish_translation } = response
+                    console.log('The spanish translation is:', spanish_translation);
+                    setMessages([...messages, { txt: englishText, from: 'user' }, { txt: spanish_translation, from: 'bot' }]);
+                    setEnglishText('');
+                }).catch(err => {
+                    console.log('There was an error asking a question');
+                    console.error(err);
+                    setIsLoading(false);
+                    setMessages([...messages, { txt: 'There was an error. Please try again!', from: 'bot' }])
+                })
             }
         }
     }
@@ -104,7 +148,7 @@ export default function LangBot() {
             </div>
             <div className="chat-container" ref={chatContainerRef}>
                 {messages.map((message: { txt: string; from: string }, index: number) => (
-                    <Paper className="chat-bubble-container" elevation={10} key={index}>
+                    <Paper className={message.from === 'user' ? "chat-bubble-container" : "chat-bubble-container-bot"} elevation={10} key={index}>
                         {message.txt}
                     </Paper>
                 ))}

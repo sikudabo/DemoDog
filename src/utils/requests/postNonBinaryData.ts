@@ -7,6 +7,7 @@ type PostNonBinaryDataProps = {
 };
 
 export const postNonBinaryData = async ({ data, endpoint, microServiceUrl = '' }: PostNonBinaryDataProps) => {
+    console.log('The endpoint is:', endpoint);
     const result = await axios({
         data,
         headers: {
@@ -15,6 +16,7 @@ export const postNonBinaryData = async ({ data, endpoint, microServiceUrl = '' }
         method: 'POST',
         url: `${microServiceUrl ? microServiceUrl : process.env.REACT_APP_BASE_URI}${endpoint}`,
     }).then(res => {
+        console.log('The response data is:', res.data);
         return res.data;
     })
   .catch(err => {
