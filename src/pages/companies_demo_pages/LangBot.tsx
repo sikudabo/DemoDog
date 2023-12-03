@@ -16,7 +16,7 @@ const LangBotDemoContainer = styled.div`
     .top-header-container {
         align-items: center;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         width: 100vw;
 
@@ -24,6 +24,11 @@ const LangBotDemoContainer = styled.div`
             color: ${colors.atlassianBlue};
             font-size: 40px;
             font-weight: 900;
+        }
+
+        .avatar {
+            height: 150px;
+            width: 150px;
         }
     }
 `;
@@ -35,6 +40,7 @@ export default function LangBot() {
                 <h1 className="top-header-text">
                     LangBot
                 </h1>
+                <Avatar alt="company logo" className="avatar" src={LangBotAvatar} />
             </div>
         </LangBotDemoContainer>
     );
