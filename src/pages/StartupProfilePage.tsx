@@ -3,13 +3,13 @@ import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import LikeIcon from '@mui/icons-material/ThumbUp'; 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { useFetchStartupProfileData, useIsLoading, useOrganizationData, useShowDialog } from '../hooks';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { StartupEmployeeType } from '../typings/StartupEmployeeType';
 import { CompanyType } from '../hooks/useStartupCompanyData';
-import { DemoDogButton, StartupProfileEmployeesTable, StartupProfilesDemosTable } from '../components';
+import { DemoDogButton, StartupProfileEmployeesTable, StartupProfilesDemosTable, colors} from '../components';
 import { OrganizationType } from '../typings/OrganizationType';
 import { postNonBinaryData } from '../utils/requests';
 
@@ -81,6 +81,14 @@ const Container = styled.div`
         justify-content: center;
         width: 100vw;
     }
+
+    .demo-btn-container {
+        padding-bottom: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 30px;
+        width: 100%;
+    }
 `;
 
 type StartupProfilePageDisplayLayerProps = {
@@ -107,12 +115,16 @@ function StartupProfilePage_DisplayLayer({
     organizationIsLoggedIn,
     startupCompanyData,
 }: StartupProfilePageDisplayLayerProps) {
-
+    const navigate = useNavigate();
     const { avatar, companyName, description } = typeof startupCompanyData !== 'undefined' ? startupCompanyData : {
         avatar: '',
         companyName: '',
         description: '',
     };
+
+    function handleLiveDemoNav() {
+        navigate(`/demo-page/${companyName}`)
+    }
 
     if (isLoading) {
         return (
@@ -144,6 +156,11 @@ function StartupProfilePage_DisplayLayer({
             <div className="company-description-section">
                 <p className="company-description-section-text">{description}</p>
             </div>
+            {companyName === 'LangBot' && (
+                <div className="demo-btn-container">
+                    <DemoDogButton buttonColor={colors.broncosOrange} onClick={handleLiveDemoNav} text="Live Demo" isNormal fullWidth />
+                </div>
+            )}
             <div className="team-table-container">
                 <StartupProfileEmployeesTable employees={employees} />
             </div>

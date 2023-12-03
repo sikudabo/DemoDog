@@ -26,6 +26,7 @@ import {
   StartupSearch,
 } from './pages';
 import { useIsLoading } from './hooks';
+import { LangBot } from './pages/companies_demo_pages';
 import { ContactPage, DemoDogLandingPage } from './static-pages';
 import { Footer } from './static-pages/footer';
 import RouteWatch from './utils/RouteWatch';
@@ -82,6 +83,7 @@ function App_DisplayLayer({
               <Route path="startup-dashboard/edit-page" element={<EditPage />} />
               <Route path="startup-dashboard/demo-video/:id" element={<DemoVideoPage />} />
               <Route path="demo-video-profile-page/:id" element={<DemoVideoProfilePage />} />
+              <Route path="demo-page/:companyName" element={<LangBot />} />
             </Routes>
             <Footer />
           </QueryClientProvider>

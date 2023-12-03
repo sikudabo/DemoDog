@@ -24,7 +24,7 @@ export default function RouteWatch() {
     ];
 
     useEffect(() => {
-        if (pathname !== '/startup-profile' && !pathname.includes('startup-profile') && !pathname.includes('/demo-video-profile-page') && typeof organization !== 'undefined' && typeof (organization as any).password !== 'undefined') {
+        if (pathname !== '/startup-profile' && !pathname.includes('startup-profile') && !pathname.includes('/demo-video-profile-page') && !pathname.includes('demo-page') && typeof organization !== 'undefined' && typeof (organization as any).password !== 'undefined') {
             navigate('/search-companies');
         } else if (pathname.includes('/startup-dashboard') && !isLoggedIn) {
             navigate('/');
